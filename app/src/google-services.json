@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "553983500307",
+    "project_id": "vocabulary-fc6e9",
+    "storage_bucket": "vocabulary-fc6e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:553983500307:android:6f7b0930534639695cdfe6",
+        "android_client_info": {
+          "package_name": "com.sausage.voca"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "553983500307-vmfec5rv4s0449vim7ua1su3fma43jr2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzVzIPMH-XdT26eCJqRqvRm0aRPd1XFp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "553983500307-vmfec5rv4s0449vim7ua1su3fma43jr2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
