@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-@SuppressWarnings("deprecation")
+@SuppressWarnings("deprecation") //이건 왜 넣어둔건지 본인도 모르겠습니다.
 public class Main extends AppCompatActivity implements View.OnClickListener {
 
     private TextView logout, dicsearch, category, setting;
@@ -58,7 +58,9 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         else if (v==category){
             FragmentView(Fragment_2);
         }
-        else if (v==setting){}
+        else if (v==setting){
+            //내 정보로 intent
+        }
 
     }
 

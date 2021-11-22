@@ -35,6 +35,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         user_password = findViewById(R.id.login_password);
         signup = findViewById(R.id.signup);
         login = findViewById(R.id.login_button);
+        signup.setOnClickListener(this);
         login.setOnClickListener(this);
 
         // [START initialize_auth]
@@ -50,6 +51,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         }else if ((v==signup)){
             Intent Signup = new Intent(this, Signup.class);
             startActivity(Signup);
+            finish();
         }
     }
 

@@ -9,18 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Voca">
+        <activity android:name=".DicSearch"></activity>
         <activity android:name=".Index">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Signup" android:exported="true">
-        </activity>
-        <activity android:name=".Login">
-        </activity>
-        <activity android:name=".Main">
-        </activity>
+        <activity
+            android:name=".Signup"
+            android:exported="true"></activity>
+        <activity android:name=".Login"></activity>
+        <activity android:name=".Main"></activity>
     </application>
 
 </manifest>
