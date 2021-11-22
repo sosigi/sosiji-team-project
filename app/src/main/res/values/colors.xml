@@ -7,4 +7,17 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--  주로 사용되는 point color 들   -->
+    <color name="pointColor">#507255</color>
+    <color name="pointColor2">#7EB085</color>
+    <color name="backgroundColor">#FFFCF3</color>
+
+    <!--    toast 배경 색상 -->
+    <color name="toastBackground">#DCDCDC</color>
+    <color name="toastTextColor">#4F4F4F</color>
+
+    <!--단어장 암기 / 미암기 색상 -->
+    <color name="memorization">#CCCAC2</color>
+    <color name="notMemorization">#000000</color>
 </resources>
