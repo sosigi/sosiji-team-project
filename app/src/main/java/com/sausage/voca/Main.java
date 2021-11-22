@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -44,6 +45,7 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         dicsearch.setOnClickListener(this);
         category.setOnClickListener(this);
         setting.setOnClickListener(this);
+
     }
 
     @Override
@@ -61,7 +63,6 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         else if (v==setting){
             //내 정보로 intent
         }
-
     }
 
     public void checkCurrentUser() {
@@ -124,6 +125,11 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
                 break;
         }
 
+    }
+    public void goToWordBook(View view){
+        Log.i("mytag", "뜬ㄱ다");
+        Intent intent = new Intent(getApplicationContext(), wordbook.class);
+        startActivity(intent);
     }
 
 }

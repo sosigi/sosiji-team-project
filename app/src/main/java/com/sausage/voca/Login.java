@@ -25,7 +25,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "EmailPassword";
     private FirebaseAuth mAuth;
-
+    //google로 로그인 안되는 문제.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
