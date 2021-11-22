@@ -29,23 +29,24 @@ import java.util.Map;
 
 public class DicSearch extends AppCompatActivity {
 
-    private EditText search_result; //이게 회색이면 안 쓰인거니까 뭐가 문제인지 눈여겨볼것...
-    private TextView result;
+    private EditText searching_word; //이게 회색이면 안 쓰인거니까 뭐가 문제인지 눈여겨볼것...
+    private TextView searched, meaning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dic_search);
 
-        search_result = findViewById(R.id.search_result);
+        searching_word = findViewById(R.id.search_result);
         //나 대체 왜 그랬는지는 모르겠는데 search_result.findViewById(R.id.search_result); 라고 자꾸 써서 error냈다... 정신차려
-        result = findViewById(R.id.result);
+        searched = findViewById(R.id.result_searched);
+        meaning = findViewById(R.id.result_meaning);
 
-        Intent intent = getIntent();
+        Intent intent = getIntent();//TODO 여기서 뭔 문제가 있는지, 자꾸 검색결과 화면이 두 개가 겹친다
         CharSequence search = intent.getExtras().getCharSequence("search");
-        search_result.setText(search);
+        searching_word.setText(search);
 
-        search_result.setOnKeyListener(new View.OnKeyListener() {
+        searching_word.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
@@ -59,17 +60,19 @@ public class DicSearch extends AppCompatActivity {
 
     }
 
-    public void RunThread() {
+    public void RunThread() { //TODO:스레드를 dicFragment로 옮기면 더 빨라지지 않을까?
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    String str = main(search_result.getText().toString());
+                    String letsSearch = searching_word.getText().toString();
+                    String str = main(letsSearch);
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            result.setText(str);
+                            searched.setText(letsSearch); //TODO 이 방법이 최선인가?
+                            meaning.setText(str);
                         }
                     });
 
@@ -102,39 +105,17 @@ public class DicSearch extends AppCompatActivity {
         try {
             JSONObject jsonObject = new JSONObject(responseBody);
             String message = jsonObject.getString("message");
-            JSONObject subJsonObject = new JSONObject(message);
-            String result = jsonObject.getString("result");
-            JSONObject subJsonObject2 = new JSONObject(result);
-            result = jsonObject.getString("translatedText");
+            JSONObject subJsonObjects = new JSONObject(message);
+            String result = subJsonObjects.getString("result");
+            JSONObject subJsonObjects2 = new JSONObject(result);
+            result = subJsonObjects2.getString("translatedText");
+            return result; //파싱 결과
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return result;
+        return responseBody; //위의 try가 제대로 안 돼면 파싱 안 한 날것의 정보 return. TODO:코드 정리
     }
-
-    private void jsonParsing(String json)
-    {
-        try{
-            JSONObject jsonObject = new JSONObject(json);
-
-            JSONArray movieArray = jsonObject.getJSONArray("Movies");
-
-            for(int i=0; i<movieArray.length(); i++)
-            {
-                JSONObject movieObject = movieArray.getJSONObject(i);
-
-                Movie movie = new Movie();
-
-                movie.setTitle(movieObject.getString("title"));
-                movie.setGrade(movieObject.getString("grade"));
-                movie.setCategory(movieObject.getString("category"));
-
-                movieList.add(movie);
-            }
-        }catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
+    
 
     private static String post(String apiUrl, Map<String, String> requestHeaders, String text) {
         HttpURLConnection con = connect(apiUrl);

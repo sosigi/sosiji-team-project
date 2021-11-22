@@ -35,11 +35,26 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="#FFFCF3"
-        android:layout_weight="6.5">
+        android:layout_weight="6.5"
+        android:orientation="vertical">
         <TextView
-            android:id="@+id/result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:id="@+id/result_searched"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="검색한 단어"
+            android:padding="16dp"
+            android:textSize="18dp"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/result_meaning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="검색결과 화면"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/black"
+            />
     </LinearLayout>
 
 </LinearLayout>
