@@ -37,6 +37,7 @@
         android:background="#FFFCF3"
         android:layout_weight="6.5">
         <TextView
+            android:id="@+id/result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
