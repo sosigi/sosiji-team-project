@@ -38,6 +38,7 @@ public class wordbook extends AppCompatActivity {
 
         //custom font 적용 - quiz btn & word1 & word2
         TextView textview = findViewById(R.id.wordQuiz);
+
         Typeface tnr = Typeface.createFromAsset(getAssets(), "times_new_roman.ttf");
         Typeface tnr_bold = Typeface.createFromAsset(getAssets(), "times_new_roman_bold.ttf");
         textview.setTypeface(tnr);
@@ -68,13 +69,23 @@ public class wordbook extends AppCompatActivity {
                 .setNegativeButton("취소", null)
                 .create();
 
-        //햄버거 바 선택->main page로 전환
+        //상단바의 햄버거 바 선택->main page로 전환
         ImageButton HamburgerBarButton = (ImageButton) findViewById(R.id.hamburgerBarBtn);
         HamburgerBarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Main.class);
-                Log.i("mytag",getApplicationContext().toString());
+                //Log.i("mytag",getApplicationContext().toString());
+                startActivity(intent);
+            }
+        });
+        //상단바의 plus btn 선택->word add page로 전환
+        ImageButton plusBtnButton = (ImageButton) findViewById(R.id.plusBtn);
+        plusBtnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), wordAdd.class);
+                //Log.i("mytag",getApplicationContext().toString());
                 startActivity(intent);
             }
         });
@@ -84,7 +95,7 @@ public class wordbook extends AppCompatActivity {
     //wordcard에서 단어 삭제 btn 클릭시
     public void deleteWordBtnClick(View view) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-//        alert.setTitle("삭제");
+        alert.setTitle("삭제");
         alert.setMessage("정말 삭제 하시겠습니까?");
 
         alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
