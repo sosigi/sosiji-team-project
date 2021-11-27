@@ -12,6 +12,7 @@
     <color name="pointColor">#507255</color>
     <color name="pointColor2">#7EB085</color>
     <color name="backgroundColor">#FFFCF3</color>
+    <color name="unActiveColor">#A7A5A1</color>
 
     <!--    toast 배경 색상 -->
     <color name="toastBackground">#DCDCDC</color>

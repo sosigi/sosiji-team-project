@@ -25,4 +25,20 @@
     <!--    toast message 모음 -->
     <string name="toast_change_to_memorization">"✔ 암기로 변경되었습니다."</string>
     <string name="toast_change_to_notmemorization">"✔ 미암기로 변경되었습니다."</string>
+
+    <!-- [wordAdd]에서 사용되는 string  -->
+    <string name="word_add_title">단어 추가</string>
+    <string name="word_add_complete">완료</string>
+    <string name="word_add_word">단어</string>
+    <string name="word_add_word_edit_text">영단어(필수)</string>
+    <string name="word_add_mean">의미</string>
+    <string name="word_add_mean_edit_text">의미(필수)</string>
+    <string name="word_add_mean_add">의미추가</string>
+
+    <!--  [mypage]에서 사용되는 string  -->
+    <string name="mypage_title">내 정보</string>
+    <string name="mypage_name">username</string>
+    <string name="mypage_user_name">this is user name</string>
+    <string name="mypage_email">email</string>
+    <string name="mypage_user_email">this is user email</string>
 </resources>

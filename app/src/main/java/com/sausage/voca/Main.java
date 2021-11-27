@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,16 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         dicsearch.setOnClickListener(this);
         category.setOnClickListener(this);
         setting.setOnClickListener(this);
+
+        //내정보 선택-> mypage로 전환
+        TextView plusBtnButton = (TextView) findViewById(R.id.setting);
+        plusBtnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Mypage.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -126,10 +137,9 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         }
 
     }
+
     public void goToWordBook(View view){
-        Log.i("mytag", "뜬ㄱ다");
         Intent intent = new Intent(getApplicationContext(), wordbook.class);
         startActivity(intent);
     }
-
 }
