@@ -4,9 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,20 +18,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Signup extends AppCompatActivity implements View.OnClickListener{
+public class Signup<mDatabase> extends AppCompatActivity implements View.OnClickListener {
     private TextView new_name;
     private TextView new_email;
     private TextView new_password;
@@ -44,6 +38,8 @@ public class Signup extends AppCompatActivity implements View.OnClickListener{
     private FirebaseAuth mAuth;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) { //public으로 바꿈. 꼭 이런 방식이어야 할까?
@@ -66,10 +62,9 @@ public class Signup extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        if (v==signup){
+        if (v == signup) {
             createAccount(new_name.getText().toString(), new_email.getText().toString(), new_password.getText().toString());
-        }
-        else if ((v==login)){
+        } else if ((v == login)) {
             Intent Login = new Intent(this, Login.class);
             startActivity(Login);
             finish();
@@ -85,52 +80,73 @@ public class Signup extends AppCompatActivity implements View.OnClickListener{
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            //Log.i("mytag","여기까지는 성공");
 
+                            mRootRef.child("wordbook").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                    if (!task.isSuccessful()) {
+                                        Log.e("firebase", "Error getting data", task.getException());
+                                    } else {
+                                        Map<String, Object> wordbookArrayData = new HashMap<>();
+                                        for (int i = 0; task.getResult().child(Integer.toString(i)).exists(); i++) {
+                                            DataSnapshot wordbooktask = task.getResult().child(Integer.toString(i));
+                                            Map<String, Object> wordbookData = new HashMap<>();
 
-                            // Create a new user with a first and last name
-                            Map<String, Object> thisuser = new HashMap<>();
-                            thisuser.put("name", name);
-                            thisuser.put("email", email);
+                                            //wordcard 배열 만듦.
+                                            Map<String, Object> wordcardArrayData = new HashMap<>();
+                                            for (int j = 0; wordbooktask.child("wordlist").child("wordcard").child(Integer.toString(j)).exists(); j++) {
+                                                DataSnapshot wordcardtask = wordbooktask.child("wordlist").child("wordcard").child(Integer.toString(j));
 
-                            //[은소] asset 폴더에 있는 json 파일을 json object로 만들어서 thisuser에 put하려는 나의 노력들..
-                            //문제 : 현재 JSONExeption발생.
-                            //TODO : JSON파일을 thisuser 에 put하면된다..젭알..
-                            AssetManager assetManager = getResources().getAssets();
-                            try{
-                                InputStream inputStream = assetManager.open("word_test.json");
-                                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                                BufferedReader reader = new BufferedReader(inputStreamReader);
+                                                Map<String, Object> wordcardData = new HashMap<>();
+                                                wordcardData.put("word", String.valueOf(wordcardtask.child("word").getValue()));
+                                                wordcardData.put("mean1", String.valueOf(wordcardtask.child("mean1").getValue()));
 
-                                String jsonData = reader.toString();
-                                JSONObject wordbook_json = new JSONObject(jsonData);
-                                thisuser.put("wordBooks",wordbook_json);
-                                Log.i("mytag","데이터 이동 성공");
-                            }catch (IOException e){
-                                Log.i("mytag","IOException error catch");
-                                e.printStackTrace();
-                            }catch(JSONException e){
-                                Log.i("mytag","json exeption error catch");
-                                e.printStackTrace();
-                            }
+                                                if (wordcardtask.child("mean2").exists()) {
+                                                    wordcardData.put("mean2", String.valueOf(wordcardtask.child("mean2").getValue()));
+                                                }
+                                                if (wordcardtask.child("mean3").exists()) {
+                                                    wordcardData.put("mean3", String.valueOf(wordcardtask.child("mean3").getValue()));
+                                                }
+                                                wordcardData.put("memorization", 0);
 
-                            // Add a new document with a generated ID
-                            db.collection("users")
-                                    .add(thisuser)
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                        @Override
-                                        public void onSuccess(DocumentReference documentReference) {
-                                            Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                                wordcardArrayData.put(Integer.toString(j), wordcardData);
+
+                                            }
+                                            wordbookData.put("wordbooktitle", String.valueOf(wordbooktask.child("wordbooktitle").getValue()));
+                                            wordbookData.put("wordbookexplain", String.valueOf(wordbooktask.child("wordbookexplain").getValue()));
+                                            wordbookData.put("wordlist", wordcardArrayData);
+                                            wordbookArrayData.put(Integer.toString(i), wordbookData);
                                         }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.w(TAG, "Error adding document", e);
-                                        }
-                                    });
-                            updateUI(user);
+
+                                        Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                                        Log.i("mytag", wordbookArrayData.toString());
+
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        // Create a new user with a first and last name
+                                        Map<String, Object> thisuser = new HashMap<>();
+                                        thisuser.put("name", name);
+                                        thisuser.put("email", email);
+                                        thisuser.put("wordbooks", wordbookArrayData);
+
+                                        // Add a new document with a generated ID
+                                        db.collection("users")
+                                                .add(thisuser)
+                                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                    @Override
+                                                    public void onSuccess(DocumentReference documentReference) {
+                                                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w(TAG, "Error adding document", e);
+                                                    }
+                                                });
+                                        updateUI(user);
+                                    }
+                                }
+                            });
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -145,7 +161,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener{
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            Log.i("mytag","로그인으로 바로 이동");
+            Log.i("mytag", "로그인으로 바로 이동");
             Intent main = new Intent(this, Main.class);
             startActivity(main);
             Toast.makeText(this.getApplicationContext(), "로그인되었습니다", Toast.LENGTH_LONG).show();

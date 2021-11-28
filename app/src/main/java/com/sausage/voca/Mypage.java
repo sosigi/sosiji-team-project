@@ -24,6 +24,7 @@ public class Mypage extends AppCompatActivity {
 
         //firebase에 접근함. 문제는 firebaseAuth에 접근해서 firestore user문서에 저장되어있는 name을 못가져옴.
         //TODO : firestore의 user에 접근하도록 수정해서 name과 email을 끌어와야함.
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             // Name, email address, and profile photo Url
