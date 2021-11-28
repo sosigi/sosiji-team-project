@@ -33,6 +33,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+//이메일로 회원가입 하기
 public class Signup extends AppCompatActivity implements View.OnClickListener{
     private TextView new_name;
     private TextView new_email;

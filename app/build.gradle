@@ -45,10 +45,15 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-database:20.0.2'
+    //TODO stackOverFlow에서 cannot resolve symbol 'FirebaseFirestore' 해결방법으로 알려준 건데 될지는 모르겠다
+    implementation 'com.google.firebase:firebase-firestore:17.0.4'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    //
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
+    //firebase를 사용하기 위해서 추가한 내용
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:29.0.0')
     // Add the dependencies for the desired Firebase products
@@ -58,6 +63,7 @@ dependencies {
     // Also declare the dependency for the Google Play services library and specify its version
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
 
+    //firestore를 사용하기 위해서 추가한 내용
     // Declare the dependency for the Cloud Firestore library
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-firestore'
