@@ -38,11 +38,19 @@
       android:layout_height="wrap_content"
       android:text="signup"
       android:onClick="onClick"/>
+
   <TextView
       android:id="@+id/login"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="이미 계정이 있나요?"
       android:textColor="@color/white"/>
+  <Button
+      android:id="@+id/google_btn"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:text="Google로 회원가입"
+      android:layout_marginTop="30dp"/>
 
   </LinearLayout>
