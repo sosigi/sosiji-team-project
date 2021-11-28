@@ -118,7 +118,6 @@ public class Signup<mDatabase> extends AppCompatActivity implements View.OnClick
                                         }
 
                                         Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                                        Log.i("mytag", wordbookArrayData.toString());
 
                                         FirebaseUser user = mAuth.getCurrentUser();
                                         // Create a new user with a first and last name
@@ -128,20 +127,21 @@ public class Signup<mDatabase> extends AppCompatActivity implements View.OnClick
                                         thisuser.put("wordbooks", wordbookArrayData);
 
                                         // Add a new document with a generated ID
-                                        db.collection("users")
-                                                .add(thisuser)
-                                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        db.collection("users").document(user.getUid())
+                                                .set(thisuser)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
-                                                    public void onSuccess(DocumentReference documentReference) {
-                                                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d(TAG, "DocumentSnapshot successfully written!");
                                                     }
                                                 })
                                                 .addOnFailureListener(new OnFailureListener() {
                                                     @Override
                                                     public void onFailure(@NonNull Exception e) {
-                                                        Log.w(TAG, "Error adding document", e);
+                                                        Log.w(TAG, "Error writing document", e);
                                                     }
                                                 });
+
                                         updateUI(user);
                                     }
                                 }
