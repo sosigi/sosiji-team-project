@@ -3,12 +3,14 @@ package com.sausage.voca;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -74,9 +76,9 @@ public class wordbook extends AppCompatActivity {
         HamburgerBarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Main.class);
-                //Log.i("mytag",getApplicationContext().toString());
-                startActivity(intent);
+                DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                if (!drawer.isDrawerOpen(Gravity.LEFT)) drawer.openDrawer(Gravity.LEFT);
+                else drawer.closeDrawer(Gravity.LEFT);
             }
         });
         //상단바의 plus btn 선택->word add page로 전환
