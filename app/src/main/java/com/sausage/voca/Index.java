@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+//구글로 회원가입 하는 기능 여기에 있음
 public class Index extends AppCompatActivity implements View.OnClickListener {
     private Button email_btn;
     private Button google_btn;
