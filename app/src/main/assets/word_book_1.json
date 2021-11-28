@@ -1,0 +1,248 @@
+{
+  "wordbooktitle": "2020 수능특강 1강",
+  "wordbookexplain": "2020년도 수능특강 1강에 관한 단어들이다.",
+  "wordlist": {
+    "wordcard": [
+      {
+        "word": "accounting",
+        "mean1": "경리",
+        "mean2": "회계(학)",
+        "memorization": 0
+      },
+      {
+        "word": "happen to do",
+        "mean1": "(우연히) ~하다",
+        "memorization": 0
+      },
+      {
+        "word": "look to do",
+        "mean1": "~하려고 하다",
+        "mean2": "~하려고 애쓰다",
+        "memorization": 0
+      },
+      {
+        "word": "promote",
+        "mean1": "승진시키다",
+        "mean2": "진급시키다",
+        "memorization": 0
+      },
+      {
+        "word": "on time",
+        "mean1": "시간을 지키는",
+        "memorization": 0
+      },
+      {
+        "word": "obvious",
+        "mean1": "쉽게 알 수 있는",
+        "mean2": "명백한",
+        "memorization": 0
+      },
+      {
+        "word": "the rest",
+        "mean1": "나머지",
+        "mean2": "다른 사람들[것들]",
+        "memorization": 0
+      },
+      {
+        "word": "deserve",
+        "mean1": "~을 받을 만하다",
+        "mean2": "~할 자격이 있다",
+        "memorization": 0
+      },
+      {
+        "word": "leave of absence",
+        "mean1": "휴가",
+        "memorization": 0
+      },
+      {
+        "word": "duty",
+        "mean1": "직무",
+        "mean2": "의무",
+        "memorization": 0
+      },
+      {
+        "word": "hence",
+        "mean1": "그러므로",
+        "mean2": "이런 이유로",
+        "memorization": 0
+      },
+      {
+        "word": "in turn",
+        "mean1": "결과적으로",
+        "memorization": 0
+      },
+      {
+        "word": "unfortunate",
+        "mean1": "유감스러운",
+        "mean2": "불행한",
+        "memorization": 0
+      },
+      {
+        "word": "put ~ on hold",
+        "mean1": "~을 보류하다",
+        "memorization": 0
+      },
+      {
+        "word": "fulfill",
+        "mean1": "다하다",
+        "mean2": "이행하다",
+        "memorization": 0
+      },
+      {
+        "word": "tolerate",
+        "mean1": "용인하다",
+        "mean2": "너그럽게 보아주다",
+        "memorization": 0
+      },
+      {
+        "word": "graphene",
+        "mean1": "그래핀(탄소 원자들로 이루어진 얇은 막)",
+        "memorization": 0
+      },
+      {
+        "word": "transparent",
+        "mean1": "투명한",
+        "memorization": 0
+      },
+      {
+        "word": "chemistry",
+        "mean1": "화학",
+        "memorization": 0
+      },
+      {
+        "word": "major",
+        "mean1": "(특정 분야를) 전공하는 학생",
+        "mean2": "특정 과목의 전공자",
+        "memorization": 0
+      },
+      {
+        "word": "introductory",
+        "mean1": "입문의",
+        "mean2": "도입의",
+        "memorization": 0
+      },
+      {
+        "word": "coursework",
+        "mean1": "수업 활동",
+        "memorization": 0
+      },
+      {
+        "word": "pursue",
+        "mean1": "해나가다",
+        "mean2": "추구하다",
+        "memorization": 0
+      },
+      {
+        "word": "undergraduate",
+        "mean1": "학부생",
+        "mean2": "대학생",
+        "memorization": 0
+      },
+      {
+        "word": "potential",
+        "mean1": "잠재적인. 가능성이 있는",
+        "memorization": 0
+      },
+      {
+        "word": "application",
+        "mean1": "응용",
+        "mean2": "적용",
+        "memorization": 0
+      },
+      {
+        "word": "fascinate",
+        "mean1": "매료하다",
+        "mean2": "매혹시키다",
+        "memorization": 0
+      },
+      {
+        "word": "utilize",
+        "mean1": "활용하다",
+        "memorization": 0
+      },
+      {
+        "word": "flexible",
+        "mean1": "신축성 있는",
+        "memorization": 0
+      },
+      {
+        "word": "virtually",
+        "mean1": "거의",
+        "mean2": "사실상",
+        "memorization": 0
+      },
+      {
+        "word": "electrical power",
+        "mean1": "전력",
+        "memorization": 0
+      },
+      {
+        "word": "gratitude",
+        "mean1": "감사",
+        "memorization": 0
+      },
+      {
+        "word": "insurance policy",
+        "mean1": "보험 증권(증서)",
+        "memorization": 0
+      },
+      {
+        "word": "application",
+        "mean1": "신청",
+        "mean2": "신청서",
+        "memorization": 0
+      },
+      {
+        "word": "approve",
+        "mean1": "승인하다",
+        "memorization": 0
+      },
+      {
+        "word": "available",
+        "mean1": "이용 가능한",
+        "memorization": 0
+      },
+      {
+        "word": "currently",
+        "mean1": "현재",
+        "memorization": 0
+      },
+      {
+        "word": "work on",
+        "mean1": "~에 애쓰다",
+        "memorization": 0
+      },
+      {
+        "word": "bring - back",
+        "mean1": "~을 다시 도입하다",
+        "memorization": 0
+      },
+      {
+        "word": "on hold",
+        "mean1": "보류된",
+        "memorization": 0
+      },
+      {
+        "word": "reference",
+        "mean1": "참조",
+        "mean2": "참고",
+        "memorization": 0
+      },
+      {
+        "word": "approval",
+        "mean1": "승인",
+        "memorization": 0
+      },
+      {
+        "word": "take out a policy",
+        "mean1": "보험에 가입하다",
+        "memorization": 0
+      },
+      {
+        "word": "appreciate",
+        "mean1": "~에 대해 감사하다",
+        "memorization": 0
+      }
+    ]
+  }
+}
