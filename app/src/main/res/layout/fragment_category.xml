@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_category_xml"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CategoryFragment">
@@ -8,34 +9,72 @@
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:gravity="right|center"
+        android:orientation="horizontal"
+        android:padding="12dp">
 
-        <TextView
-            android:id="@+id/word_zip"
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="수능 영단어"
-            android:textSize="20dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginRight="5dp"
+            android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
+            android:maxWidth="25dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/edit_category_icon" />
+
+        <TextView
+            android:id="@+id/category_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/category_edit"
             android:textColor="@color/white"
-            android:onClick="goToWordBook"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2019모의고사"
-            android:textSize="20dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/white"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="내신 영단어"
-            android:textSize="20dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/white"/>
+            android:textSize="18sp" />
     </LinearLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="40dp"
+        android:paddingTop="120dp"
+        android:paddingBottom="120dp">
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/wordbookTitleRecyclerView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"/>-->
+        <LinearLayout
+            android:id="@+id/fragment_category_list_xml"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13dp"
+                android:onClick="goToWordBook"
+                android:text="수능 영단어"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13dp"
+                android:text="2019모의고사"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13dp"
+                android:text="내신 영단어"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>
