@@ -44,4 +44,5 @@
 
     <!-- [main]-카테고리 에서 사용되는 string   -->
     <string name="category_edit">단어장 관리</string>
+    <string name="category_title">wordbook title</string>
 </resources>

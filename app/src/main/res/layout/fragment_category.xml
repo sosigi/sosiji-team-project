@@ -39,43 +39,38 @@
         android:paddingLeft="40dp"
         android:paddingTop="120dp"
         android:paddingBottom="120dp">
-
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/wordbookTitleRecyclerView"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"/>-->
         <LinearLayout
             android:id="@+id/fragment_category_list_xml"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/wordbook1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="수능 영단어"
-            android:textSize="20dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/white"/>
+            <TextView
+                android:id="@+id/wordbook1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:text="@string/category_title"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/wordbook2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2019모의고사"
-            android:textSize="20dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/white"/>
+            <TextView
+                android:id="@+id/wordbook2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:text="@string/category_title"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/wordbook3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="내신 영단어"
-            android:textSize="20dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/white"/>
-    </LinearLayout>
+            <TextView
+                android:id="@+id/wordbook3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:text="@string/category_title"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
     </ScrollView>
 </FrameLayout>

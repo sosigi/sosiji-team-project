@@ -1,5 +1,6 @@
 package com.sausage.voca;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -17,12 +18,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.Map;
+
 
 public class wordbook extends AppCompatActivity {
     //단어 정렬
     private String[] mSorting = {"전체", "암기", "미암기"};
     private TextView mWordSorting;
     private AlertDialog mWordSortingSelectDialog;
+
+    //database
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     //단어 암기 <->미암기 전환 체크 - word test용
     ImageView wordMemory_check;
@@ -32,6 +49,12 @@ public class wordbook extends AppCompatActivity {
     TextView word1_m2;
     TextView word1_m3;
     TextView search, category, mypage;
+
+    //단어장 상단바
+    TextView categoryName;
+    //단어장 상단부 - 소개 (wordbookTitle & explain)
+    TextView wordbook_top_title;
+    TextView wordbook_top_explain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +109,37 @@ public class wordbook extends AppCompatActivity {
             }
         });
 
+        //단어장 title, explain Textset
+        categoryName = findViewById(R.id.categoryName);
+        categoryName.setSelected(true);
+        wordbook_top_title = findViewById(R.id.wordbook_top_title);
+        wordbook_top_explain =findViewById(R.id.wordbook_top_explain);
+        if (user != null) {
+            //입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
+            DocumentReference docRef = db.collection("users").document(user.getUid()).collection("wordbooks").document("0");
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            //Log.i("mytag", "DocumentSnapshot data: " + document.getData());
+                            categoryName.setText(document.get("wordbooktitle").toString());
+                            wordbook_top_title.setText(document.get("wordbooktitle").toString());
+                            wordbook_top_explain.setText(document.get("wordbookexplain").toString());
+                            //wordcard반복문 넣으면 될듯.
+                        } else {
+                            Log.i("mytag", "No such document");
+                        }
+                    } else {
+                        Log.i("mytag", "get failed with ", task.getException());
+                    }
+                }
+            });
+        }else{
+            Log.i("mytag","user is null");
+        }
+
         //단어 정렬 선택(전체/암기/미암기)
         mWordSorting = (TextView) findViewById(R.id.select_wordSorting);
         mWordSorting.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +171,7 @@ public class wordbook extends AppCompatActivity {
                 else drawer.closeDrawer(Gravity.LEFT);
             }
         });
+
         //상단바의 plus btn 선택->word add page로 전환
         ImageButton plusBtnButton = (ImageButton) findViewById(R.id.plusBtn);
         plusBtnButton.setOnClickListener(new View.OnClickListener() {
