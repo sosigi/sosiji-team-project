@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,11 +34,14 @@ public class CategoryFragment extends Fragment {
             public void onClick(View View) {
                 Intent intent = new Intent(getActivity(), wordbook.class);
                 //TODO v.getContext()를 하나 getActivity()를 하나 둘 다 멀정하게 나옴. 뭐가 다를까?
-                startActivity(intent);
+                startActivityForResult(intent, 1234);
+                //Main activity에 fragment가 올라와 있었기 때문에,
+                // wordbook에서 정보 받아오려면 여기서 정보가 거쳐가야 한다.
             }
         });
 
         return v;
     }
+
 
 }

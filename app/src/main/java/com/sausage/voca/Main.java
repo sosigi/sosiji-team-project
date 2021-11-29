@@ -77,8 +77,30 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         else if (v==setting){
             //내 정보로 intent.
             //TODO 은소가 위에서 따로 onClick 만들었길래 여기로 이전했어욤
-            Intent intent = new Intent(getApplicationContext(), Mypage.class);
-            startActivity(intent);
+            Intent intent = new Intent(Main.this, Mypage.class);
+            startActivityForResult(intent, 1234);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i("mytag", "ActivityResult 실행됨");
+        if(resultCode == RESULT_OK){
+            String Data = data.getStringExtra("inform");
+            Log.i("mytag", "받은 Data는 "+Data);
+            if (Data.equals("search")) { //Data == "search"라고 해서 해맸다...
+                Log.i("mytag", Data + " 실행됨");
+                dicsearch.callOnClick(); //TODO onClick(dicsearch) 中 뭐가 나을까?
+            }
+            else if(Data.equals("category")) {
+                Log.i("mytag", Data + " 실행됨");
+                category.callOnClick();
+            }
+            else if(Data.equals("mypage")) {
+                Log.i("mytag", Data + " 실행됨");
+                setting.callOnClick();
+            }
         }
     }
 
