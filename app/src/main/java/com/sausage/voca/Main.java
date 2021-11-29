@@ -1,6 +1,5 @@
 package com.sausage.voca;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -150,7 +149,7 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    //TODO [시하] 이건 안 쓰는 것 같은데?
+    //fragment_category에서 사용되는 함수. TODO 지우자!
     public void goToWordBook(View view){
         Intent intent = new Intent(getApplicationContext(), wordbook.class);
         startActivity(intent);

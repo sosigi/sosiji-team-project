@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.LinearLayout;
 
+
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,9 +32,11 @@ import com.google.firebase.firestore.SnapshotMetadata;
 
 import java.util.ArrayList;
 
+
 public class CategoryFragment extends Fragment {
 
     TextView wordbook1, wordbook2, wordbook3;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +60,7 @@ public class CategoryFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
 
         //firestore에서 wordbooktitle끌어오기.
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
