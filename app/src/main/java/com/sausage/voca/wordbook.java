@@ -59,6 +59,7 @@ public class wordbook extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent().putExtra("inform", "search");
+                Log.i("mytag", "보낼 Data는 search");
                 setResult(RESULT_OK, intent);
                 finish();
             }
@@ -67,14 +68,19 @@ public class wordbook extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent().putExtra("inform", "category");
+                Log.i("mytag", "보낼 Data는 category");
                 setResult(RESULT_OK, intent);
+
                 finish();
             }
         });
         mypage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent().putExtra("inform", "mypage");
+                Intent intent = new Intent();
+                intent.putExtra("inform", "mypage");
+                Log.i("mytag", "보낼 Data는 mypage");
+
                 setResult(RESULT_OK, intent);
                 finish();
             }
