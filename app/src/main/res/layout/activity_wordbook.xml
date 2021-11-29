@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".wordbook"
     tools:openDrawer="start">
-    //start로 해 놓고 drawer 생김새 보면서 편집
+    <!--start로 해 놓고 drawer 생김새 보면서 편집-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:background="@color/backgroundColor"
             android:orientation="vertical">
-            //상단바
+            <!--상단바-->
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -70,7 +70,7 @@
             </TableLayout>
 
 
-            //스크롤 뷰
+            <!--스크롤 뷰-->
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -85,7 +85,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    //단어장 정렬방식선택
+                    <!--단어장 정렬방식 선택-->
 
                     <TableLayout
                         android:layout_width="match_parent"
@@ -111,7 +111,7 @@
                         </TableRow>
                     </TableLayout>
 
-                    //단어장 이름
+                    <!--단어장 이름-->
 
                     <TextView
                         android:layout_width="match_parent"
@@ -120,7 +120,7 @@
                         android:text="수능 영단어"
                         android:textSize="23sp" />
 
-                    //단어장 설명
+                    <!--단어장 설명-->
 
                     <TextView
                         android:layout_width="match_parent"
@@ -130,7 +130,7 @@
                         android:textColor="#A8A8A8"
                         android:textSize="16dp" />
 
-                    //중간선
+                    <!--중간선-->
 
                     <View
                         android:layout_width="match_parent"
@@ -138,7 +138,7 @@
                         android:layout_marginTop="15dp"
                         android:background="#000000" />
 
-                    //단어1
+                    <!--단어1-->
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -234,7 +234,7 @@
                         </LinearLayout>
                     </FrameLayout>
 
-                    //단어2
+                    <!--단어2-->
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -325,7 +325,7 @@
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>
-        //하단고정
+        <!--하단고정-->
 
         <FrameLayout
             android:layout_width="wrap_content"
@@ -349,12 +349,13 @@
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
+        android:layout_width="160dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         android:background="@color/backgroundColor">
 
+       <!--같은 내용 생성하지 않았으면 하는데... include layout으로 일부 레이아웃만 가져올 수 있나?-->
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

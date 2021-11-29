@@ -25,6 +25,7 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
 
     private TextView logout, dicsearch, category, setting;
     private final int Fragment_1 = 1, Fragment_2 = 2;
+    private long first_time, second_time;
     FragmentManager fragmentManager = getSupportFragmentManager(); //fragment 관리
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction(); //fragment 관련 작업 수행
 
@@ -149,9 +150,22 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    //TODO [시하] 이건 안 쓰는 것 같은데?
+    //fragment_category에서 사용되는 함수. TODO 지우자!
     public void goToWordBook(View view){
         Intent intent = new Intent(getApplicationContext(), wordbook.class);
         startActivity(intent);
     }
+
+    //두 번 누르면 앱 종료
+    @Override
+    public void onBackPressed() {
+        second_time = System.currentTimeMillis();
+        Toast.makeText(this.getApplicationContext(), "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        if(second_time - first_time < 2000){
+            super.onBackPressed();
+            finishAffinity();
+        }
+        first_time = System.currentTimeMillis();
+    }
+
 }

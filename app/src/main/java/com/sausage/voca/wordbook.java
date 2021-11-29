@@ -31,6 +31,7 @@ public class wordbook extends AppCompatActivity {
     TextView word1_m1;
     TextView word1_m2;
     TextView word1_m3;
+    TextView search, category, mypage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,35 @@ public class wordbook extends AppCompatActivity {
         textview1.setTypeface(tnr_bold);
         TextView textview2 = findViewById(R.id.word2);
         textview2.setTypeface(tnr_bold);
+
+        //drawer onclickListener
+        search = findViewById(R.id.dicSearch);
+        category = findViewById(R.id.category);
+        mypage = findViewById(R.id.setting);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent().putExtra("inform", "search");
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+        category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent().putExtra("inform", "category");
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+        mypage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent().putExtra("inform", "mypage");
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
 
         //단어 정렬 선택(전체/암기/미암기)
         mWordSorting = (TextView) findViewById(R.id.select_wordSorting);
@@ -71,7 +101,7 @@ public class wordbook extends AppCompatActivity {
                 .setNegativeButton("취소", null)
                 .create();
 
-        //상단바의 햄버거 바 선택->main page로 전환
+        //상단바의 햄버거 바 선택->main page로 navigate할 수 있는 drawer 등장
         ImageButton HamburgerBarButton = (ImageButton) findViewById(R.id.hamburgerBarBtn);
         HamburgerBarButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +121,8 @@ public class wordbook extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        
+        
 
     }
 
