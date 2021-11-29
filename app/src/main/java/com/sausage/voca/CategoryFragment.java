@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.LinearLayout;
 
 
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,15 +26,22 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SnapshotMetadata;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class CategoryFragment extends Fragment {
 
     TextView wordbook1, wordbook2, wordbook3;
+    LinearLayout linearLayout;
+
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,36 +69,33 @@ public class CategoryFragment extends Fragment {
             }
         });
 
-
-        //firestore에서 wordbooktitle끌어오기.
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        //TODO : fragment에 wordbooktitle 연속 출력
+        //textView들의 부모로 들어갈 linearlayout
+        linearLayout = v.findViewById(R.id.fragment_category_list_xml);
         if (user != null) {
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            DocumentReference docRef = db.collection("users").document(user.getUid());
-            CollectionReference wordbooksRef = db.collection("users").document(user.getUid()).collection("wordbooks");
-//            Log.i("mytag",wordbooksRef.toString());
-//            for(int i =0; wordbooksRef.document(Integer.toString(i)) != null; i++) {
-//                Log.i("mytag",wordbooksRef.document(Integer.toString(i)).toString());
-            wordbooksRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()) {
-                        Log.i("mytag", task.getResult().toString());
-//                            for(int i=0;task.getResult())
-//                            DocumentSnapshot document = task.getResult();
-//                            if (document.exists()) {
-//                                String wordbooktitle = document.getDate("wordbooktitle").toString();
-//                                Log.i("mytag",wordbooktitle);
-//                            } else {
-//                                Log.i("mytag", "No such document");
-//                            }
-                    } else {
-                        Log.i("mytag", "get failed with ", task.getException());
-                    }
-                }
-            });
-
-//            }
+            db.collection("users").document(user.getUid()).collection("wordbooks")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    //여기 logcat 출력해보면 문서 id인 document.getId()에 따라서 data들이 출력되는 걸 알수있어.
+                                    Log.i("mytag", document.getId() + " => " + document.getData());
+                                    //TODO : 여기서 titleText를 생성해서 setText하고 linearLayout에 추가해주면 될것같아.
+                                    /*
+                                    TextView titleText = new TextView(this);
+                                    titleText.setText(document.get("wordbooktitle").toString());
+                                    linearLayout.addView(titleText);
+                                    */
+                                }
+                            } else {
+                                Log.i("mytag", "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+        } else {
+            Log.i("mytag", "user is null");
         }
 
         return v;

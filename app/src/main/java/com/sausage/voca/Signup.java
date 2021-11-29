@@ -84,12 +84,35 @@ public class Signup<mDatabase> extends AppCompatActivity implements View.OnClick
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
 
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            // Create a new user with a first and last name
+                            Map<String, Object> thisuser = new HashMap<>();
+                            thisuser.put("name", name);
+                            thisuser.put("email", email);
+                            //thisuser.put("wordbooks", wordbookArrayData);
+
+                            // Add a new document with a generated ID
+                            db.collection("users").document(user.getUid())
+                                    .set(thisuser)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(TAG, "DocumentSnapshot successfully written!");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error writing document", e);
+                                        }
+                                    });
+
                             mRootRef.child("wordbook").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                 public void onComplete(@NonNull Task<DataSnapshot> task) {
                                     if (!task.isSuccessful()) {
                                         Log.e("firebase", "Error getting data", task.getException());
                                     } else {
-                                        Map<String, Object> wordbookArrayData = new HashMap<>();
+//                                        Map<String, Object> wordbookArrayData = new HashMap<>();
                                         for (int i = 0; task.getResult().child(Integer.toString(i)).exists(); i++) {
                                             DataSnapshot wordbooktask = task.getResult().child(Integer.toString(i));
                                             Map<String, Object> wordbookData = new HashMap<>();
@@ -117,33 +140,26 @@ public class Signup<mDatabase> extends AppCompatActivity implements View.OnClick
                                             wordbookData.put("wordbooktitle", String.valueOf(wordbooktask.child("wordbooktitle").getValue()));
                                             wordbookData.put("wordbookexplain", String.valueOf(wordbooktask.child("wordbookexplain").getValue()));
                                             wordbookData.put("wordlist", wordcardArrayData);
-                                            wordbookArrayData.put(Integer.toString(i), wordbookData);
+
+//                                            wordbookArrayData.put(Integer.toString(i), wordbookData);
+
+                                            db.collection("users").document(user.getUid()).collection("wordbooks").document(Integer.toString(i))
+                                                    .set(wordbookData)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d(TAG, "DocumentSnapshot successfully written!");
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Log.w(TAG, "Error writing document", e);
+                                                        }
+                                                    });
+
                                         }
-
                                         Log.d("firebase", String.valueOf(task.getResult().getValue()));
-
-                                        FirebaseUser user = mAuth.getCurrentUser();
-                                        // Create a new user with a first and last name
-                                        Map<String, Object> thisuser = new HashMap<>();
-                                        thisuser.put("name", name);
-                                        thisuser.put("email", email);
-                                        thisuser.put("wordbooks", wordbookArrayData);
-
-                                        // Add a new document with a generated ID
-                                        db.collection("users").document(user.getUid())
-                                                .set(thisuser)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Log.d(TAG, "DocumentSnapshot successfully written!");
-                                                    }
-                                                })
-                                                .addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        Log.w(TAG, "Error writing document", e);
-                                                    }
-                                                });
 
                                         updateUI(user);
                                     }

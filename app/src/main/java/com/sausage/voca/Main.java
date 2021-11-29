@@ -76,9 +76,6 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
 
             //내 정보로 intent.
             //TODO 은소가 위에서 따로 onClick 만들었길래 여기로 이전했어욤
-            Intent intent = new Intent(getApplicationContext(), Mypage.class);
-            startActivity(intent);
-
             Intent intent = new Intent(Main.this, Mypage.class);
             startActivityForResult(intent, 1234);
         }

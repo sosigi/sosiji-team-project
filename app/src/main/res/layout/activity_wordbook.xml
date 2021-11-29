@@ -53,7 +53,11 @@
                         android:gravity="center"
                         android:text="수능 영단어"
                         android:textColor="@color/white"
-                        android:textSize="25sp" />
+                        android:textSize="25sp"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:singleLine="true" />
 
                     <ImageButton
                         android:id="@+id/plusBtn"
@@ -114,6 +118,7 @@
                     <!--단어장 이름-->
 
                     <TextView
+                        android:id="@+id/wordbook_top_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="25dp"
@@ -123,6 +128,7 @@
                     <!--단어장 설명-->
 
                     <TextView
+                        android:id="@+id/wordbook_top_explain"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="13dp"
