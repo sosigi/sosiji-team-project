@@ -1,5 +1,6 @@
 package com.sausage.voca;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import android.widget.TextView;
+
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,7 +32,11 @@ import com.google.firebase.firestore.SnapshotMetadata;
 
 import java.util.ArrayList;
 
+
 public class CategoryFragment extends Fragment {
+
+    TextView wordbook1, wordbook2, wordbook3;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +47,20 @@ public class CategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.fragment_category, null);
+        wordbook1 = v.findViewById(R.id.wordbook1);
+        wordbook2 = v.findViewById(R.id.wordbook2);
+        wordbook3 = v.findViewById(R.id.wordbook3);
+
+        wordbook1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View View) {
+                Intent intent = new Intent(getActivity(), wordbook.class);
+                //TODO v.getContext()를 하나 getActivity()를 하나 둘 다 멀정하게 나옴. 뭐가 다를까?
+                startActivity(intent);
+            }
+        });
+
 
         //firestore에서 wordbooktitle끌어오기.
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -71,7 +93,8 @@ public class CategoryFragment extends Fragment {
 //            }
         }
 
-        return inflater.inflate(R.layout.fragment_category, container, false);
+        return v;
+
     }
 
 }
