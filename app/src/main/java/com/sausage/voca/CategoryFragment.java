@@ -12,9 +12,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.LinearLayout;
 
-import android.widget.TextView;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -76,8 +76,8 @@ public class CategoryFragment extends Fragment {
             wordbooksRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            Log.i("mytag", task.getResult().toString());
+                    if (task.isSuccessful()) {
+                        Log.i("mytag", task.getResult().toString());
 //                            for(int i=0;task.getResult())
 //                            DocumentSnapshot document = task.getResult();
 //                            if (document.exists()) {
@@ -86,9 +86,9 @@ public class CategoryFragment extends Fragment {
 //                            } else {
 //                                Log.i("mytag", "No such document");
 //                            }
-                        } else {
-                            Log.i("mytag", "get failed with ", task.getException());
-                        }
+                    } else {
+                        Log.i("mytag", "get failed with ", task.getException());
+                    }
                 }
             });
 
@@ -96,7 +96,6 @@ public class CategoryFragment extends Fragment {
         }
 
         return v;
-
     }
 
 
