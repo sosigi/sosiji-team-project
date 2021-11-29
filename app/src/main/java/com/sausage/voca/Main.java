@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -20,8 +18,6 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.ArrayList;
 
 @SuppressWarnings("deprecation") //이건 왜 넣어둔건지 본인도 모르겠습니다.
 public class Main extends AppCompatActivity implements View.OnClickListener {
@@ -51,7 +47,6 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         category.setOnClickListener(this);
         setting.setOnClickListener(this);
 
-
         //내정보 선택-> mypage로 전환
         TextView plusBtnButton = (TextView) findViewById(R.id.setting);
         plusBtnButton.setOnClickListener(new View.OnClickListener() {
@@ -66,14 +61,17 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v == logout) {
+        if (v==logout){
             FirebaseAuth.getInstance().signOut();
             checkCurrentUser();
-        } else if (v == dicsearch) {
+        }
+        else if (v==dicsearch){
             FragmentView(Fragment_1);
-        } else if (v == category) {
+        }
+        else if (v==category){
             FragmentView(Fragment_2);
-        } else if (v == setting) {
+        }
+        else if (v==setting){
             //내 정보로 intent
         }
     }
@@ -120,9 +118,9 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-    private void FragmentView(int fragment) {
+    private void FragmentView(int fragment){
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        switch (fragment) {
+        switch (fragment){
             case 1:
                 category.setTypeface(Typeface.SANS_SERIF, Typeface.NORMAL);
                 dicsearch.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);
@@ -140,7 +138,7 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    public void goToWordBook(View view) {
+    public void goToWordBook(View view){
         Intent intent = new Intent(getApplicationContext(), wordbook.class);
         startActivity(intent);
     }

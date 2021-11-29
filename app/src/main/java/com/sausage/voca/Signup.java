@@ -27,7 +27,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class Signup<mDatabase> extends AppCompatActivity implements View.OnClickListener {
+//이메일로 회원가입 하기
+
     private TextView new_name;
     private TextView new_email;
     private TextView new_password;
