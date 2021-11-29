@@ -3,12 +3,14 @@ package com.sausage.voca;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -29,6 +31,7 @@ public class wordbook extends AppCompatActivity {
     TextView word1_m1;
     TextView word1_m2;
     TextView word1_m3;
+    TextView search, category, mypage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,35 @@ public class wordbook extends AppCompatActivity {
         textview1.setTypeface(tnr_bold);
         TextView textview2 = findViewById(R.id.word2);
         textview2.setTypeface(tnr_bold);
+
+        //drawer onclickListener
+        search = findViewById(R.id.dicSearch);
+        category = findViewById(R.id.category);
+        mypage = findViewById(R.id.setting);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent().putExtra("inform", "search");
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+        category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent().putExtra("inform", "category");
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+        mypage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent().putExtra("inform", "mypage");
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
 
         //단어 정렬 선택(전체/암기/미암기)
         mWordSorting = (TextView) findViewById(R.id.select_wordSorting);
@@ -69,14 +101,14 @@ public class wordbook extends AppCompatActivity {
                 .setNegativeButton("취소", null)
                 .create();
 
-        //상단바의 햄버거 바 선택->main page로 전환
+        //상단바의 햄버거 바 선택->main page로 navigate할 수 있는 drawer 등장
         ImageButton HamburgerBarButton = (ImageButton) findViewById(R.id.hamburgerBarBtn);
         HamburgerBarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Main.class);
-                //Log.i("mytag",getApplicationContext().toString());
-                startActivity(intent);
+                DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                if (!drawer.isDrawerOpen(Gravity.LEFT)) drawer.openDrawer(Gravity.LEFT);
+                else drawer.closeDrawer(Gravity.LEFT);
             }
         });
         //상단바의 plus btn 선택->word add page로 전환
@@ -89,6 +121,8 @@ public class wordbook extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        
+        
 
     }
 

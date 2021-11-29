@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_category_xml"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CategoryFragment">
@@ -50,31 +49,32 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="13dp"
-                android:onClick="goToWordBook"
-                android:text="수능 영단어"
-                android:textColor="@color/white"
-                android:textSize="23sp" />
+        <TextView
+            android:id="@+id/wordbook1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수능 영단어"
+            android:textSize="20dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/white"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="13dp"
-                android:text="2019모의고사"
-                android:textColor="@color/white"
-                android:textSize="23sp" />
+        <TextView
+            android:id="@+id/wordbook2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2019모의고사"
+            android:textSize="20dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/white"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="13dp"
-                android:text="내신 영단어"
-                android:textColor="@color/white"
-                android:textSize="23sp" />
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/wordbook3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="내신 영단어"
+            android:textSize="20dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/white"/>
+    </LinearLayout>
     </ScrollView>
 </FrameLayout>
