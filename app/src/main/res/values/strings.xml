@@ -41,4 +41,7 @@
     <string name="mypage_user_name">this is user name</string>
     <string name="mypage_email">email</string>
     <string name="mypage_user_email">this is user email</string>
+
+    <!-- [main]-카테고리 에서 사용되는 string   -->
+    <string name="category_edit">단어장 관리</string>
 </resources>

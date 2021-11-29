@@ -6,6 +6,7 @@
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1287037037037037" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/round_quiz_btn.xml" value="0.1287037037037037" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/word_quiz_shadow.xml" value="0.1287037037037037" />
+        <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/wordbook_title_list_layout.xml" value="0.20364583333333333" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/wordcard_shadow.xml" value="0.1287037037037037" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/activity_dic_search.xml" value="0.26358695652173914" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/activity_login.xml" value="0.20208333333333334" />
@@ -14,8 +15,9 @@
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/activity_signup.xml" value="0.20208333333333334" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/activity_word_add.xml" value="0.22" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/activity_wordbook.xml" value="0.2" />
-        <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/fragment_category.xml" value="0.33" />
+        <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/fragment_category.xml" value="0.2880098887515451" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/fragment_dictionary.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/wordbook_title_list_layout.xml" value="0.20208333333333334" />
       </map>
     </option>
   </component>
