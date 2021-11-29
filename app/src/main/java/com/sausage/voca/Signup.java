@@ -29,11 +29,10 @@ import java.util.Map;
 
 
 public class Signup<mDatabase> extends AppCompatActivity implements View.OnClickListener {
-//이메일로 회원가입 하기
 
-    private TextView new_name;
-    private TextView new_email;
-    private TextView new_password;
+    private EditText new_name;
+    private EditText new_email;
+    private EditText new_password;
     private TextView login;
     private Button signup;
 

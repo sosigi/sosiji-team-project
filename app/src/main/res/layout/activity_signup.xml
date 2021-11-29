@@ -45,4 +45,4 @@
       android:text="이미 계정이 있나요?"
       android:textColor="@color/white"/>
 
-  </LinearLayout>
+</LinearLayout>
