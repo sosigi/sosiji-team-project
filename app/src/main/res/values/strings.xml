@@ -12,10 +12,10 @@
     <string name="word_m2">2. 의미2</string>
     <string name="word_m3">3. 의미3</string>
 
-    <string name="word1">roof</string>
-    <string name="word1_m1">1. 지붕</string>
-    <string name="word1_m2">2. 지붕이 ...한</string>
-    <string name="word1_m3">3. (터널동굴 등의) 천장</string>
+    <string name="word1">englishWord</string>
+    <string name="word1_m1">1. 단어뜻1</string>
+    <string name="word1_m2">2. 단어뜻2</string>
+    <string name="word1_m3">3. 단어뜻3</string>
 
     <string name="word2">patron</string>
     <string name="word2_m1">1. (화가,작가 등에 대한) 후원자</string>

@@ -1,11 +1,5 @@
 package com.sausage.voca;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -16,18 +10,25 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 
@@ -36,6 +37,8 @@ public class wordbook extends AppCompatActivity {
     private String[] mSorting = {"전체", "암기", "미암기"};
     private TextView mWordSorting;
     private AlertDialog mWordSortingSelectDialog;
+    //word card data list
+    ArrayList<Word> dataList = new ArrayList<>();
 
     //database
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -56,23 +59,17 @@ public class wordbook extends AppCompatActivity {
     TextView wordbook_top_title;
     TextView wordbook_top_explain;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wordbook);
 
 
-        //custom font 적용 - quiz btn & word1 & word2
-        TextView textview = findViewById(R.id.wordQuiz);
-
-        Typeface tnr = Typeface.createFromAsset(getAssets(), "times_new_roman.ttf");
-        Typeface tnr_bold = Typeface.createFromAsset(getAssets(), "times_new_roman_bold.ttf");
-        textview.setTypeface(tnr);
-
-        TextView textview1 = findViewById(R.id.word1);
-        textview1.setTypeface(tnr_bold);
-        TextView textview2 = findViewById(R.id.word2);
-        textview2.setTypeface(tnr_bold);
+        //custom font 적용 - quiz btn
+        TextView wordQuiztextview = findViewById(R.id.wordQuiz);
+        Typeface wordfont = Typeface.createFromAsset(getAssets(), "times_new_roman.ttf");
+        wordQuiztextview.setTypeface(wordfont);
 
         //drawer onclickListener
         search = findViewById(R.id.dicSearch);
@@ -113,9 +110,9 @@ public class wordbook extends AppCompatActivity {
         categoryName = findViewById(R.id.categoryName);
         categoryName.setSelected(true);
         wordbook_top_title = findViewById(R.id.wordbook_top_title);
-        wordbook_top_explain =findViewById(R.id.wordbook_top_explain);
+        wordbook_top_explain = findViewById(R.id.wordbook_top_explain);
         if (user != null) {
-            //입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
+            //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
             DocumentReference docRef = db.collection("users").document(user.getUid()).collection("wordbooks").document("0");
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -127,7 +124,6 @@ public class wordbook extends AppCompatActivity {
                             categoryName.setText(document.get("wordbooktitle").toString());
                             wordbook_top_title.setText(document.get("wordbooktitle").toString());
                             wordbook_top_explain.setText(document.get("wordbookexplain").toString());
-                            //wordcard반복문 넣으면 될듯.
                         } else {
                             Log.i("mytag", "No such document");
                         }
@@ -136,11 +132,51 @@ public class wordbook extends AppCompatActivity {
                     }
                 }
             });
-        }else{
-            Log.i("mytag","user is null");
+        } else {
+            Log.i("mytag", "user is null");
         }
 
-        //단어 정렬 선택(전체/암기/미암기)
+        //wordcard list 나열
+        //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
+        db.collection("users").document(user.getUid()).collection("wordbooks").document("0")
+                .get().addOnCompleteListener((task) -> {
+            if (task.isSuccessful()) {
+                dataList = new ArrayList<>();
+                DocumentSnapshot document = task.getResult();
+                Map<String, Object> wordList = (Map<String, Object>) document.getData().get("wordlist");
+                try {
+                    Iterator<String> keys = wordList.keySet().iterator();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        HashMap map = (HashMap) wordList.get(key);
+                        String word_english = map.get("word").toString();
+                        String word_meaning1 = map.get("mean1").toString();
+                        String word_meaning2 = "";
+                        String word_meaning3 = "";
+                        int memorization = Integer.parseInt(map.get("memorization").toString());
+                        if (map.get("mean2") != null) {
+                            word_meaning2 = map.get("mean2").toString();
+                        }
+                        if (map.get("mean3") != null) {
+                            word_meaning3 = map.get("mean3").toString();
+                        }
+                        dataList.add(new Word(word_english, word_meaning1, word_meaning2, word_meaning3,memorization));
+                    }
+                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.word_card_recycleView);
+                    LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+                    recyclerView.setLayoutManager(manager); // LayoutManager 등록
+                    recyclerView.setAdapter(new WordAdapter(dataList));  // Adapter 등록
+
+                }catch(NullPointerException e){
+                    e.printStackTrace();
+                }
+            } else {
+                Log.i("mytag", "get failed with " + task.getException());
+            }
+        });
+
+
+        //단어 정렬 선택 btn (전체/암기/미암기)
         mWordSorting = (TextView) findViewById(R.id.select_wordSorting);
         mWordSorting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,21 +218,19 @@ public class wordbook extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        
-        
-
     }
 
     //wordcard에서 단어 삭제 btn 클릭시
     public void deleteWordBtnClick(View view) {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("삭제");
+        alert.setTitle("단어 삭제");
         alert.setMessage("정말 삭제 하시겠습니까?");
 
         alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Log.i("mytag", "YES");
+
             }
         });
 
@@ -210,7 +244,7 @@ public class wordbook extends AppCompatActivity {
     }
 
     //단어 암기<->미암기 체크
-    public void wordMemoryBtnClick(View view) {
+    /*public void wordMemoryBtnClick(View view) {
         //객체 획득
         wordMemory_uncheck = (ImageView) findViewById(R.id.memorization_uncheck);
         wordMemory_check = (ImageView) findViewById(R.id.memorization_check);
@@ -229,7 +263,7 @@ public class wordbook extends AppCompatActivity {
             word1_m1.setTextColor(color);
             word1_m2.setTextColor(color);
             word1_m3.setTextColor(color);
-            Toast toastUncheck = Toast.makeText(this.getApplicationContext(),R.string.toast_change_to_memorization, Toast.LENGTH_SHORT);
+            Toast toastUncheck = Toast.makeText(this.getApplicationContext(), R.string.toast_change_to_memorization, Toast.LENGTH_SHORT);
             toastUncheck.show();
         }
 
@@ -242,8 +276,8 @@ public class wordbook extends AppCompatActivity {
             word1_m1.setTextColor(color);
             word1_m2.setTextColor(color);
             word1_m3.setTextColor(color);
-            Toast toastCheck = Toast.makeText(this.getApplicationContext(),R.string.toast_change_to_notmemorization, Toast.LENGTH_SHORT);
+            Toast toastCheck = Toast.makeText(this.getApplicationContext(), R.string.toast_change_to_notmemorization, Toast.LENGTH_SHORT);
             toastCheck.show();
         }
-    }
+    }*/
 }
