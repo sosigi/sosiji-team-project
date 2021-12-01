@@ -20,21 +20,43 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity implements View.OnClickListener{
-    private TextView user_email;
-    private TextView user_password;
+    private EditText email;
+    private EditText password;
     private TextView signup;
     private Button login;
 
     private static final String TAG = "EmailPassword";
     private FirebaseAuth mAuth;
     //google로 로그인 안되는 문제.
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        user_email = findViewById(R.id.login_email);
-        user_password = findViewById(R.id.login_password);
+        email = findViewById(R.id.login_email);
+        password = findViewById(R.id.login_password);
+        email.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    login.callOnClick();
+                    return true;
+                }
+                return false;
+            }
+        });
+        password.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    login.callOnClick();
+                    return true;
+                }
+                return false;
+            }
+        });
+
         signup = findViewById(R.id.signup);
         login = findViewById(R.id.login_button);
         signup.setOnClickListener(this);
@@ -49,7 +71,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if (v==login){
-            signIn(user_email.getText().toString(), user_password.getText().toString());
+            signIn(email.getText().toString(), password.getText().toString());
         }else if ((v==signup)){
             Intent Signup = new Intent(this, Signup.class);
             startActivity(Signup);
