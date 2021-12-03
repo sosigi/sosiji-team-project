@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="400dp"
+    android:orientation="vertical"
+    android:background="#fffcf3">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quiz"
+        android:gravity="center_horizontal"/>
+
+    <View
+        android:background="#000000"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="전체"
+        android:buttonTint="#507255"
+        android:id="@+id/check1"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="암기"
+        android:buttonTint="#507255"
+        android:id="@+id/check2"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="미암기"
+        android:buttonTint="#507255"
+        android:id="@+id/check3"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        android:buttonTint="#507255"
+        android:text="Start"
+        android:textSize="20sp"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:id="@+id/quiz_start"
+        android:background="@drawable/quizstart_btn"
+    />
+
+</LinearLayout>

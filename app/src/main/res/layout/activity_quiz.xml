@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Quiz">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="@color/backgroundColor"
+            android:text="<"
+            android:textColor="@color/black"
+            android:textSize="40dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="아래 단어의   뜻은?"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:gravity="top|center_horizontal"
+            android:text="reflex"
+            android:textSize="40sp" />
+
+        <Button
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:background="@drawable/quiz_btn"
+            android:text="반사행동"
+            android:textColor="@color/black"
+            android:textsize="20dp"
+            app:backgroundTint="@color/backgroundColor" />
+
+        <Button
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:background="@drawable/quiz_btn"
+            android:text="용감함"
+            android:textColor="@color/black"
+            android:textsize="20dp"
+            app:backgroundTint="@color/backgroundColor" />
+
+        <Button
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:background="@drawable/quiz_btn"
+            android:text="언어학"
+            android:textColor="@color/black"
+            android:textsize="20dp"
+            app:backgroundTint="@color/backgroundColor" />
+
+        <Button
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:background="@drawable/quiz_btn"
+            android:text="진동하다"
+            android:textsize="20dp"
+            app:backgroundTint="@color/backgroundColor"
+            android:textColor = "@color/black"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

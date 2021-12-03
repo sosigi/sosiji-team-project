@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Category">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
+        android:orientation="vertical">
+        //상단바
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/pointColor"
+            android:orientation="horizontal"
+            android:scaleType="fitCenter"
+            android:baselineAligned="true">
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:backgroundTint="@color/pointColor"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="<"
+                android:textColor="@color/white"
+                android:textSize="40dp"
+                android:id="@+id/category_back"/>
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="단어장 관리"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:backgroundTint="@color/pointColor"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="+"
+                android:textColor="@color/white"
+                android:textSize="40dp"
+                android:id="@+id/category_plus"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding = "10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="304dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="25dp"
+                android:gravity="center_vertical"
+                android:text="수능 영단어"
+                android:textColor="@color/unActiveColor"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="72dp"
+                android:layout_height="48dp"
+                android:backgroundTint="@color/backgroundColor"
+                android:text="수정"
+                android:textColor="@color/unActiveColor"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
