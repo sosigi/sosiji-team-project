@@ -46,7 +46,6 @@
             android:background="@drawable/quiz_btn"
             android:text="반사행동"
             android:textColor="@color/black"
-            android:textsize="20dp"
             app:backgroundTint="@color/backgroundColor" />
 
         <Button
@@ -57,7 +56,6 @@
             android:background="@drawable/quiz_btn"
             android:text="용감함"
             android:textColor="@color/black"
-            android:textsize="20dp"
             app:backgroundTint="@color/backgroundColor" />
 
         <Button
@@ -68,7 +66,6 @@
             android:background="@drawable/quiz_btn"
             android:text="언어학"
             android:textColor="@color/black"
-            android:textsize="20dp"
             app:backgroundTint="@color/backgroundColor" />
 
         <Button
@@ -78,7 +75,6 @@
             android:layout_margin="10dp"
             android:background="@drawable/quiz_btn"
             android:text="진동하다"
-            android:textsize="20dp"
             app:backgroundTint="@color/backgroundColor"
             android:textColor = "@color/black"/>
 
