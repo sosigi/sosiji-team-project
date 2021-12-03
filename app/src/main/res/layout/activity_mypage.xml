@@ -25,7 +25,8 @@
             android:background="@android:color/transparent"
             android:maxWidth="30dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/backbutton" />
+            android:src="@drawable/backbutton"
+            android:id="@+id/mypage_back"/>
 
         <TextView
             android:layout_width="wrap_content"
