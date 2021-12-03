@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Voca">
         <activity
+            android:name=".QuizResult"
+            android:exported="true" />
+        <activity
+            android:name=".Quiz"
+            android:exported="true" />
+        <activity
             android:name=".Mypage"
             android:exported="false" />
         <activity android:name=".DicSearch" />
@@ -34,7 +40,7 @@
             android:exported="true" />
         <activity
             android:name=".wordAdd"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

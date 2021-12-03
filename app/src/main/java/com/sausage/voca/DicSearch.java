@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -30,7 +31,7 @@ import java.util.Map;
 public class DicSearch extends AppCompatActivity {
 
     private EditText searching_word; //이게 회색이면 안 쓰인거니까 뭐가 문제인지 눈여겨볼것...
-    private TextView searched, meaning;
+    private TextView searched, meaning, dicSearch_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,15 @@ public class DicSearch extends AppCompatActivity {
             }
         });
 
+        dicSearch_back = findViewById(R.id.dicSearch_back);
+
+        dicSearch_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Main.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

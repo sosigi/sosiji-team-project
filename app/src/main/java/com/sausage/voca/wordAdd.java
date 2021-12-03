@@ -3,6 +3,7 @@ package com.sausage.voca;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,7 +41,7 @@ public class wordAdd extends AppCompatActivity {
 
     private TextView textView;
     private EditText editText;
-    private Button button;
+    private ImageButton word_add_back;
     private TextView json_test_text;
 
     //[은소]test - edit text에 입력된 내용을 realtime database에 업로드해봄.
@@ -56,6 +58,15 @@ public class wordAdd extends AppCompatActivity {
 
         textView = (TextView) findViewById(R.id.test_textview);
         editText = (EditText) findViewById(R.id.test_edit_text);
+        word_add_back = findViewById(R.id.word_add_back);
+
+        word_add_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), wordbook.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

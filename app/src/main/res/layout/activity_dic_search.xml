@@ -13,13 +13,26 @@
         android:layout_height="0dp"
         android:background="#507255"
         android:layout_weight="3.5">
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:backgroundTint="@color/pointColor"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="<"
+            android:textColor="@color/white"
+            android:textSize="40dp"
+            android:id="@+id/dicSearch_back"/>
+
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="사전 검색"
-            android:textSize="22dp"
+            android:layout_height="70dp"
+            android:text="            사전 검색"
+            android:gravity="center_vertical"
             android:textColor="@color/white"
-            android:padding="16dp"/>
+            android:textSize="22dp" />
+
         <EditText
             android:id="@+id/search_result"
             android:layout_width="match_parent"

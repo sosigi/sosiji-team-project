@@ -3,8 +3,11 @@ package com.sausage.voca;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class Mypage extends AppCompatActivity {
     private TextView textView_name;
     private TextView textView_email;
+    private ImageButton mypage_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,5 +62,14 @@ public class Mypage extends AppCompatActivity {
                 }
             });
         }
+        mypage_back = findViewById(R.id.mypage_back);
+
+        mypage_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Main.class);
+                startActivity(intent);
+            }
+        });
     }
 }
