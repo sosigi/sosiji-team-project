@@ -58,24 +58,13 @@
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="이메일로 로그인"
-        android:onClick="onClick"/>
-    <Button
-        android:id="@+id/google_btn"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Google로 로그인"
-        android:onClick="onClick"
-        android:layout_marginBottom="3dp"
-        android:background="@color/black"/>
+        android:text="로그인하기"/>
     <TextView
         android:id="@+id/signup_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="아직 회원이 아니신가요?"
-        android:textColor="@color/white"
-        android:onClick="onClick"/>
+        android:textColor="@color/white"/>
 
 </LinearLayout>

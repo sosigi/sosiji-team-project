@@ -35,47 +35,22 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:paddingLeft="40dp"
         android:paddingTop="120dp"
-        android:paddingBottom="120dp">
+        android:fillViewport="true">
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/wordbookTitleRecyclerView"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"/>-->
-        <LinearLayout
-            android:id="@+id/fragment_category_list_xml"
+        <!--        <androidx.recyclerview.widget.RecyclerView-->
+        <!--            android:id="@+id/wordbookTitleRecyclerView"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"/>-->
+        <ListView
+            android:id="@android:id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/wordbook1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="수능 영단어"
-            android:textSize="20dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/white"/>
-
-        <TextView
-            android:id="@+id/wordbook2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2019모의고사"
-            android:textSize="20dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/white"/>
-
-        <TextView
-            android:id="@+id/wordbook3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="내신 영단어"
-            android:textSize="20dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/white"/>
-    </LinearLayout>
+            android:orientation="vertical"
+            android:divider="@null"
+            android:dividerHeight="0dp">
+        </ListView>
     </ScrollView>
 </FrameLayout>

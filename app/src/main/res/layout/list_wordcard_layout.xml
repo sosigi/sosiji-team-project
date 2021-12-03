@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backgroundColor">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/wordcard_shadow">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/wordCardBackground"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <TableLayout
+                    android:id="@+id/w1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:stretchColumns="0">
+
+                    <TableRow>
+                        <TextView
+                            android:id="@+id/list_english_word"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/word1"
+                            android:textColor="#000"
+                            android:textSize="24dp"
+                            android:fontFamily="@font/times_new_roman_bold"/>
+
+                        <ImageView
+                            android:id="@+id/list_memorization_check"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="20dp"
+                            android:maxWidth="28dp"
+                            android:maxHeight="28dp"
+                            android:onClick="wordMemoryBtnClick"
+                            android:src="@drawable/memorization_uncheck" />
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/list_memorization_check"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginRight="20dp"-->
+<!--                            android:maxWidth="28dp"-->
+<!--                            android:maxHeight="28dp"-->
+<!--                            android:onClick="wordMemoryBtnClick"-->
+<!--                            android:src="@drawable/memorization_check"-->
+<!--                            android:visibility="gone" />-->
+
+                        <ImageButton
+                            android:id="@+id/list_delete_word"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:background="@android:color/transparent"
+                            android:maxWidth="28dp"
+                            android:onClick="deleteWordBtnClick"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/delete_word" />
+                    </TableRow>
+                </TableLayout>
+
+                <TextView
+                    android:id="@+id/list_word_mean1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp"
+                    android:text="@string/word1_m1"
+                    android:textColor="#000"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/list_word_mean2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp"
+                    android:text="@string/word1_m2"
+                    android:textColor="#000"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/list_word_mean3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp"
+                    android:text="@string/word1_m3"
+                    android:textColor="#000"
+                    android:textSize="16dp" />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.ActivityManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -19,7 +22,11 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-@SuppressWarnings("deprecation") //이건 왜 넣어둔건지 본인[시하]도 모르겠습니다.
+
+import java.util.List;
+
+@SuppressWarnings("deprecation") //이건 왜 넣어둔건지 본인도 모르겠습니다.
+
 public class Main extends AppCompatActivity implements View.OnClickListener {
 
     private TextView logout, dicsearch, category, setting;
@@ -27,6 +34,7 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
     private long first_time, second_time;
     FragmentManager fragmentManager = getSupportFragmentManager(); //fragment 관리
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction(); //fragment 관련 작업 수행
+    private String nowImHere = "empty";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,23 +70,23 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v==logout){
+        if (v == logout) {
             FirebaseAuth.getInstance().signOut();
             checkCurrentUser();
-        }
-        else if (v==dicsearch){
-            FragmentView(Fragment_1);
-        }
-        else if (v==category){
-            FragmentView(Fragment_2);
-        }
-        else if (v==setting){
 
-            //내 정보로 intent.
-            //TODO 은소가 위에서 따로 onClick 만들었길래 여기로 이전했어욤
-            Intent intent = new Intent(getApplicationContext(), Mypage.class);
-            startActivity(intent);
+        } else if (v == dicsearch) {
+            if (!nowImHere.equals("dicsearch")) {
+                FragmentView(Fragment_1);
+                nowImHere = "dicsearch";
+            }
 
+        } else if (v == category) {
+            if (!nowImHere.equals("category")) {
+                FragmentView(Fragment_2);
+                nowImHere = "category";
+            }
+
+        } else if (v == setting) {
             Intent intent = new Intent(Main.this, Mypage.class);
             startActivityForResult(intent, 1234);
         }
@@ -88,18 +96,16 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.i("mytag", "ActivityResult 실행됨");
-        if(resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
             String Data = data.getStringExtra("inform");
-            Log.i("mytag", "받은 Data는 "+Data);
+            Log.i("mytag", "받은 Data는 " + Data);
             if (Data.equals("search")) { //Data == "search"라고 해서 해맸다...
                 Log.i("mytag", Data + " 실행됨");
                 dicsearch.callOnClick(); //TODO onClick(dicsearch) 中 뭐가 나을까?
-            }
-            else if(Data.equals("category")) {
+            } else if (Data.equals("category")) {
                 Log.i("mytag", Data + " 실행됨");
                 category.callOnClick();
-            }
-            else if(Data.equals("mypage")) {
+            } else if (Data.equals("mypage")) {
                 Log.i("mytag", Data + " 실행됨");
                 setting.callOnClick();
             }
@@ -155,9 +161,9 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-    private void FragmentView(int fragment){
+    private void FragmentView(int fragment) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        switch (fragment){
+        switch (fragment) {
             case 1:
                 category.setTypeface(Typeface.SANS_SERIF, Typeface.NORMAL);
                 dicsearch.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);
@@ -167,7 +173,7 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
             case 2:
                 dicsearch.setTypeface(Typeface.SANS_SERIF, Typeface.NORMAL);
                 category.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);
-                Fragment fragment2 = new Fragment();
+                //Fragment fragment2 = new Fragment();
                 transaction.replace(R.id.contents, new CategoryFragment());
                 transaction.commit();
                 break;
@@ -180,7 +186,7 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
     public void onBackPressed() {
         second_time = System.currentTimeMillis();
         Toast.makeText(this.getApplicationContext(), "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
-        if(second_time - first_time < 2000){
+        if (second_time - first_time < 2000) {
             super.onBackPressed();
             finishAffinity();
         }
