@@ -114,90 +114,7 @@ public class Signup<mDatabase> extends AppCompatActivity implements View.OnClick
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            // Create a new user with a first and last name
-                            Map<String, Object> thisuser = new HashMap<>();
-                            thisuser.put("name", name);
-                            thisuser.put("email", email);
-                            //thisuser.put("wordbooks", wordbookArrayData);
-
-                            // Add a new document with a generated ID
-                            db.collection("users").document(user.getUid())
-                                    .set(thisuser)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Log.d(TAG, "DocumentSnapshot successfully written!");
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.w(TAG, "Error writing document", e);
-                                        }
-                                    });
-
-                            mRootRef.child("wordbook").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                    if (!task.isSuccessful()) {
-                                        Log.e("firebase", "Error getting data", task.getException());
-                                    } else {
-//                                        Map<String, Object> wordbookArrayData = new HashMap<>();
-                                        for (int i = 0; task.getResult().child(Integer.toString(i)).exists(); i++) {
-                                            DataSnapshot wordbooktask = task.getResult().child(Integer.toString(i));
-                                            Map<String, Object> wordbookData = new HashMap<>();
-
-                                            //wordcard 배열 만듦.
-                                            Map<String, Object> wordcardArrayData = new HashMap<>();
-                                            for (int j = 0; wordbooktask.child("wordlist").child("wordcard").child(Integer.toString(j)).exists(); j++) {
-                                                DataSnapshot wordcardtask = wordbooktask.child("wordlist").child("wordcard").child(Integer.toString(j));
-
-                                                Map<String, Object> wordcardData = new HashMap<>();
-                                                wordcardData.put("word", String.valueOf(wordcardtask.child("word").getValue()));
-                                                wordcardData.put("mean1", String.valueOf(wordcardtask.child("mean1").getValue()));
-
-                                                if (wordcardtask.child("mean2").exists()) {
-                                                    wordcardData.put("mean2", String.valueOf(wordcardtask.child("mean2").getValue()));
-                                                }
-                                                if (wordcardtask.child("mean3").exists()) {
-                                                    wordcardData.put("mean3", String.valueOf(wordcardtask.child("mean3").getValue()));
-                                                }
-                                                wordcardData.put("memorization", 0);
-
-                                                wordcardArrayData.put(Integer.toString(j), wordcardData);
-
-                                            }
-                                            wordbookData.put("wordbooktitle", String.valueOf(wordbooktask.child("wordbooktitle").getValue()));
-                                            wordbookData.put("wordbookexplain", String.valueOf(wordbooktask.child("wordbookexplain").getValue()));
-                                            wordbookData.put("wordlist", wordcardArrayData);
-
-//                                            wordbookArrayData.put(Integer.toString(i), wordbookData);
-
-                                            db.collection("users").document(user.getUid()).collection("wordbooks").document(Integer.toString(i))
-                                                    .set(wordbookData)
-                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void aVoid) {
-                                                            Log.d(TAG, "DocumentSnapshot successfully written!");
-                                                        }
-                                                    })
-                                                    .addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
-                                                            Log.w(TAG, "Error writing document", e);
-                                                        }
-                                                    });
-
-                                        }
-                                        Log.d("firebase", String.valueOf(task.getResult().getValue()));
-
-                                        updateUI(user);
-                                    }
-                                }
-                            });
-                            Log.d(EmailTAG, "createUserWithEmail:success");
+                            Log.d("mytag", "createUserWithEmail:success");
 
                             //[시하] firestore에 user data 저장하는 함수 따로 팠어요~
                             storeUserdata(name, email, "email");
@@ -269,12 +186,57 @@ public class Signup<mDatabase> extends AppCompatActivity implements View.OnClick
 
     //구글과 이메일 둘 다 해당되는 내용//
     private void storeUserdata(String name, String email, String from) {
+        FirebaseUser user = mAuth.getCurrentUser();
+        // Create a new user with a first and last name
+        Map<String, Object> thisuser = new HashMap<>(); //저장할 틀 먼저 생성
+        thisuser.put("name", name);
+        thisuser.put("email", email);
+        //thisuser.put("wordbooks", wordbookArrayData);
+        Log.d("mytag", "createUserWithEmail:success");
+
+        //근데 해당 회원을 위한 다큐먼트가 존재하는지 확인 필수. 있으면 저장하면 안됨 TODO 코드 정리 필요
+        DocumentReference docRef = db.collection("users").document(user.getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d("mytag", "해당 회원에 대한 문서가 이미 존재합니다 : " + document.getData());
+                        return;
+                    } else {
+                        Log.d("mytag", "No such document");
+                    }
+                } else {
+                    Log.d(GoogleTAG, "get failed with ", task.getException());
+                    return;
+                }
+            }
+        });
+
+        // 해당 계정을 위한 문서 생성 시작
+        // Add a new document with a generated ID
+        db.collection("users").document(user.getUid())
+                .set(thisuser)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("mytag", "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("mytag", "Error writing document", e);
+                    }
+                });
+
         mRootRef.child("wordbook").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
                 } else {
-                    Map<String, Object> wordbookArrayData = new HashMap<>();
+//                                        Map<String, Object> wordbookArrayData = new HashMap<>();
                     for (int i = 0; task.getResult().child(Integer.toString(i)).exists(); i++) {
                         DataSnapshot wordbooktask = task.getResult().child(Integer.toString(i));
                         Map<String, Object> wordbookData = new HashMap<>();
@@ -302,59 +264,28 @@ public class Signup<mDatabase> extends AppCompatActivity implements View.OnClick
                         wordbookData.put("wordbooktitle", String.valueOf(wordbooktask.child("wordbooktitle").getValue()));
                         wordbookData.put("wordbookexplain", String.valueOf(wordbooktask.child("wordbookexplain").getValue()));
                         wordbookData.put("wordlist", wordcardArrayData);
-                        wordbookArrayData.put(Integer.toString(i), wordbookData);
-                    }
 
+//                                            wordbookArrayData.put(Integer.toString(i), wordbookData);
+
+                        db.collection("users").document(user.getUid()).collection("wordbooks").document(Integer.toString(i))
+                                .set(wordbookData)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("mytag", "DocumentSnapshot successfully written!");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w("mytag", "Error writing document", e);
+                                    }
+                                });
+
+                    }
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
 
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    // Create a new user with a first and last name
-                    Map<String, Object> thisuser = new HashMap<>();
-                    thisuser.put("name", name);
-                    thisuser.put("email", email);
-                    thisuser.put("wordbooks", wordbookArrayData);
-
-                    //다큐먼트가 존재하는지 확인 TODO 코드 정리 필요
-                    DocumentReference docRef = db.collection("users").document(user.getUid());
-                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                DocumentSnapshot document = task.getResult();
-                                if (document.exists()) {
-                                    Log.d(GoogleTAG, "DocumentSnapshot data: " + document.getData());
-                                } else {
-                                    Log.d(GoogleTAG, "No such document");
-
-                                    // Add a new document with a generated ID
-                                    db.collection("users").document(user.getUid())
-                                            .set(thisuser)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    if (from.equals("email"))
-                                                        Log.d(EmailTAG, "DocumentSnapshot successfully written!");
-                                                    else if (from.equals("google"))
-                                                        Log.d(GoogleTAG, "DocumentSnapshot successfully written!");
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    if (from.equals("email"))
-                                                        Log.w(EmailTAG, "Error writing document", e);
-                                                    else if (from.equals("google"))
-                                                        Log.w(GoogleTAG, "Error writing document", e);
-                                                }
-                                            });
-                                }
-                            } else {
-                                Log.d(GoogleTAG, "get failed with ", task.getException());
-                            }
-                        }
-                    });
                     updateUI(user);
-
                 }
             }
         });
