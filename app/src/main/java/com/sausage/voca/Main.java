@@ -175,18 +175,6 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
                 category.setTypeface(Typeface.SANS_SERIF, Typeface.BOLD);
                 //Fragment fragment2 = new Fragment();
                 transaction.replace(R.id.contents, new CategoryFragment());
-
-                categoryedit = findViewById(R.id.category_edit);
-
-                categoryedit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getApplicationContext(), Category.class);
-
-                        startActivity(intent);
-                    }
-                });
-
                 transaction.commit();
                 break;
         }

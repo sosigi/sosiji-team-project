@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:gravity="bottom|center_horizontal"
-            android:text="아래 단어의   뜻은?"
+            android:text="아래 단어의 뜻은?"
             android:textSize="20sp"/>
 
         <TextView
@@ -46,7 +46,7 @@
             android:background="@drawable/quiz_btn"
             android:text="반사행동"
             android:textColor="@color/black"
-            android:textsize="20dp"
+            android:textSize="20dp"
             app:backgroundTint="@color/backgroundColor" />
 
         <Button
@@ -57,7 +57,7 @@
             android:background="@drawable/quiz_btn"
             android:text="용감함"
             android:textColor="@color/black"
-            android:textsize="20dp"
+            android:textSize="20dp"
             app:backgroundTint="@color/backgroundColor" />
 
         <Button
@@ -68,7 +68,7 @@
             android:background="@drawable/quiz_btn"
             android:text="언어학"
             android:textColor="@color/black"
-            android:textsize="20dp"
+            android:textSize="20dp"
             app:backgroundTint="@color/backgroundColor" />
 
         <Button
@@ -78,7 +78,7 @@
             android:layout_margin="10dp"
             android:background="@drawable/quiz_btn"
             android:text="진동하다"
-            android:textsize="20dp"
+            android:textSize="20dp"
             app:backgroundTint="@color/backgroundColor"
             android:textColor = "@color/black"/>
 
