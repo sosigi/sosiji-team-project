@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+     id 'com.android.application'
     id 'com.google.gms.google-services'  // Google Services plugin.
     // 이거 apply plugin: 'com.google.gms.google-services' 를 id 'com.google.gms.google-services'로 바꿨음
 }

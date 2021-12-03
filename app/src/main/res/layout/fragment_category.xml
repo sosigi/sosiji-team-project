@@ -35,43 +35,22 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:paddingLeft="40dp"
         android:paddingTop="120dp"
-        android:paddingBottom="120dp">
-        <LinearLayout
-            android:id="@+id/fragment_category_list_xml"
+        android:fillViewport="true">
+
+        <!--        <androidx.recyclerview.widget.RecyclerView-->
+        <!--            android:id="@+id/wordbookTitleRecyclerView"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"/>-->
+        <ListView
+            android:id="@android:id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/wordbook1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:text="@string/category_title"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/wordbook2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:text="@string/category_title"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/wordbook3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:text="@string/category_title"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-        </LinearLayout>
+            android:orientation="vertical"
+            android:divider="@null"
+            android:dividerHeight="0dp">
+        </ListView>
     </ScrollView>
 </FrameLayout>
