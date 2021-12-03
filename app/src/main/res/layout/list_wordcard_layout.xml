@@ -40,7 +40,7 @@
                             android:fontFamily="@font/times_new_roman_bold"/>
 
                         <ImageView
-                            android:id="@+id/list_memorization_uncheck"
+                            android:id="@+id/list_memorization_check"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="20dp"
@@ -49,16 +49,16 @@
                             android:onClick="wordMemoryBtnClick"
                             android:src="@drawable/memorization_uncheck" />
 
-                        <ImageView
-                            android:id="@+id/list_memorization_check"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="20dp"
-                            android:maxWidth="28dp"
-                            android:maxHeight="28dp"
-                            android:onClick="wordMemoryBtnClick"
-                            android:src="@drawable/memorization_check"
-                            android:visibility="gone" />
+<!--                        <ImageView-->
+<!--                            android:id="@+id/list_memorization_check"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginRight="20dp"-->
+<!--                            android:maxWidth="28dp"-->
+<!--                            android:maxHeight="28dp"-->
+<!--                            android:onClick="wordMemoryBtnClick"-->
+<!--                            android:src="@drawable/memorization_check"-->
+<!--                            android:visibility="gone" />-->
 
                         <ImageButton
                             android:id="@+id/list_delete_word"

@@ -33,7 +33,6 @@ public class WordAdapter extends RecyclerView.Adapter<ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         /* ViewHolder가 관리하는 View에 position에 해당하는 데이터 바인딩 */
         viewHolder.englishWord_holder.setText(myDataList.get(position).getEnglishWord());
-        viewHolder.wordMean1_holder.setText("1. "+myDataList.get(position).getWordMean1());
         if(myDataList.get(position).getWordMean2()!=""){
             viewHolder.wordMean2_holder.setText("2. "+myDataList.get(position).getWordMean2());
         }else{
@@ -50,11 +49,13 @@ public class WordAdapter extends RecyclerView.Adapter<ViewHolder> {
             viewHolder.wordMean1_holder.setTextColor(Color.BLACK);
             viewHolder.wordMean2_holder.setTextColor(Color.BLACK);
             viewHolder.wordMean3_holder.setTextColor(Color.BLACK);
+            viewHolder.memorizeCheck_holder.setImageResource(R.drawable.memorization_uncheck);
         }else{
             viewHolder.englishWord_holder.setTextColor(Color.LTGRAY);
             viewHolder.wordMean1_holder.setTextColor(Color.LTGRAY);
             viewHolder.wordMean2_holder.setTextColor(Color.LTGRAY);
             viewHolder.wordMean3_holder.setTextColor(Color.LTGRAY);
+            viewHolder.memorizeCheck_holder.setImageResource(R.drawable.memorization_check);
         }
     }
 
