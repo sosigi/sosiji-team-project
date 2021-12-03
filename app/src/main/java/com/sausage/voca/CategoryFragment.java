@@ -1,6 +1,7 @@
 package com.sausage.voca;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +40,8 @@ import java.util.List;
 public class CategoryFragment extends ListFragment {
 
     ListView listView;
-    List<String> titles = new ArrayList<String>();
+    List<String> titles = new ArrayList<>();
+    ArrayAdapter<String> adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +57,43 @@ public class CategoryFragment extends ListFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_category, null);
+        listView = v.findViewById(android.R.id.list);
+        adapter = new ArrayAdapter<String>(listView.getContext(), android.R.layout.simple_list_item_1, titles){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent)
+            {
+                View view = super.getView(position, convertView, parent);
+                TextView tv = view.findViewById(android.R.id.text1);
+                tv.setTextColor(Color.WHITE);
+                tv.setTextSize(18);
+                return view;
+            }
+        };
 
+
+        getTitles(); //db에서 title 정보 땡겨오는 함수
+        
+        v.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                v.removeOnLayoutChangeListener(this);
+            }
+        });
+
+        //이게 화면 띄워주는 필수 기능 두 가지인데, 각자가 어떤 역할을 하는지는 잘 모른다.
+        listView.setAdapter(adapter);
+        listView.getLastVisiblePosition();
+        return v;
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        String strText = (String) l.getItemAtPosition(position);
+        Log.d("Fragment: ", position + ": " + strText);
+        Toast.makeText(this.getContext(), "클릭: " + position + " " + strText, Toast.LENGTH_SHORT).show();
+    }
+
+    private void getTitles(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -76,6 +115,7 @@ public class CategoryFragment extends ListFragment {
                             Log.i("mytag", "words : " + document.getData().get("wordbooktitle"));
                             String wordbooktitle = document.getData().get("wordbooktitle").toString();
                             titles.add(wordbooktitle);
+                            adapter.notifyDataSetChanged(); //데이터 갱신됐다는 알림 전달 -> adapter가 화면에 띄워줌
                         }
                     } else {
                         Log.d("mytag", "Error getting documents: ", task.getException());
@@ -83,32 +123,5 @@ public class CategoryFragment extends ListFragment {
                 }
             });
         }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, titles);
-        setListAdapter(adapter);
-
-
-        /*
-        wordbook1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View View) {
-                Intent intent = new Intent(getActivity(), wordbook.class); //TODO v.getContext()를 하나 getActivity()를 하나 둘 다 멀정하게 나옴. 뭐가 다를까?
-                startActivityForResult(intent, 1234);
-                //Main activity에 fragment가 올라와 있었기 때문에,
-                // wordbook에서 정보 받아오려면 여기서 정보가 거쳐가야 한다.
-            }
-        });
-
-         */
-
-
-        return v;
-    }
-
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id){
-        String strText = (String) l.getItemAtPosition(position);
-        Log.d("Fragment: ", position + ": " +strText);
-        Toast.makeText(this.getContext(), "클릭: " + position +" " + strText, Toast.LENGTH_SHORT).show();
     }
 }

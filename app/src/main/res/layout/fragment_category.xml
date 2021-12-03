@@ -35,10 +35,10 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:paddingLeft="40dp"
         android:paddingTop="120dp"
-        android:paddingBottom="120dp">
+        android:fillViewport="true">
 
         <!--        <androidx.recyclerview.widget.RecyclerView-->
         <!--            android:id="@+id/wordbookTitleRecyclerView"-->
@@ -48,7 +48,9 @@
             android:id="@android:id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:divider="@null"
+            android:dividerHeight="0dp">
         </ListView>
     </ScrollView>
 </FrameLayout>
