@@ -70,6 +70,7 @@ public class CategoryFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View v = inflater.inflate(R.layout.fragment_category, null);
         listView = v.findViewById(android.R.id.list);
         adapter = new ArrayAdapter<String>(listView.getContext(), android.R.layout.simple_list_item_1, titles){

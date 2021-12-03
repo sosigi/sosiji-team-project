@@ -20,16 +20,16 @@
             android:orientation="horizontal"
             android:scaleType="fitCenter">
 
-            <TextView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:backgroundTint="@color/pointColor"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="<"
-                android:textColor="@color/white"
-                android:textSize="40dp"
-                android:id="@+id/category_add_back"/>
+            <ImageButton
+                android:id="@+id/category_add_back"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:maxWidth="30dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/backbutton" />
 
             <TextView
                 android:layout_width="220dp"
