@@ -7,12 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class CategoryEdit extends AppCompatActivity {
 
-    private TextView back_btn;
+    private ImageButton back_btn;
     private TextView complete_btn;
     private TextView delete_btn;
     private Toast toast = Toast.makeText(this,"수능 영단어 이/가 삭제되었습니다.", Toast.LENGTH_SHORT);
