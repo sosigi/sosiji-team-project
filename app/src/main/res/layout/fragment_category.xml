@@ -71,6 +71,7 @@
                 android:text="@string/category_title"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
+
         </LinearLayout>
     </ScrollView>
 </FrameLayout>
