@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,14 +35,27 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import java.util.List;
+
 
 
 public class CategoryFragment extends ListFragment {
 
+
+    TextView wordbook1, wordbook2, wordbook3;
+    LinearLayout linearLayout;
+
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     ListView listView;
     List<String> titles = new ArrayList<>();
     ArrayAdapter<String> adapter;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,6 +93,7 @@ public class CategoryFragment extends ListFragment {
                 v.removeOnLayoutChangeListener(this);
             }
         });
+
 
         //이게 화면 띄워주는 필수 기능 두 가지인데, 각자가 어떤 역할을 하는지는 잘 모른다.
         listView.setAdapter(adapter);

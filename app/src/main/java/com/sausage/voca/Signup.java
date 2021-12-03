@@ -114,6 +114,89 @@ public class Signup<mDatabase> extends AppCompatActivity implements View.OnClick
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success");
+
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            // Create a new user with a first and last name
+                            Map<String, Object> thisuser = new HashMap<>();
+                            thisuser.put("name", name);
+                            thisuser.put("email", email);
+                            //thisuser.put("wordbooks", wordbookArrayData);
+
+                            // Add a new document with a generated ID
+                            db.collection("users").document(user.getUid())
+                                    .set(thisuser)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(TAG, "DocumentSnapshot successfully written!");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error writing document", e);
+                                        }
+                                    });
+
+                            mRootRef.child("wordbook").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                    if (!task.isSuccessful()) {
+                                        Log.e("firebase", "Error getting data", task.getException());
+                                    } else {
+//                                        Map<String, Object> wordbookArrayData = new HashMap<>();
+                                        for (int i = 0; task.getResult().child(Integer.toString(i)).exists(); i++) {
+                                            DataSnapshot wordbooktask = task.getResult().child(Integer.toString(i));
+                                            Map<String, Object> wordbookData = new HashMap<>();
+
+                                            //wordcard 배열 만듦.
+                                            Map<String, Object> wordcardArrayData = new HashMap<>();
+                                            for (int j = 0; wordbooktask.child("wordlist").child("wordcard").child(Integer.toString(j)).exists(); j++) {
+                                                DataSnapshot wordcardtask = wordbooktask.child("wordlist").child("wordcard").child(Integer.toString(j));
+
+                                                Map<String, Object> wordcardData = new HashMap<>();
+                                                wordcardData.put("word", String.valueOf(wordcardtask.child("word").getValue()));
+                                                wordcardData.put("mean1", String.valueOf(wordcardtask.child("mean1").getValue()));
+
+                                                if (wordcardtask.child("mean2").exists()) {
+                                                    wordcardData.put("mean2", String.valueOf(wordcardtask.child("mean2").getValue()));
+                                                }
+                                                if (wordcardtask.child("mean3").exists()) {
+                                                    wordcardData.put("mean3", String.valueOf(wordcardtask.child("mean3").getValue()));
+                                                }
+                                                wordcardData.put("memorization", 0);
+
+                                                wordcardArrayData.put(Integer.toString(j), wordcardData);
+
+                                            }
+                                            wordbookData.put("wordbooktitle", String.valueOf(wordbooktask.child("wordbooktitle").getValue()));
+                                            wordbookData.put("wordbookexplain", String.valueOf(wordbooktask.child("wordbookexplain").getValue()));
+                                            wordbookData.put("wordlist", wordcardArrayData);
+
+//                                            wordbookArrayData.put(Integer.toString(i), wordbookData);
+
+                                            db.collection("users").document(user.getUid()).collection("wordbooks").document(Integer.toString(i))
+                                                    .set(wordbookData)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d(TAG, "DocumentSnapshot successfully written!");
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Log.w(TAG, "Error writing document", e);
+                                                        }
+                                                    });
+
+                                        }
+                                        Log.d("firebase", String.valueOf(task.getResult().getValue()));
+
+                                        updateUI(user);
+                                    }
+                                }
+                            });
                             Log.d(EmailTAG, "createUserWithEmail:success");
 
                             //[시하] firestore에 user data 저장하는 함수 따로 팠어요~

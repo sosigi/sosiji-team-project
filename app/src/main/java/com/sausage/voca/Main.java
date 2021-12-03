@@ -22,9 +22,11 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+
 import java.util.List;
 
 @SuppressWarnings("deprecation") //이건 왜 넣어둔건지 본인도 모르겠습니다.
+
 public class Main extends AppCompatActivity implements View.OnClickListener {
 
     private TextView logout, dicsearch, category, setting;
@@ -53,6 +55,17 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         dicsearch.setOnClickListener(this);
         category.setOnClickListener(this);
         setting.setOnClickListener(this);
+
+        //내정보 선택-> mypage로 전환
+        /* TODO [시하] 수정함
+        TextView plusBtnButton = (TextView) findViewById(R.id.setting);
+        plusBtnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+         */
     }
 
     @Override
@@ -60,6 +73,7 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         if (v == logout) {
             FirebaseAuth.getInstance().signOut();
             checkCurrentUser();
+
         } else if (v == dicsearch) {
             if (!nowImHere.equals("dicsearch")) {
                 FragmentView(Fragment_1);
@@ -120,6 +134,12 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
             String email = user.getEmail();
             Uri photoUrl = user.getPhotoUrl();
 
+
+            /* Check if user's email is verified
+            boolean emailVerified = user.isEmailVerified();
+
+             */
+
             // The user's ID, unique to the Firebase project. Do NOT use this value to
             // authenticate with your backend server, if you have one. Use
             // FirebaseUser.getIdToken() instead.
@@ -129,7 +149,11 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void updateUI(FirebaseUser user) {
-        if (user == null) {
+        if (user != null) {
+            // User is signed in
+        } else {
+            // No user is signed in
+            // 로그아웃 실행
             Intent main = new Intent(this, Index.class);
             startActivity(main);
             Toast.makeText(this.getApplicationContext(), "로그아웃되었습니다", Toast.LENGTH_SHORT).show();
@@ -156,7 +180,6 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         }
 
     }
-
 
     //두 번 누르면 앱 종료
     @Override
