@@ -33,6 +33,11 @@ public class WordAdapter extends RecyclerView.Adapter<ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         /* ViewHolder가 관리하는 View에 position에 해당하는 데이터 바인딩 */
         viewHolder.englishWord_holder.setText(myDataList.get(position).getEnglishWord());
+        if(myDataList.get(position).getWordMean1()!=""){
+            viewHolder.wordMean1_holder.setText("1. "+myDataList.get(position).getWordMean1());
+        }else{
+            viewHolder.wordMean1_holder.setText("");
+        }
         if(myDataList.get(position).getWordMean2()!=""){
             viewHolder.wordMean2_holder.setText("2. "+myDataList.get(position).getWordMean2());
         }else{
