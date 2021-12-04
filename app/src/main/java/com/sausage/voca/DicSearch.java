@@ -32,7 +32,8 @@ public class DicSearch extends AppCompatActivity {
 
     private EditText searching_word; //이게 회색이면 안 쓰인거니까 뭐가 문제인지 눈여겨볼것...
     private TextView searched, meaning;
-    private ImageButton dicSearch_back;
+    private ImageButton dicSearch_back, dicSearch_add;
+    private String letsSearch, searchResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +61,20 @@ public class DicSearch extends AppCompatActivity {
         });
 
         dicSearch_back = findViewById(R.id.dicSearch_back);
+        dicSearch_add = findViewById(R.id.dicSearch_add);
 
         dicSearch_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Main.class);
+                startActivity(intent);
+            }
+        });
+        dicSearch_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] data = {letsSearch, searchResult};
+                Intent intent = new Intent(getApplicationContext(), wordAdd.class).putExtra("data", data);
                 startActivity(intent);
             }
         });
@@ -76,14 +86,14 @@ public class DicSearch extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    String letsSearch = searching_word.getText().toString();
-                    String str = main(letsSearch);
+                    letsSearch = searching_word.getText().toString();
+                    searchResult = main(letsSearch);
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             searched.setText(letsSearch); //TODO 이 방법이 최선인가?
-                            meaning.setText(str);
+                            meaning.setText(searchResult);
                         }
                     });
 

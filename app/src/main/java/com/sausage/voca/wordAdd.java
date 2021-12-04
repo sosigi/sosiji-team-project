@@ -40,7 +40,7 @@ import java.util.List;
 public class wordAdd extends AppCompatActivity {
 
     private TextView textView;
-    private EditText editText;
+    private EditText editText1, editText2;
     private ImageButton word_add_back;
     private TextView json_test_text;
 
@@ -56,10 +56,18 @@ public class wordAdd extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_add);
 
-        textView = (TextView) findViewById(R.id.test_textview);
-        editText = (EditText) findViewById(R.id.test_edit_text);
-        word_add_back = findViewById(R.id.word_add_back);
+        String[] data = getIntent().getStringArrayExtra("data");
 
+        textView = findViewById(R.id.test_textview);
+        editText1 = findViewById(R.id.english);
+        editText2 = findViewById(R.id.korean);
+
+        if (data!=null){
+            editText1.setText(data[0]);
+            editText2.setText(data[1]);
+        }
+
+        word_add_back = findViewById(R.id.word_add_back);
         word_add_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

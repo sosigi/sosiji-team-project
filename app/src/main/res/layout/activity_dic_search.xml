@@ -37,11 +37,11 @@
             android:id="@+id/search_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="16dp"
-            android:textColor="@color/white"
-            android:layout_alignParentBottom="true"/>
+            android:textColor="@color/white" />
     </RelativeLayout>
 
     <LinearLayout
@@ -50,14 +50,33 @@
         android:background="#FFFCF3"
         android:layout_weight="6.5"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/result_searched"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="검색한 단어"
-            android:padding="16dp"
-            android:textSize="18dp"
-            android:textColor="@color/black"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/result_searched"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="검색한 단어"
+                android:textColor="@color/black"
+                android:textSize="18dp" />
+
+            <ImageButton
+                android:id="@+id/dicSearch_add"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="20dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:maxWidth="20dp"
+                android:src="@drawable/plus_btn2" />
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/result_meaning"
             android:layout_width="match_parent"

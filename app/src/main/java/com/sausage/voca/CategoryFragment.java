@@ -1,5 +1,7 @@
 package com.sausage.voca;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -54,7 +56,7 @@ public class CategoryFragment extends ListFragment {
 
     ListView listView;
     TextView edit;
-    List<String> titles = new ArrayList<>();
+    ArrayList<String> titles = new ArrayList<>();
     ArrayAdapter<String> adapter;
 
 
@@ -113,11 +115,15 @@ public class CategoryFragment extends ListFragment {
         return v;
     }
 
+    //TODO 삭제시 발생할 문제 고려
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         String strText = (String) l.getItemAtPosition(position);
         Log.d("Fragment: ", position + ": " + strText);
         Toast.makeText(this.getContext(), "클릭: " + position + " " + strText, Toast.LENGTH_SHORT).show();
+        String ID = String.valueOf(position);
+        Intent intent = new Intent(getActivity(), wordbook.class).putExtra("id",ID);
+        startActivity(intent);
     }
 
     private void getTitles(){
