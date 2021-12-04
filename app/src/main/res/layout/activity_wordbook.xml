@@ -40,7 +40,7 @@
                         android:layout_marginLeft="12dp"
                         android:adjustViewBounds="true"
                         android:background="@android:color/transparent"
-                        android:maxWidth="40dp"
+                        android:maxWidth="35dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/hamburger_bar" />
 
@@ -66,7 +66,7 @@
                         android:layout_marginRight="12dp"
                         android:adjustViewBounds="true"
                         android:background="@android:color/transparent"
-                        android:maxWidth="40dp"
+                        android:maxWidth="35dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/plus_btn" />
                 </TableRow>
@@ -141,6 +141,16 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="15dp"
                     android:background="#000000" />
+                <TextView
+                    android:id="@+id/recommend_word_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/recommend_word_add"
+                    android:textSize="18sp"
+                    android:textColor="#A8A8A8"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:visibility="gone"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/word_card_recycleView"

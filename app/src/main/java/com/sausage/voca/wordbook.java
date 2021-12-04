@@ -52,11 +52,7 @@ public class wordbook extends AppCompatActivity {
     RecyclerView recyclerView;
     LinearLayoutManager manager;
     boolean dataChange = false;
-
-
-    //database
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    boolean dataDelete = false;
 
     TextView search, category, mypage;
 
@@ -69,8 +65,14 @@ public class wordbook extends AppCompatActivity {
     //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
     String wordbookID = "0";
     int thisWordbookMemorizationType = 2;
+    //default=2, 암기=1, 미암기=0;
     int thisWordbookHideType = 0;
     //default =0, 단어숨김=1, 뜻숨김=2;
+
+    //database
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    DocumentReference wordBooksDoc;
 
 
     @Override
@@ -79,6 +81,7 @@ public class wordbook extends AppCompatActivity {
         setContentView(R.layout.activity_wordbook);
 
         wordbookID = getIntent().getStringExtra("id");
+        wordBooksDoc = db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID);
         Log.i("mytag", "가져온 id값은 " + wordbookID);
         onSidebarClick();
 
@@ -89,7 +92,7 @@ public class wordbook extends AppCompatActivity {
         wordbook_top_explain = findViewById(R.id.wordbook_top_explain);
 
         //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
-        db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID)
+        wordBooksDoc
                 .get().addOnCompleteListener((task) -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
@@ -147,7 +150,7 @@ public class wordbook extends AppCompatActivity {
 
                     }
                 })
-                .setTitle("정렬방식")
+                .setTitle("정렬방식 선택")
                 .setPositiveButton("확인", null)
                 .setNegativeButton("취소", null)
                 .create();
@@ -255,8 +258,7 @@ public class wordbook extends AppCompatActivity {
     //암기 1 미암기 0 전체 2
     private void updateWordcard(int memorizationType){
         //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
-        db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID)
-                .get().addOnCompleteListener((task) -> {
+        wordBooksDoc.get().addOnCompleteListener((task) -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
@@ -264,11 +266,13 @@ public class wordbook extends AppCompatActivity {
                     Map<String, Object> wordList = (Map<String, Object>) document.getData().get("wordlist");
                     try {
                         Iterator<String> keys = wordList.keySet().iterator();
+                        int countWordlist =0;
                         while (keys.hasNext()) {
                             String key = keys.next();
                             HashMap map = (HashMap) wordList.get(key);
                             int memorization = Integer.parseInt(map.get("memorization").toString());
                             if(memorizationType == 2 || memorization == memorizationType){
+                                countWordlist++;
                                 String word_english = map.get("word").toString();
                                 String word_meaning1 = map.get("mean1").toString();
                                 String word_meaning2 = "";
@@ -293,6 +297,13 @@ public class wordbook extends AppCompatActivity {
                         recyclerView.setLayoutManager(manager); // LayoutManager 등록
                         wordAdapter = new WordAdapter(dataList);
                         recyclerView.setAdapter(wordAdapter);  // Adapter 등록
+
+                        TextView text = findViewById(R.id.recommend_word_add);
+                        if(countWordlist==0){
+                            text.setVisibility(text.VISIBLE);
+                        }else{
+                            text.setVisibility(text.GONE);
+                        }
                     }catch(NullPointerException e){
                         e.printStackTrace();
                     }
@@ -307,6 +318,10 @@ public class wordbook extends AppCompatActivity {
 
     //wordcard에서 단어 삭제 btn 클릭시
     public void deleteWordBtnClick(View view) {
+        LinearLayout wordcardLL = (LinearLayout) view.getParent().getParent().getParent();
+        TextView englishWord = wordcardLL.findViewById(R.id.list_english_word);
+        String englishWordText = englishWord.getText().toString();
+
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("단어 삭제");
         alert.setMessage("정말 삭제 하시겠습니까?");
@@ -316,6 +331,52 @@ public class wordbook extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 Log.i("mytag", "YES");
 
+                wordBooksDoc.get().addOnCompleteListener((task) -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        Map<String, Object> wordList_find = (Map<String, Object>) document.getData().get("wordlist");
+                        try {
+                            Map<String, Object> newWordcardArray = new HashMap<>();
+                            for(int i=0;i<wordList_find.size();i++){
+                                Map<String, Object> map_find = (HashMap) wordList_find.get(String.valueOf(i));
+                                Map<String, Object> newWordCard = new HashMap<>();
+                                String word_english = map_find.get("word").toString();
+                                //int word_memorization = Integer.parseInt(map_find.get("memorization").toString());
+                                newWordCard.put("word",word_english);
+                                newWordCard.put("mean1",map_find.get("mean1"));
+                                if(map_find.get("mean2")!=""){
+                                    newWordCard.put("mean2",map_find.get("mean2"));
+                                }else {
+                                    newWordCard.put("mean2","");
+                                }
+                                if(map_find.get("mean3")!="") {
+                                    newWordCard.put("mean3",map_find.get("mean3"));
+                                }else {
+                                    newWordCard.put("mean3","");
+                                }
+                                newWordCard.put("memorization",map_find.get("memorization"));
+                                if(englishWordText.equals(word_english)){
+                                    dataDelete = true;
+                                }else{
+                                    int wordListIDNumber = dataDelete ? i-1:i;
+                                    newWordcardArray.put(String.valueOf(wordListIDNumber),newWordCard);
+                                }
+                            }
+                            if(dataDelete == true) {
+                                wordBooksDoc.update("wordlist",newWordcardArray);
+                                Log.i("mytag","data delete complete");
+                                updateWordcard(thisWordbookMemorizationType);
+                                Toast myToast = Toast.makeText(view.getContext(),R.string.toast_delete_word ,Toast.LENGTH_SHORT);
+                                myToast.show();
+                                dataDelete = false;
+                            }
+                        }catch(NullPointerException e){
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Log.i("mytag", "get failed with " + task.getException());
+                    }
+                });
             }
         });
 
@@ -337,8 +398,6 @@ public class wordbook extends AppCompatActivity {
         TextView wordMean3 = wordcardLL.findViewById(R.id.list_word_mean3);
         ImageView memorizeBtn = (ImageView) view;
 
-        DocumentReference wordBooksDoc = db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID);
-        //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
         wordBooksDoc.get().addOnCompleteListener((task) -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
