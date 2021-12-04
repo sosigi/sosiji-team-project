@@ -1,5 +1,6 @@
 package com.sausage.voca;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,16 +13,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -36,28 +35,30 @@ import java.util.Map;
 
 public class wordbook extends AppCompatActivity {
     //단어 정렬
-    private String[] mSorting = {"전체", "암기", "미암기"};
+    final private String[] mSorting = {"전체", "암기", "미암기"};
     private TextView mWordSorting;
     private AlertDialog mWordSortingSelectDialog;
 
-    private String[] wordQuizSorting = {"전체", "암기", "미암기"};
-    private TextView wordQuiz;
-    private AlertDialog wordQuizSortingSelectDialog;
+    TextView wordHideBtn;
+    TextView meanHideBtn;
+
+
+//    final private String[] wordQuizSorting = {"전체", "암기", "미암기"};
+//    private TextView wordQuiz;
+//    private AlertDialog wordQuizSortingSelectDialog;
 
     //word card data list
     ArrayList<Word> dataList = new ArrayList<>();
+    WordAdapter wordAdapter;
+    RecyclerView recyclerView;
+    LinearLayoutManager manager;
+    boolean dataChange = false;
+
 
     //database
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    //단어 암기 <->미암기 전환 체크 - word test용
-    ImageView wordMemory_check;
-    ImageView wordMemory_uncheck;
-    TextView word1;
-    TextView word1_m1;
-    TextView word1_m2;
-    TextView word1_m3;
     TextView search, category, mypage;
 
     //단어장 상단바
@@ -68,12 +69,42 @@ public class wordbook extends AppCompatActivity {
 
     //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
     String wordbookID = "0";
+    int thisWordbookMemorizationType = 2;
+    int thisWordbookHideType = 0;
+    //default =0, 단어숨김=1, 뜻숨김=2;
 
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wordbook);
+
+        //wordbooktitle, wordbookexplain 출력.
+        categoryName = findViewById(R.id.categoryName);
+        categoryName.setSelected(true);
+        wordbook_top_title = findViewById(R.id.wordbook_top_title);
+        wordbook_top_explain = findViewById(R.id.wordbook_top_explain);
+
+        //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
+        db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID)
+                .get().addOnCompleteListener((task) -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    categoryName.setText(document.get("wordbooktitle").toString());
+                    wordbook_top_title.setText(document.get("wordbooktitle").toString());
+                    wordbook_top_explain.setText(document.get("wordbookexplain").toString());
+                } else {
+                    Log.i("mytag", "No such document");
+                }
+            } else {
+                Log.i("mytag", "get failed with " + task.getException());
+            }
+        });
+
+        //wordcard List 정렬.
+        updateWordcard(thisWordbookMemorizationType);
 
 
         //custom font 적용 - quiz btn
@@ -116,78 +147,8 @@ public class wordbook extends AppCompatActivity {
             }
         });
 
-        //단어장 title, explain Textset
-        categoryName = findViewById(R.id.categoryName);
-        categoryName.setSelected(true);
-        wordbook_top_title = findViewById(R.id.wordbook_top_title);
-        wordbook_top_explain = findViewById(R.id.wordbook_top_explain);
-        if (user != null) {
-            //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
-            DocumentReference docRef = db.collection("users").document(user.getUid()).collection("wordbooks").document("0");
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            //Log.i("mytag", "DocumentSnapshot data: " + document.getData());
-                            categoryName.setText(document.get("wordbooktitle").toString());
-                            wordbook_top_title.setText(document.get("wordbooktitle").toString());
-                            wordbook_top_explain.setText(document.get("wordbookexplain").toString());
-                        } else {
-                            Log.i("mytag", "No such document");
-                        }
-                    } else {
-                        Log.i("mytag", "get failed with ", task.getException());
-                    }
-                }
-            });
-        } else {
-            Log.i("mytag", "user is null");
-        }
-
-        //wordcard list 나열
-        //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
-        db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID)
-                .get().addOnCompleteListener((task) -> {
-            if (task.isSuccessful()) {
-                dataList = new ArrayList<>();
-                DocumentSnapshot document = task.getResult();
-                Map<String, Object> wordList = (Map<String, Object>) document.getData().get("wordlist");
-                try {
-                    Iterator<String> keys = wordList.keySet().iterator();
-                    while (keys.hasNext()) {
-                        String key = keys.next();
-                        HashMap map = (HashMap) wordList.get(key);
-                        String word_english = map.get("word").toString();
-                        String word_meaning1 = map.get("mean1").toString();
-                        String word_meaning2 = "";
-                        String word_meaning3 = "";
-                        int memorization = Integer.parseInt(map.get("memorization").toString());
-                        if (map.get("mean2") != null) {
-                            word_meaning2 = map.get("mean2").toString();
-                        }
-                        if (map.get("mean3") != null) {
-                            word_meaning3 = map.get("mean3").toString();
-                        }
-                        dataList.add(new Word(word_english, word_meaning1, word_meaning2, word_meaning3,memorization));
-                    }
-                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.word_card_recycleView);
-                    LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-                    recyclerView.setLayoutManager(manager); // LayoutManager 등록
-                    recyclerView.setAdapter(new WordAdapter(dataList));  // Adapter 등록
-
-                }catch(NullPointerException e){
-                    e.printStackTrace();
-                }
-            } else {
-                Log.i("mytag", "get failed with " + task.getException());
-            }
-        });
-
-
         //단어 정렬 선택 btn (전체/암기/미암기)
-        mWordSorting = (TextView) findViewById(R.id.select_wordSorting);
+        mWordSorting = findViewById(R.id.select_wordSorting);
         mWordSorting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -200,6 +161,20 @@ public class wordbook extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         mWordSorting.setText(mSorting[i] + " ▼");
+                        if(mSorting[i].equals("전체")) {
+                            thisWordbookMemorizationType=2;
+                            thisWordbookHideType=0;
+                            updateWordcard(thisWordbookMemorizationType);
+                        }else if(mSorting[i].equals("암기")){
+                            thisWordbookMemorizationType=1;
+                            thisWordbookHideType=0;
+                            updateWordcard(thisWordbookMemorizationType);
+                        }else if(mSorting[i].equals("미암기")){
+                            thisWordbookMemorizationType=0;
+                            thisWordbookHideType=0;
+                            updateWordcard(thisWordbookMemorizationType);
+                        }
+
                     }
                 })
                 .setTitle("정렬방식")
@@ -207,8 +182,33 @@ public class wordbook extends AppCompatActivity {
                 .setNegativeButton("취소", null)
                 .create();
 
+        //단어 숨김 btn 선택
+        wordHideBtn = (TextView) findViewById(R.id.hideWord);
+        wordHideBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Log.i("mytag","단어숨김 선택");
+                thisWordbookHideType=1;
+                updateWordcard(thisWordbookMemorizationType);
+                Toast myToast = Toast.makeText(view.getContext(),R.string.toast_hide_word ,Toast.LENGTH_SHORT);
+                myToast.show();
+            }
+        });
 
-        //퀴즈선택
+        //뜻 숨김 btn 선택
+        meanHideBtn = (TextView) findViewById(R.id.hideMeaning);
+        meanHideBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Log.i("mytag","단어숨김 선택");
+                thisWordbookHideType=2;
+                updateWordcard(thisWordbookMemorizationType);
+                Toast myToast = Toast.makeText(view.getContext(),R.string.toast_hide_mean ,Toast.LENGTH_SHORT);
+                myToast.show();
+            }
+        });
+
+        //Quiz Btn 선택
         /*wordQuiz = (TextView) findViewById(R.id.wordQuiz);
         wordQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,8 +247,62 @@ public class wordbook extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), wordAdd.class);
-                //Log.i("mytag",getApplicationContext().toString());
                 startActivity(intent);
+            }
+        });
+    }
+
+    //update wordbook wordcard
+    //입력받는 memorizationType의 int값에 따라 암기 or 미암기 단어들만을 출력한다.
+    //암기 1 미암기 0 전체 2
+    private void updateWordcard(int memorizationType){
+        //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
+        db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID)
+                .get().addOnCompleteListener((task) -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    dataList = new ArrayList<>();
+                    Map<String, Object> wordList = (Map<String, Object>) document.getData().get("wordlist");
+                    try {
+                        Iterator<String> keys = wordList.keySet().iterator();
+                        while (keys.hasNext()) {
+                            String key = keys.next();
+                            HashMap map = (HashMap) wordList.get(key);
+                            int memorization = Integer.parseInt(map.get("memorization").toString());
+                            if(memorizationType == 2 || memorization == memorizationType){
+                                String word_english = map.get("word").toString();
+                                String word_meaning1 = map.get("mean1").toString();
+                                String word_meaning2 = "";
+                                String word_meaning3 = "";
+                                if (map.get("mean2") != null) {
+                                    word_meaning2 = map.get("mean2").toString();
+                                }
+                                if (map.get("mean3") != null) {
+                                    word_meaning3 = map.get("mean3").toString();
+                                }
+                                if(thisWordbookHideType==1){
+                                    dataList.add(new Word("", word_meaning1, word_meaning2, word_meaning3,memorization));
+                                }else if(thisWordbookHideType==2){
+                                    dataList.add(new Word(word_english, "", "", "",memorization));
+                                }else{
+                                    dataList.add(new Word(word_english, word_meaning1, word_meaning2, word_meaning3,memorization));
+                                }
+                            }
+                        }
+                        recyclerView = (RecyclerView) findViewById(R.id.word_card_recycleView);
+                        manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+                        recyclerView.setLayoutManager(manager); // LayoutManager 등록
+                        wordAdapter = new WordAdapter(dataList);
+                        recyclerView.setAdapter(wordAdapter);  // Adapter 등록
+                    }catch(NullPointerException e){
+                        e.printStackTrace();
+                    }
+                } else {
+                    Log.i("mytag", "No such document");
+                }
+            } else {
+                Log.i("mytag", "get failed with " + task.getException());
             }
         });
     }
@@ -275,7 +329,6 @@ public class wordbook extends AppCompatActivity {
         });
         alert.show();
     }
-
     //단어 암기<->미암기 체크
     public void wordMemoryBtnClick(View view) {
         LinearLayout wordcardLL = (LinearLayout) view.getParent().getParent().getParent();
@@ -284,67 +337,67 @@ public class wordbook extends AppCompatActivity {
         TextView wordMean1 = wordcardLL.findViewById(R.id.list_word_mean1);
         TextView wordMean2 = wordcardLL.findViewById(R.id.list_word_mean2);
         TextView wordMean3 = wordcardLL.findViewById(R.id.list_word_mean3);
-        Log.i("mytag",englishWord.getText().toString());
         ImageView memorizeBtn = (ImageView) view;
 
         DocumentReference wordBooksDoc = db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID);
         //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
-        db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID)
-                .get().addOnCompleteListener((task) -> {
+        wordBooksDoc.get().addOnCompleteListener((task) -> {
             if (task.isSuccessful()) {
-                dataList = new ArrayList<>();
                 DocumentSnapshot document = task.getResult();
                 Map<String, Object> wordList_find = (Map<String, Object>) document.getData().get("wordlist");
                 try {
-                    //Iterator<String> keys = wordList_find.keySet().iterator();
                     Map<String, Object> newWordcardArray = new HashMap<>();
                     for(int i=0;i<wordList_find.size();i++){
-                    //while (keys.hasNext()) {
-                        //String key = keys.next();
-                        HashMap map_find = (HashMap) wordList_find.get(String.valueOf(i));
-
+                        Map<String, Object> map_find = (HashMap) wordList_find.get(String.valueOf(i));
+                        Map<String, Object> newWordCard = new HashMap<>();
                         String word_english = map_find.get("word").toString();
-                        int memorization = Integer.parseInt(map_find.get("memorization").toString());
-                        //Log.i("mytag","word_english ->"+englishWordText+":"+word_english+":"+String.valueOf(key));
+                        int word_memorization = Integer.parseInt(map_find.get("memorization").toString());
+                        newWordCard.put("word",word_english);
+                        newWordCard.put("mean1",map_find.get("mean1"));
 
-                        //Map<String, Object> newWordCard = new HashMap<>();
-                        //newWordCard.put("word",word_english);
-                        //newWordCard.put("mean1",map_find.get("mean1"));
-                        if(map_find.get("mean2")!="")
-                            //newWordCard.put("mean2",map_find.get("mean2"));
-                        if(map_find.get("mean3")!="")
-                            //newWordCard.put("mean3",map_find.get("mean3"));
-
+                        if(map_find.get("mean2")!=""){
+                            newWordCard.put("mean2",map_find.get("mean2"));
+                        }else {
+                            newWordCard.put("mean2","");
+                        }
+                        if(map_find.get("mean3")!="") {
+                            newWordCard.put("mean3",map_find.get("mean3"));
+                        }else {
+                            newWordCard.put("mean3","");
+                        }
                         if(englishWordText.equals(word_english)){
-                            if(memorization ==0){
+                            dataChange = true;
+                            if(word_memorization ==0){
                                 //memorization 1로 전환 후
-                                //newWordCard.put("memorization",1);
-                                //newWordcardArray.put(String.valueOf(i),newWordCard);
-                                wordBooksDoc.update("wordbookexplain","수정");
+                                newWordCard.put("memorization",1);
                                 memorizeBtn.setImageResource(R.drawable.memorization_check);
                                 englishWord.setTextColor(Color.LTGRAY);
                                 wordMean1.setTextColor(Color.LTGRAY);
                                 wordMean2.setTextColor(Color.LTGRAY);
                                 wordMean3.setTextColor(Color.LTGRAY);
+                                Toast myToast = Toast.makeText(this.getApplicationContext(),R.string.toast_change_to_memorization ,Toast.LENGTH_SHORT);
+                                myToast.show();
                             }else{
-                                //wordBooksDoc.update("wordbookexplain","2020 수능특강 1강에 나오는 단어들이다.");
-                                //newWordCard.put("memorization",0);
-                                //newWordcardArray.put(String.valueOf(i),newWordCard);
-                                wordBooksDoc.update("wordlist/"+String.valueOf(i)+"/memorization",0);
+                                newWordCard.put("memorization",0);
                                 memorizeBtn.setImageResource(R.drawable.memorization_uncheck);
                                 englishWord.setTextColor(Color.BLACK);
                                 wordMean1.setTextColor(Color.BLACK);
                                 wordMean2.setTextColor(Color.BLACK);
                                 wordMean3.setTextColor(Color.BLACK);
+                                Toast myToast = Toast.makeText(this.getApplicationContext(),R.string.toast_change_to_notmemorization ,Toast.LENGTH_SHORT);
+                                myToast.show();
                             }
-                            //break;
                         }else{
-                            //Log.i("mytag","not working");
-                            //newWordCard.put("memorization",map_find.get("memorization"));
-                            //newWordcardArray.put(String.valueOf(i),newWordCard);
+                            newWordCard.put("memorization",map_find.get("memorization"));
                         }
+                        newWordcardArray.put(String.valueOf(i),newWordCard);
                     }
-                    //wordBooksDoc.update("wordlist",newWordcardArray);
+                    wordBooksDoc.update("wordlist",newWordcardArray);
+                    if(dataChange == true){
+                        Log.i("mytag","data chage ");
+                        updateWordcard(thisWordbookMemorizationType);
+                        dataChange = false;
+                    }
                 }catch(NullPointerException e){
                     e.printStackTrace();
                 }
@@ -352,7 +405,5 @@ public class wordbook extends AppCompatActivity {
                 Log.i("mytag", "get failed with " + task.getException());
             }
         });
-
-
     }
 }
