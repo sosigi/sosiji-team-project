@@ -15,12 +15,14 @@
     <string name="word_m1">1. 단어뜻1</string>
     <string name="word_m2">2. 단어뜻2</string>
     <string name="word_m3">3. 단어뜻3</string>
+    <string name="recommend_word_add">단어가 없습니다. 단어를 추가해보세요.</string>
 
     <!--    toast message 모음 -->
     <string name="toast_change_to_memorization">"✔ 암기로 변경되었습니다."</string>
     <string name="toast_change_to_notmemorization">"✔ 미암기로 변경되었습니다."</string>
     <string name="toast_hide_word">"✔ 영단어를 숨깁니다."</string>
     <string name="toast_hide_mean">"✔ 단어의 뜻을 숨깁니다."</string>
+    <string name="toast_delete_word">단어가 삭제되었습니다.</string>
 
     <!-- [wordAdd]에서 사용되는 string  -->
     <string name="word_add_title">단어 추가</string>
