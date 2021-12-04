@@ -1,41 +1,13 @@
 package com.sausage.voca;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class wordAdd extends AppCompatActivity {
 
@@ -49,7 +21,6 @@ public class wordAdd extends AppCompatActivity {
 //    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     //child()는 데이터가 있을 위치의 이름을 정해준다.
 //    DatabaseReference conditionRef = mRootRef.child("test");
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

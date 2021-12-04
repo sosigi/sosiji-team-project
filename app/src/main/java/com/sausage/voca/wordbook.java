@@ -62,18 +62,18 @@ public class wordbook extends AppCompatActivity {
     TextView wordbook_top_title;
     TextView wordbook_top_explain;
 
-    //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
-    String wordbookID = "0";
-    int thisWordbookMemorizationType = 2;
-    //default=2, 암기=1, 미암기=0;
-    int thisWordbookHideType = 0;
-    //default =0, 단어숨김=1, 뜻숨김=2;
-
-    //database
+    //[database]
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DocumentReference wordBooksDoc;
 
+    //[단어장 정보]
+    String wordbookID = "0";
+    //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
+    int thisWordbookMemorizationType = 2;
+    //default=2, 암기=1, 미암기=0;
+    int thisWordbookHideType = 0;
+    //default =0, 단어숨김=1, 뜻숨김=2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -264,9 +264,9 @@ public class wordbook extends AppCompatActivity {
                 if (document.exists()) {
                     dataList = new ArrayList<>();
                     Map<String, Object> wordList = (Map<String, Object>) document.getData().get("wordlist");
+                    int countWordlist =0;
                     try {
                         Iterator<String> keys = wordList.keySet().iterator();
-                        int countWordlist =0;
                         while (keys.hasNext()) {
                             String key = keys.next();
                             HashMap map = (HashMap) wordList.get(key);
@@ -298,14 +298,14 @@ public class wordbook extends AppCompatActivity {
                         wordAdapter = new WordAdapter(dataList);
                         recyclerView.setAdapter(wordAdapter);  // Adapter 등록
 
-                        TextView text = findViewById(R.id.recommend_word_add);
-                        if(countWordlist==0){
-                            text.setVisibility(text.VISIBLE);
-                        }else{
-                            text.setVisibility(text.GONE);
-                        }
                     }catch(NullPointerException e){
                         e.printStackTrace();
+                    }
+                    TextView text = findViewById(R.id.recommend_word_add);
+                    if(countWordlist==0){
+                        text.setVisibility(text.VISIBLE);
+                    }else{
+                        text.setVisibility(text.GONE);
                     }
                 } else {
                     Log.i("mytag", "No such document");
@@ -330,7 +330,7 @@ public class wordbook extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Log.i("mytag", "YES");
-
+                //TODO : 시하 단어추가 참고
                 wordBooksDoc.get().addOnCompleteListener((task) -> {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
