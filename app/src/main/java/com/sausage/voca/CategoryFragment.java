@@ -1,7 +1,5 @@
 package com.sausage.voca;
 
-import static android.app.Activity.RESULT_OK;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.ListFragment;
@@ -28,7 +25,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 
@@ -106,8 +102,8 @@ public class CategoryFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         String strText = (String) l.getItemAtPosition(position);
-        Log.d("Fragment: ", position + ": " + strText);
-        Toast.makeText(this.getContext(), "클릭: " + position + " " + strText, Toast.LENGTH_SHORT).show();
+        //Log.d("Fragment: ", position + ": " + strText);
+        //Toast.makeText(this.getContext(), "클릭: " + position + " " + strText, Toast.LENGTH_SHORT).show();
         String ID = String.valueOf(position);
         Intent intent = new Intent(getActivity(), wordbook.class).putExtra("id",ID);
         startActivity(intent);
@@ -122,8 +118,8 @@ public class CategoryFragment extends ListFragment {
                     .document(user.getUid())
                     .collection("wordbooks");
 
-            Log.i("mytag", "wordbooksRef 주소 : " + wordbooksRef.toString()); //일단 wordbook ref까지는 접근 완료.
-            Log.i("mytag", "wordbooksRef 경로 : " + wordbooksRef.getPath());
+            //Log.i("mytag", "wordbooksRef 주소 : " + wordbooksRef.toString()); //일단 wordbook ref까지는 접근 완료.
+            //Log.i("mytag", "wordbooksRef 경로 : " + wordbooksRef.getPath());
 
             //이제 wordbook 안에 있는 두 문서(0,1)에 접근하고, 그 각각의 문서에서 wordbooktitle 필드를 빼내와야 한다
             wordbooksRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -132,7 +128,7 @@ public class CategoryFragment extends ListFragment {
 
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            Log.i("mytag", "words : " + document.getData().get("wordbooktitle"));
+                            //Log.i("mytag", "words : " + document.getData().get("wordbooktitle"));
                             String wordbooktitle = document.getData().get("wordbooktitle").toString();
                             titles.add(wordbooktitle);
                             adapter.notifyDataSetChanged(); //데이터 갱신됐다는 알림 전달 -> adapter가 화면에 띄워줌

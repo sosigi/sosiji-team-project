@@ -10,94 +10,140 @@
         android:layout_height="match_parent"
         android:background="@color/backgroundColor"
         android:orientation="vertical">
-        //상단바
-
+        <!--    상단바    -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/pointColor"
             android:baselineAligned="true"
             android:orientation="horizontal"
+            android:padding="10dp"
             android:scaleType="fitCenter">
 
             <ImageButton
                 android:id="@+id/category_add_back"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
                 android:adjustViewBounds="true"
-                android:layout_marginTop="10dp"
                 android:background="@android:color/transparent"
-                android:maxWidth="30dp"
+                android:maxWidth="35dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/backbutton" />
 
             <TextView
-                android:layout_width="220dp"
-                android:layout_height="66dp"
-                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="단어장 추가"
+                android:text="@string/category_add"
                 android:textColor="@color/white"
-                android:textSize="25sp" />
+                android:textSize="28sp" />
 
             <TextView
                 android:id="@+id/category_add_complete"
-                android:layout_width="58dp"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="완료"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/word_add_complete"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="23sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:baselineAligned="true"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
-                android:layout_marginTop="20dp"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="이름"
+                android:text="@string/category_name"
                 android:textColor="@color/unActiveColor"
                 android:textSize="20sp" />
 
             <EditText
+                android:id="@+id/category_new_title"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
-                android:text="수능 영단어"
+                android:hint="@string/category_add_title"
                 android:inputType="text" />
-            />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:baselineAligned="true"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
-                android:layout_marginTop="20dp"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="설명"
+                android:text="@string/category_explain"
                 android:textColor="@color/unActiveColor"
                 android:textSize="20sp" />
 
             <EditText
+                android:id="@+id/category_new_explain"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
-                android:text="수능 영어 단어를 모아놓았다."
+                android:hint="@string/category_add_explain"
                 android:inputType="text" />
-
         </LinearLayout>
+
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="80dp"-->
+        <!--            android:orientation="horizontal">-->
+
+        <!--            <TextView-->
+        <!--                android:layout_width="60dp"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:layout_marginLeft="25dp"-->
+        <!--                android:layout_marginTop="20dp"-->
+        <!--                android:gravity="center_horizontal|center_vertical"-->
+        <!--                android:text="이름"-->
+        <!--                android:textColor="@color/unActiveColor"-->
+        <!--                android:textSize="20sp" />-->
+
+        <!--            <EditText-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:layout_marginLeft="25dp"-->
+        <!--                android:inputType="text"-->
+        <!--                android:text="수능 영단어" />-->
+        <!--        </LinearLayout>-->
+
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="80dp"-->
+        <!--            android:orientation="horizontal">-->
+
+        <!--            <TextView-->
+        <!--                android:layout_width="60dp"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:layout_marginLeft="25dp"-->
+        <!--                android:layout_marginTop="20dp"-->
+        <!--                android:gravity="center_horizontal|center_vertical"-->
+        <!--                android:text="설명"-->
+        <!--                android:textColor="@color/unActiveColor"-->
+        <!--                android:textSize="20sp" />-->
+
+        <!--            <EditText-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:layout_marginLeft="25dp"-->
+        <!--                android:inputType="text"-->
+        <!--                android:text="수능 영어 단어를 모아놓았다." />-->
+
+        <!--        </LinearLayout>-->
 
 
     </LinearLayout>
