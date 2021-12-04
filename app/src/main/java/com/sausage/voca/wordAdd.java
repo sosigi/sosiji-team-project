@@ -79,7 +79,6 @@ public class wordAdd extends AppCompatActivity {
             editText2.setText(data[1]);
         }
 
-
         word_add_back = findViewById(R.id.word_add_back);
         word_add_back.setOnClickListener(new View.OnClickListener() {
             @Override
