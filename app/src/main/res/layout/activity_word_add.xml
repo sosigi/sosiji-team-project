@@ -69,7 +69,7 @@
                     android:textSize="20sp" />
 
                 <EditText
-                    android:id="@+id/test_edit_text"
+                    android:id="@+id/english"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/word_add_word_edit_text"
@@ -93,6 +93,7 @@
                     android:textSize="20sp" />
 
                 <EditText
+                    android:id="@+id/korean"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/word_add_mean_edit_text"

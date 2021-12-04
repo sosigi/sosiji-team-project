@@ -1,6 +1,5 @@
 package com.sausage.voca;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -74,11 +73,14 @@ public class wordbook extends AppCompatActivity {
     //default =0, 단어숨김=1, 뜻숨김=2;
 
 
-    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wordbook);
+
+        wordbookID = getIntent().getStringExtra("id");
+        Log.i("mytag", "가져온 id값은 " + wordbookID);
+        onSidebarClick();
 
         //wordbooktitle, wordbookexplain 출력.
         categoryName = findViewById(R.id.categoryName);
@@ -112,40 +114,8 @@ public class wordbook extends AppCompatActivity {
         Typeface wordfont = Typeface.createFromAsset(getAssets(), "times_new_roman.ttf");
         wordQuiztextview.setTypeface(wordfont);
 
-        //drawer onclickListener
-        search = findViewById(R.id.dicSearch);
-        category = findViewById(R.id.category);
-        mypage = findViewById(R.id.setting);
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent().putExtra("inform", "search");
-                Log.i("mytag", "보낼 Data는 search");
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-        });
-        category.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent().putExtra("inform", "category");
-                Log.i("mytag", "보낼 Data는 category");
-                setResult(RESULT_OK, intent);
 
-                finish();
-            }
-        });
-        mypage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.putExtra("inform", "mypage");
-                Log.i("mytag", "보낼 Data는 mypage");
 
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-        });
 
         //단어 정렬 선택 btn (전체/암기/미암기)
         mWordSorting = findViewById(R.id.select_wordSorting);
@@ -247,6 +217,34 @@ public class wordbook extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), wordAdd.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void onSidebarClick() {
+        //drawer onclickListener
+        search = findViewById(R.id.dicSearch);
+        category = findViewById(R.id.category);
+        mypage = findViewById(R.id.setting);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Main.class);
+                startActivity(intent);
+            }
+        });
+        category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Main.class);
+                startActivity(intent);
+            }
+        });
+        mypage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Mypage.class);
                 startActivity(intent);
             }
         });
