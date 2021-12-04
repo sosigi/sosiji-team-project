@@ -26,9 +26,7 @@ public class CategoryAdd extends AppCompatActivity {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Category.class);
-
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -36,7 +34,6 @@ public class CategoryAdd extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Category.class);
-
                 startActivity(intent);
             }
         });

@@ -45,9 +45,10 @@ public class DicSearch extends AppCompatActivity {
         searched = findViewById(R.id.result_searched);
         meaning = findViewById(R.id.result_meaning);
 
-        Intent intent = getIntent();//TODO 여기서 뭔 문제가 있는지, 자꾸 검색결과 화면이 두 개가 겹친다
-        CharSequence search = intent.getExtras().getCharSequence("search");
+        //TODO 여기서 뭔 문제가 있는지, 자꾸 검색결과 화면이 두 개가 겹친다
+        CharSequence search = getIntent().getCharSequenceExtra("search");
         searching_word.setText(search);
+        RunThread();
 
         searching_word.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -66,8 +67,7 @@ public class DicSearch extends AppCompatActivity {
         dicSearch_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Main.class);
-                startActivity(intent);
+                finish();
             }
         });
         dicSearch_add.setOnClickListener(new View.OnClickListener() {
