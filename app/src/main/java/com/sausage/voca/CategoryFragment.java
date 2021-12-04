@@ -53,6 +53,7 @@ public class CategoryFragment extends ListFragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     ListView listView;
+    TextView edit;
     List<String> titles = new ArrayList<>();
     ArrayAdapter<String> adapter;
 
@@ -70,8 +71,19 @@ public class CategoryFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View v = inflater.inflate(R.layout.fragment_category, null);
         listView = v.findViewById(android.R.id.list);
+        edit = v.findViewById(R.id.category_edit);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("mytag", "edit 클릭됨");
+                Intent intent = new Intent(getActivity(), Category.class);
+                startActivity(intent);
+            }
+        });
+
         adapter = new ArrayAdapter<String>(listView.getContext(), android.R.layout.simple_list_item_1, titles){
             @Override
             public View getView(int position, View convertView, ViewGroup parent)

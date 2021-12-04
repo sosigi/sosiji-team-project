@@ -29,7 +29,7 @@ import java.util.List;
 
 public class Main extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView logout, dicsearch, category, setting;
+    private TextView logout, dicsearch, category, setting, categoryedit;
     private final int Fragment_1 = 1, Fragment_2 = 2;
     private long first_time, second_time;
     FragmentManager fragmentManager = getSupportFragmentManager(); //fragment 관리

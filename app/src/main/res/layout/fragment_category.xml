@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".CategoryFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,13 +37,6 @@
             android:textSize="18sp" />
     </LinearLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="40dp"
-        android:paddingTop="120dp"
-        android:fillViewport="true">
-
         <!--        <androidx.recyclerview.widget.RecyclerView-->
         <!--            android:id="@+id/wordbookTitleRecyclerView"-->
         <!--            android:layout_width="match_parent"-->
@@ -50,7 +47,10 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:divider="@null"
-            android:dividerHeight="0dp">
+            android:dividerHeight="0dp"
+            android:paddingLeft="40dp"
+            android:paddingTop="70dp"
+            android:paddingBottom="40dp">
         </ListView>
-    </ScrollView>
+    </LinearLayout>
 </FrameLayout>

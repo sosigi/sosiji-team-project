@@ -31,7 +31,8 @@ import java.util.Map;
 public class DicSearch extends AppCompatActivity {
 
     private EditText searching_word; //이게 회색이면 안 쓰인거니까 뭐가 문제인지 눈여겨볼것...
-    private TextView searched, meaning, dicSearch_back;
+    private TextView searched, meaning;
+    private ImageButton dicSearch_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
