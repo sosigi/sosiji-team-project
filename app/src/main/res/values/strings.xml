@@ -4,27 +4,25 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
+    <!-- [wordBook] db접근전 title, explain, wordcard 초기값   -->
+    <string name="wordbook_title">단어장 이름이 로딩중입니다 ... </string>
+    <string name="wordbook_explain">단어장 설명이 로딩중입니다 ...</string>
+    <string name="word">englishword</string>
+    <string name="word_m1">1. 단어뜻1</string>
+    <string name="word_m2">2. 단어뜻2</string>
+    <string name="word_m3">3. 단어뜻3</string>
+
+    <!-- [wordBook]에서 사용되는 string  -->
+    <string name="recommend_word_add">단어가 없습니다. 단어를 추가해보세요.</string>
     <string name="hide_word">● 단어 숨김</string>
     <string name="hide_meaning">● 뜻 숨김</string>
-
-    <string name="word">englishword</string>
-    <string name="word_m1">1. 의미1</string>
-    <string name="word_m2">2. 의미2</string>
-    <string name="word_m3">3. 의미3</string>
-
-    <string name="word1">englishWord</string>
-    <string name="word1_m1">1. 단어뜻1</string>
-    <string name="word1_m2">2. 단어뜻2</string>
-    <string name="word1_m3">3. 단어뜻3</string>
-
-    <string name="word2">patron</string>
-    <string name="word2_m1">1. (화가,작가 등에 대한) 후원자</string>
-    <string name="word2_m2">2. (자선 단체 등의) 홍보 대사</string>
-    <string name="word2_m3">3. (특정 상점, 식당 등의) 고객</string>
 
     <!--    toast message 모음 -->
     <string name="toast_change_to_memorization">"✔ 암기로 변경되었습니다."</string>
     <string name="toast_change_to_notmemorization">"✔ 미암기로 변경되었습니다."</string>
+    <string name="toast_hide_word">"✔ 영단어를 숨깁니다."</string>
+    <string name="toast_hide_mean">"✔ 단어의 뜻을 숨깁니다."</string>
+    <string name="toast_delete_word">단어가 삭제되었습니다.</string>
 
     <!-- [wordAdd]에서 사용되는 string  -->
     <string name="word_add_title">단어 추가</string>
@@ -45,4 +43,21 @@
     <!-- [main]-카테고리 에서 사용되는 string   -->
     <string name="category_edit">단어장 관리</string>
     <string name="category_title">wordbook title</string>
+    <string name="category_name">이름</string>
+    <string name="category_explain">설명</string>
+
+    <!-- [category]에서 사용되는 string   -->
+    <string name="list_category_title">단어장 title</string>
+    <string name="category_edit_btn">수정</string>
+
+
+    <!-- [categoryAdd]에서 사용되는 string   -->
+    <string name="category_add">단어장 추가</string>
+    <string name="category_add_title">단어장의 이름을 작성하시오.</string>
+    <string name="category_add_explain">단어장의 설명을 작성하시오.</string>
+        <!-- toast message-->
+        <string name="category_add_can_not_complete">빈칸을 작성하시오.</string>
+        <string name="category_add_rewrite_title">단어장의 이름을 다시 작성하시오.</string>
+        <string name="category_add_complete">단어장이 추가되었습니다.</string>
+
 </resources>

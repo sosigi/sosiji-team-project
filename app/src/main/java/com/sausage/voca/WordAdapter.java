@@ -33,24 +33,29 @@ public class WordAdapter extends RecyclerView.Adapter<ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         /* ViewHolder가 관리하는 View에 position에 해당하는 데이터 바인딩 */
         viewHolder.englishWord_holder.setText(myDataList.get(position).getEnglishWord());
-        if(myDataList.get(position).getWordMean2()!=""){
-            viewHolder.wordMean2_holder.setText("2. "+myDataList.get(position).getWordMean2());
-        }else{
+        if (myDataList.get(position).getWordMean1() != "") {
+            viewHolder.wordMean1_holder.setText("1. " + myDataList.get(position).getWordMean1());
+        } else {
+            viewHolder.wordMean1_holder.setText("");
+        }
+        if (myDataList.get(position).getWordMean2() != "") {
+            viewHolder.wordMean2_holder.setText("2. " + myDataList.get(position).getWordMean2());
+        } else {
             viewHolder.wordMean2_holder.setText("");
         }
-        if(myDataList.get(position).getWordMean3()!=""){
-            viewHolder.wordMean3_holder.setText("3. "+myDataList.get(position).getWordMean3());
-        }else{
+        if (myDataList.get(position).getWordMean3() != "") {
+            viewHolder.wordMean3_holder.setText("3. " + myDataList.get(position).getWordMean3());
+        } else {
             viewHolder.wordMean3_holder.setText("");
         }
-        if(myDataList.get(position).getMemorization()==0){
+        if (myDataList.get(position).getMemorization() == 0) {
             //holder에서 src선정.
             viewHolder.englishWord_holder.setTextColor(Color.BLACK);
             viewHolder.wordMean1_holder.setTextColor(Color.BLACK);
             viewHolder.wordMean2_holder.setTextColor(Color.BLACK);
             viewHolder.wordMean3_holder.setTextColor(Color.BLACK);
             viewHolder.memorizeCheck_holder.setImageResource(R.drawable.memorization_uncheck);
-        }else{
+        } else {
             viewHolder.englishWord_holder.setTextColor(Color.LTGRAY);
             viewHolder.wordMean1_holder.setTextColor(Color.LTGRAY);
             viewHolder.wordMean2_holder.setTextColor(Color.LTGRAY);

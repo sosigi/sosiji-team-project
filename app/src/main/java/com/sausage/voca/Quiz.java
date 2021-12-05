@@ -387,8 +387,7 @@ public class Quiz extends QuizDialog {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Main.class);
-                startActivity(intent);
+                finish();
             }
         });
 

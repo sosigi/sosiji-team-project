@@ -32,7 +32,8 @@ public class DicSearch extends AppCompatActivity {
 
     private EditText searching_word; //이게 회색이면 안 쓰인거니까 뭐가 문제인지 눈여겨볼것...
     private TextView searched, meaning;
-    private ImageButton dicSearch_back;
+    private ImageButton dicSearch_back, dicSearch_add;
+    private String letsSearch, searchResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +45,10 @@ public class DicSearch extends AppCompatActivity {
         searched = findViewById(R.id.result_searched);
         meaning = findViewById(R.id.result_meaning);
 
-        Intent intent = getIntent();//TODO 여기서 뭔 문제가 있는지, 자꾸 검색결과 화면이 두 개가 겹친다
-        CharSequence search = intent.getExtras().getCharSequence("search");
+        //TODO 여기서 뭔 문제가 있는지, 자꾸 검색결과 화면이 두 개가 겹친다
+        CharSequence search = getIntent().getCharSequenceExtra("search");
         searching_word.setText(search);
+        RunThread();
 
         searching_word.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -60,11 +62,19 @@ public class DicSearch extends AppCompatActivity {
         });
 
         dicSearch_back = findViewById(R.id.dicSearch_back);
+        dicSearch_add = findViewById(R.id.dicSearch_add);
 
         dicSearch_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Main.class);
+                finish();
+            }
+        });
+        dicSearch_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] data = {letsSearch, searchResult};
+                Intent intent = new Intent(getApplicationContext(), wordAdd.class).putExtra("data", data);
                 startActivity(intent);
             }
         });
@@ -76,14 +86,14 @@ public class DicSearch extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    String letsSearch = searching_word.getText().toString();
-                    String str = main(letsSearch);
+                    letsSearch = searching_word.getText().toString();
+                    searchResult = main(letsSearch);
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             searched.setText(letsSearch); //TODO 이 방법이 최선인가?
-                            meaning.setText(str);
+                            meaning.setText(searchResult);
                         }
                     });
 

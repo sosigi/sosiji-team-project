@@ -34,7 +34,7 @@
                             android:id="@+id/list_english_word"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/word1"
+                            android:text="@string/word"
                             android:textColor="#000"
                             android:textSize="24dp"
                             android:fontFamily="@font/times_new_roman_bold"/>
@@ -78,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="15dp"
-                    android:text="@string/word1_m1"
+                    android:text="@string/word_m1"
                     android:textColor="#000"
                     android:textSize="16dp" />
 
@@ -87,7 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="15dp"
-                    android:text="@string/word1_m2"
+                    android:text="@string/word_m2"
                     android:textColor="#000"
                     android:textSize="16dp" />
 
@@ -96,7 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="15dp"
-                    android:text="@string/word1_m3"
+                    android:text="@string/word_m3"
                     android:textColor="#000"
                     android:textSize="16dp" />
             </LinearLayout>

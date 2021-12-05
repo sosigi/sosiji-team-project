@@ -48,6 +48,7 @@
             android:id="@+id/quiz_answer1"
             android:text=""
             android:textColor="@color/black"
+            android:textSize="20dp"
             app:backgroundTint="@color/backgroundColor" />
 
         <Button
@@ -59,6 +60,7 @@
             android:id="@+id/quiz_answer2"
             android:text=""
             android:textColor="@color/black"
+            android:textSize="20dp"
             app:backgroundTint="@color/backgroundColor" />
 
         <Button
@@ -70,6 +72,7 @@
             android:id="@+id/quiz_answer3"
             android:text=""
             android:textColor="@color/black"
+            android:textSize="20dp"
             app:backgroundTint="@color/backgroundColor" />
 
         <Button
@@ -80,6 +83,7 @@
             android:background="@drawable/quiz_btn"
             android:id="@+id/quiz_answer4"
             android:text=""
+            android:textSize="20dp"
             app:backgroundTint="@color/backgroundColor"
             android:textColor = "@color/black"/>
 

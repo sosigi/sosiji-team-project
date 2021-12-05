@@ -3,43 +3,28 @@ package com.sausage.voca;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.ListFragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
-
+import androidx.annotation.NonNull;
+import androidx.fragment.app.ListFragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import java.util.List;
 
 
 
@@ -53,7 +38,8 @@ public class CategoryFragment extends ListFragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     ListView listView;
-    List<String> titles = new ArrayList<>();
+    TextView edit;
+    ArrayList<String> titles = new ArrayList<>();
     ArrayAdapter<String> adapter;
 
 
@@ -73,6 +59,16 @@ public class CategoryFragment extends ListFragment {
 
         View v = inflater.inflate(R.layout.fragment_category, null);
         listView = v.findViewById(android.R.id.list);
+        edit = v.findViewById(R.id.category_edit);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("mytag", "edit 클릭됨");
+                Intent intent = new Intent(getActivity(), Category.class);
+                startActivity(intent);
+            }
+        });
+
         adapter = new ArrayAdapter<String>(listView.getContext(), android.R.layout.simple_list_item_1, titles){
             @Override
             public View getView(int position, View convertView, ViewGroup parent)
@@ -102,11 +98,15 @@ public class CategoryFragment extends ListFragment {
         return v;
     }
 
+    //TODO 삭제시 발생할 문제 고려
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         String strText = (String) l.getItemAtPosition(position);
-        Log.d("Fragment: ", position + ": " + strText);
-        Toast.makeText(this.getContext(), "클릭: " + position + " " + strText, Toast.LENGTH_SHORT).show();
+        //Log.d("Fragment: ", position + ": " + strText);
+        //Toast.makeText(this.getContext(), "클릭: " + position + " " + strText, Toast.LENGTH_SHORT).show();
+        String ID = String.valueOf(position);
+        Intent intent = new Intent(getActivity(), wordbook.class).putExtra("id",ID);
+        startActivity(intent);
     }
 
     private void getTitles(){
@@ -118,8 +118,8 @@ public class CategoryFragment extends ListFragment {
                     .document(user.getUid())
                     .collection("wordbooks");
 
-            Log.i("mytag", "wordbooksRef 주소 : " + wordbooksRef.toString()); //일단 wordbook ref까지는 접근 완료.
-            Log.i("mytag", "wordbooksRef 경로 : " + wordbooksRef.getPath());
+            //Log.i("mytag", "wordbooksRef 주소 : " + wordbooksRef.toString()); //일단 wordbook ref까지는 접근 완료.
+            //Log.i("mytag", "wordbooksRef 경로 : " + wordbooksRef.getPath());
 
             //이제 wordbook 안에 있는 두 문서(0,1)에 접근하고, 그 각각의 문서에서 wordbooktitle 필드를 빼내와야 한다
             wordbooksRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -128,7 +128,7 @@ public class CategoryFragment extends ListFragment {
 
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            Log.i("mytag", "words : " + document.getData().get("wordbooktitle"));
+                            //Log.i("mytag", "words : " + document.getData().get("wordbooktitle"));
                             String wordbooktitle = document.getData().get("wordbooktitle").toString();
                             titles.add(wordbooktitle);
                             adapter.notifyDataSetChanged(); //데이터 갱신됐다는 알림 전달 -> adapter가 화면에 띄워줌

@@ -11,37 +11,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Voca">
-        <activity
-            android:name=".QuizResult"
-            android:exported="true" />
-        <activity
-            android:name=".Quiz"
-            android:exported="true" />
-        <activity
-            android:name=".Mypage"
-            android:exported="false" />
+
+        <activity android:name=".Category"/>
+        <activity android:name=".CategoryAdd"/>
+        <activity android:name=".CategoryEdit"/>
         <activity android:name=".DicSearch" />
         <activity android:name=".Index">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Signup"
-            android:exported="true" />
-        <activity android:name=".Login" />
         <activity
             android:name=".Main"
             android:exported="true"
             android:launchMode="singleTask"/>
         <activity
-            android:name=".wordbook"
+            android:name=".Mypage"
+            android:exported="false" />
+        <activity
+            android:name=".Quiz"
             android:exported="true" />
+        <activity android:name=".QuizDialog" />
+        <activity
+            android:name=".QuizResult"
+            android:exported="true" />
+        <activity
+            android:name=".Signup"
+            android:exported="true" />
+        <activity android:name=".Login" />
         <activity
             android:name=".wordAdd"
             android:exported="true" />
+        <activity
+            android:name=".wordbook"
+            android:exported="true"/>
     </application>
 
 </manifest>

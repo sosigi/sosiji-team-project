@@ -40,7 +40,7 @@
                         android:layout_marginLeft="12dp"
                         android:adjustViewBounds="true"
                         android:background="@android:color/transparent"
-                        android:maxWidth="40dp"
+                        android:maxWidth="35dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/hamburger_bar" />
 
@@ -54,7 +54,7 @@
                         android:gravity="center"
                         android:marqueeRepeatLimit="marquee_forever"
                         android:singleLine="true"
-                        android:text="수능 영단어"
+                        android:text="@string/wordbook_explain"
                         android:textColor="@color/white"
                         android:textSize="25sp" />
 
@@ -66,7 +66,7 @@
                         android:layout_marginRight="12dp"
                         android:adjustViewBounds="true"
                         android:background="@android:color/transparent"
-                        android:maxWidth="40dp"
+                        android:maxWidth="35dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/plus_btn" />
                 </TableRow>
@@ -75,265 +75,88 @@
 
             <!--스크롤 뷰-->
 
-            <ScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="20dp"
-                android:layout_weight="1"
+                android:orientation="vertical"
                 android:paddingLeft="22dp"
                 android:paddingRight="22dp">
 
-                <LinearLayout
+                <!--단어장 정렬방식 선택-->
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp"
+                    android:stretchColumns="1">
+
+                    <TableRow>
+
+                        <TextView
+                            android:id="@+id/select_wordSorting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="전체 ▼" />
+
+                        <TextView
+                            android:id="@+id/hideWord"
+                            android:layout_column="2"
+                            android:text="@string/hide_word">
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/hideMeaning"
+                            android:paddingLeft="10dp"
+                            android:text="@string/hide_meaning">
+                        </TextView>
+                    </TableRow>
+                </TableLayout>
+
+                <!--단어장 이름-->
+
+                <TextView
+                    android:id="@+id/wordbook_top_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="25dp"
+                    android:text="@string/wordbook_title"
+                    android:textSize="23sp" />
+
+                <!--단어장 설명-->
+
+                <TextView
+                    android:id="@+id/wordbook_top_explain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="13dp"
+                    android:text="@string/wordbook_explain"
+                    android:textColor="#A8A8A8"
+                    android:textSize="16dp" />
+
+                <!--중간선-->
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="15dp"
+                    android:background="#000000" />
+                <TextView
+                    android:id="@+id/recommend_word_add"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:text="@string/recommend_word_add"
+                    android:textSize="18sp"
+                    android:textColor="#A8A8A8"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:visibility="gone"/>
 
-                    <!--단어장 정렬방식 선택-->
-
-                    <TableLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="15dp"
-                        android:stretchColumns="1">
-
-                        <TableRow>
-
-                            <TextView
-                                android:id="@+id/select_wordSorting"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="전체 ▼" />
-
-                            <TextView
-                                android:layout_column="2"
-                                android:text="@string/hide_word"></TextView>
-
-                            <TextView
-                                android:paddingLeft="10dp"
-                                android:text="@string/hide_meaning"></TextView>
-                        </TableRow>
-                    </TableLayout>
-
-                    <!--단어장 이름-->
-
-                    <TextView
-                        android:id="@+id/wordbook_top_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="25dp"
-                        android:text="수능 영단어"
-                        android:textSize="23sp" />
-
-                    <!--단어장 설명-->
-
-                    <TextView
-                        android:id="@+id/wordbook_top_explain"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="13dp"
-                        android:text="수능에 출제된 영단어 모음집이다."
-                        android:textColor="#A8A8A8"
-                        android:textSize="16dp" />
-
-                    <!--중간선-->
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="15dp"
-                        android:background="#000000" />
-
-                    <!--단어1-->
-
-<!--                    <FrameLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="32dp"-->
-<!--                        android:background="@drawable/wordcard_shadow">-->
-
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:background="#FFFEF9"-->
-<!--                            android:orientation="vertical"-->
-<!--                            android:padding="24dp">-->
-
-<!--                            <TableLayout-->
-<!--                                android:id="@+id/w1"-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:orientation="horizontal"-->
-<!--                                android:stretchColumns="0">-->
-
-<!--                                <TableRow>-->
-
-<!--                                    <TextView-->
-<!--                                        android:id="@+id/word1"-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:text="@string/word1"-->
-<!--                                        android:textColor="#000"-->
-<!--                                        android:textSize="24dp" />-->
-
-<!--                                    <ImageView-->
-<!--                                        android:id="@+id/memorization_uncheck"-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_marginRight="20dp"-->
-<!--                                        android:maxWidth="28dp"-->
-<!--                                        android:maxHeight="28dp"-->
-<!--                                        android:onClick="wordMemoryBtnClick"-->
-<!--                                        android:src="@drawable/memorization_uncheck" />-->
-
-<!--                                    <ImageView-->
-<!--                                        android:id="@+id/memorization_check"-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_marginRight="20dp"-->
-<!--                                        android:maxWidth="28dp"-->
-<!--                                        android:maxHeight="28dp"-->
-<!--                                        android:onClick="wordMemoryBtnClick"-->
-<!--                                        android:src="@drawable/memorization_check"-->
-<!--                                        android:visibility="gone" />-->
-
-<!--                                    <ImageButton-->
-<!--                                        android:id="@+id/delete_word"-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:adjustViewBounds="true"-->
-<!--                                        android:background="@android:color/transparent"-->
-<!--                                        android:maxWidth="28dp"-->
-<!--                                        android:onClick="deleteWordBtnClick"-->
-<!--                                        android:scaleType="fitCenter"-->
-<!--                                        android:src="@drawable/delete_word" />-->
-<!--                                    //android:onclick="deleteWordBtnClick"-->
-<!--                                </TableRow>-->
-<!--                            </TableLayout>-->
-
-<!--                            <TextView-->
-<!--                                android:id="@+id/word1_m1"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:paddingTop="15dp"-->
-<!--                                android:text="@string/word1_m1"-->
-<!--                                android:textColor="#000"-->
-<!--                                android:textSize="16dp" />-->
-
-<!--                            <TextView-->
-<!--                                android:id="@+id/word1_m2"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:paddingTop="15dp"-->
-<!--                                android:text="@string/word1_m2"-->
-<!--                                android:textColor="#000"-->
-<!--                                android:textSize="16dp" />-->
-
-<!--                            <TextView-->
-<!--                                android:id="@+id/word1_m3"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:paddingTop="15dp"-->
-<!--                                android:text="@string/word1_m3"-->
-<!--                                android:textColor="#000"-->
-<!--                                android:textSize="16dp" />-->
-<!--                        </LinearLayout>-->
-<!--                    </FrameLayout>-->
-
-                    <!--                    &lt;!&ndash;단어2&ndash;&gt;-->
-
-                    <!--                    <FrameLayout-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:layout_marginTop="32dp"-->
-                    <!--                        android:background="@drawable/wordcard_shadow">-->
-
-                    <!--                        <LinearLayout-->
-                    <!--                            android:layout_width="match_parent"-->
-                    <!--                            android:layout_height="wrap_content"-->
-                    <!--                            android:background="#FFFEF9"-->
-                    <!--                            android:orientation="vertical"-->
-                    <!--                            android:padding="24dp">-->
-
-                    <!--                            <TableLayout-->
-                    <!--                                android:layout_width="match_parent"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                android:orientation="horizontal"-->
-                    <!--                                android:stretchColumns="0">-->
-
-                    <!--                                <TableRow>-->
-
-                    <!--                                    <TextView-->
-                    <!--                                        android:id="@+id/word2"-->
-                    <!--                                        android:layout_width="wrap_content"-->
-                    <!--                                        android:layout_height="wrap_content"-->
-                    <!--                                        android:text="@string/word2"-->
-                    <!--                                        android:textColor="#000"-->
-                    <!--                                        android:textSize="24dp" />-->
-
-                    <!--                                    <ImageView-->
-                    <!--                                        android:id="@+id/memorization_uncheck1"-->
-                    <!--                                        android:layout_width="wrap_content"-->
-                    <!--                                        android:layout_height="wrap_content"-->
-                    <!--                                        android:layout_marginRight="20dp"-->
-                    <!--                                        android:maxWidth="28dp"-->
-                    <!--                                        android:maxHeight="28dp"-->
-                    <!--                                        android:src="@drawable/memorization_uncheck" />-->
-
-                    <!--                                    <ImageView-->
-                    <!--                                        android:id="@+id/memorization_check1"-->
-                    <!--                                        android:layout_width="wrap_content"-->
-                    <!--                                        android:layout_height="wrap_content"-->
-                    <!--                                        android:layout_marginRight="20dp"-->
-                    <!--                                        android:maxWidth="28dp"-->
-                    <!--                                        android:maxHeight="28dp"-->
-                    <!--                                        android:src="@drawable/memorization_check"-->
-                    <!--                                        android:visibility="gone" />-->
-
-                    <!--                                    <ImageView-->
-                    <!--                                        android:id="@+id/delete_word1"-->
-                    <!--                                        android:layout_width="wrap_content"-->
-                    <!--                                        android:layout_height="wrap_content"-->
-                    <!--                                        android:maxWidth="28dp"-->
-                    <!--                                        android:maxHeight="28dp"-->
-                    <!--                                        android:src="@drawable/delete_word" />-->
-                    <!--                                </TableRow>-->
-                    <!--                            </TableLayout>-->
-
-                    <!--                            <TextView-->
-                    <!--                                android:id="@+id/word2_m1"-->
-                    <!--                                android:layout_width="wrap_content"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                android:paddingTop="15dp"-->
-                    <!--                                android:text="@string/word2_m1"-->
-                    <!--                                android:textColor="#000"-->
-                    <!--                                android:textSize="16dp" />-->
-
-                    <!--                            <TextView-->
-                    <!--                                android:id="@+id/word2_m2"-->
-                    <!--                                android:layout_width="wrap_content"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                android:paddingTop="15dp"-->
-                    <!--                                android:text="@string/word2_m2"-->
-                    <!--                                android:textColor="#000"-->
-                    <!--                                android:textSize="16dp" />-->
-
-                    <!--                            <TextView-->
-                    <!--                                android:id="@+id/word2_m3"-->
-                    <!--                                android:layout_width="wrap_content"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                android:paddingTop="15dp"-->
-                    <!--                                android:text="@string/word2_m3"-->
-                    <!--                                android:textColor="#000"-->
-                    <!--                                android:textSize="16dp" />-->
-                    <!--                        </LinearLayout>-->
-                    <!--                    </FrameLayout>-->
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/word_card_recycleView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
-            </ScrollView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/word_card_recycleView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
         </LinearLayout>
         <!--하단고정-->
 

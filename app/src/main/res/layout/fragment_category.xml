@@ -6,51 +6,46 @@
     android:layout_height="match_parent"
     tools:context=".CategoryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right|center"
-        android:orientation="horizontal"
-        android:padding="12dp">
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:adjustViewBounds="true"
-            android:background="@android:color/transparent"
-            android:maxWidth="25dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/edit_category_icon" />
-
-        <TextView
-            android:id="@+id/category_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/category_edit"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="40dp"
-        android:paddingTop="120dp"
-        android:fillViewport="true">
+        android:orientation="vertical">
+        <!-- TODO: Update blank fragment layout -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right|center"
+            android:orientation="horizontal"
+            android:padding="12dp">
 
-        <!--        <androidx.recyclerview.widget.RecyclerView-->
-        <!--            android:id="@+id/wordbookTitleRecyclerView"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent"/>-->
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:maxWidth="25dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/edit_category_icon" />
+
+            <TextView
+                android:id="@+id/category_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category_edit"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+
         <ListView
             android:id="@android:id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:divider="@null"
-            android:dividerHeight="0dp">
-        </ListView>
-    </ScrollView>
+            android:dividerHeight="0dp"
+            android:orientation="vertical"
+            android:paddingLeft="40dp"
+            android:paddingTop="70dp"
+            android:paddingBottom="40dp"></ListView>
+    </LinearLayout>
 </FrameLayout>
