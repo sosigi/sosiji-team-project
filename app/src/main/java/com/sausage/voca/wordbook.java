@@ -57,7 +57,7 @@ public class wordbook extends AppCompatActivity {
     TextView search, category, mypage;
 
     //단어장 상단바
-    TextView categoryName;
+    TextView categoryName, wordQuiz;
     //단어장 상단부 - 소개 (wordbookTitle & explain)
     TextView wordbook_top_title;
     TextView wordbook_top_explain;
@@ -164,14 +164,8 @@ public class wordbook extends AppCompatActivity {
         //wordcard List 정렬.
         updateWordcard(thisWordbookMemorizationType);
 
-
         //custom font 적용 - quiz btn
-        TextView wordQuiztextview = findViewById(R.id.wordQuiz);
-        Typeface wordfont = Typeface.createFromAsset(getAssets(), "times_new_roman.ttf");
         wordQuiztextview.setTypeface(wordfont);
-
-
-
 
         //단어 정렬 선택 btn (전체/암기/미암기)
         mWordSorting = findViewById(R.id.select_wordSorting);
