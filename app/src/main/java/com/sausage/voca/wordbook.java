@@ -89,7 +89,60 @@ public class wordbook extends AppCompatActivity {
         Log.i("mytag", "가져온 id값은 " + wordbookID);
         onSidebarClick();
 
+
+        //custom font 적용 - quiz btn
+        TextView wordQuiztextview = findViewById(R.id.wordQuiz);
+        Typeface wordfont = Typeface.createFromAsset(getAssets(), "times_new_roman.ttf");
+        wordQuiztextview.setTypeface(wordfont);
+
+        //drawer onclickListener
+        search = findViewById(R.id.dicSearch);
+        category = findViewById(R.id.category);
+        mypage = findViewById(R.id.setting);
+        wordQuiz = findViewById(R.id.wordQuiz);
+
+        wordQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), QuizDialog.class);
+                startActivity(intent);
+            }
+        });
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent().putExtra("inform", "search");
+                Log.i("mytag", "보낼 Data는 search");
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+        category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent().putExtra("inform", "category");
+                Log.i("mytag", "보낼 Data는 category");
+                setResult(RESULT_OK, intent);
+
+                finish();
+            }
+        });
+        mypage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("inform", "mypage");
+                Log.i("mytag", "보낼 Data는 mypage");
+
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+
+        //단어장 title, explain Textset
+
         //wordbooktitle, wordbookexplain 출력.
+
         categoryName = findViewById(R.id.categoryName);
         categoryName.setSelected(true);
         wordbook_top_title = findViewById(R.id.wordbook_top_title);
