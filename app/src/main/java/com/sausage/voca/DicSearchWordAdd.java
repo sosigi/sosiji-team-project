@@ -2,7 +2,6 @@ package com.sausage.voca;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,38 +9,39 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class wordAdd extends AppCompatActivity {
+public class DicSearchWordAdd extends AppCompatActivity {
 
-    private TextView textView;
     private EditText editText1, editText2;
     private ImageButton word_add_back;
     private TextView word_add_add;
-    private TextView json_test_text;
-    String wordbookID = "0";
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String wordbookID = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_word_add);
-        wordbookID = getIntent().getStringExtra("categoryID");
+        setContentView(R.layout.activity_dic_search_word_add);
+
+        String[] data = getIntent().getStringArrayExtra("data");
 
         editText1 = findViewById(R.id.english);
         editText2 = findViewById(R.id.korean);
+
+        if (data != null) {
+            editText1.setText(data[0]);
+            editText2.setText(data[1]);
+        }
 
         word_add_back = findViewById(R.id.word_add_back);
         word_add_back.setOnClickListener(new View.OnClickListener() {
@@ -55,13 +55,11 @@ public class wordAdd extends AppCompatActivity {
         word_add_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String english = editText1.getText().toString();
-                String korean = editText2.getText().toString();
                 Map<String, Object> wordcardData = new HashMap<>();
-                wordcardData.put("word", english);
-                wordcardData.put("mean1", korean);
-                wordcardData.put("mean2", null);
-                wordcardData.put("mean3", null);
+                wordcardData.put("word", data[0]);
+                wordcardData.put("mean1", data[1]);
+                wordcardData.put("mean2", "");
+                wordcardData.put("mean3", "");
                 wordcardData.put("memorization", 0);
 
 
@@ -85,7 +83,5 @@ public class wordAdd extends AppCompatActivity {
                 finish();
             }
         });
-
     }
-
 }

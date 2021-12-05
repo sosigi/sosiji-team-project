@@ -47,8 +47,11 @@ public class DicSearch extends AppCompatActivity {
 
         //TODO 여기서 뭔 문제가 있는지, 자꾸 검색결과 화면이 두 개가 겹친다
         CharSequence search = getIntent().getCharSequenceExtra("search");
-        searching_word.setText(search);
-        RunThread();
+        if (search!=null) {
+            searching_word.setText(search);
+            RunThread();
+
+        }
 
         searching_word.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -74,7 +77,7 @@ public class DicSearch extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String[] data = {letsSearch, searchResult};
-                Intent intent = new Intent(getApplicationContext(), wordAdd.class).putExtra("data", data);
+                Intent intent = new Intent(getApplicationContext(), DicSearchWordAdd.class).putExtra("data", data);
                 startActivity(intent);
             }
         });
@@ -103,6 +106,9 @@ public class DicSearch extends AppCompatActivity {
             }
         });
         thread.start();
+        searched.setVisibility(View.VISIBLE);
+        meaning.setVisibility(View.VISIBLE);
+        dicSearch_add.setVisibility(View.VISIBLE);
     }
 
     public static String main(String args) throws JSONException {
