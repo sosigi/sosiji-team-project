@@ -11,10 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Voca">
-
-        <activity android:name=".Category"/>
-        <activity android:name=".CategoryAdd"/>
-        <activity android:name=".CategoryEdit"/>
+        <activity
+            android:name=".DicSearchWordAdd"
+            android:exported="false" />
+        <activity android:name=".Category" />
+        <activity android:name=".CategoryAdd" />
+        <activity android:name=".CategoryEdit" />
         <activity android:name=".DicSearch" />
         <activity android:name=".Index">
             <intent-filter>

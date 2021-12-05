@@ -1,4 +1,4 @@
-package com.sausage.voca.ui;
+package com.sausage.voca;
 
 import android.util.Log;
 

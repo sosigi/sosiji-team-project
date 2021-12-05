@@ -20,16 +20,21 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 
 public class CategoryFragment extends ListFragment {
 
+    String TAG = "mytag";
 
     TextView wordbook1, wordbook2, wordbook3;
     LinearLayout linearLayout;
@@ -69,10 +74,9 @@ public class CategoryFragment extends ListFragment {
             }
         });
 
-        adapter = new ArrayAdapter<String>(listView.getContext(), android.R.layout.simple_list_item_1, titles){
+        adapter = new ArrayAdapter<String>(listView.getContext(), android.R.layout.simple_list_item_1, titles) {
             @Override
-            public View getView(int position, View convertView, ViewGroup parent)
-            {
+            public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = view.findViewById(android.R.id.text1);
                 tv.setTextColor(Color.WHITE);
@@ -81,35 +85,41 @@ public class CategoryFragment extends ListFragment {
             }
         };
 
-
-        getTitles(); //db에서 title 정보 땡겨오는 함수
-        
-        v.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+        final CollectionReference docRef = db.collection("users").document(user.getUid()).collection("wordbooks");
+        docRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                v.removeOnLayoutChangeListener(this);
+            public void onEvent(QuerySnapshot value,
+                                FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e);
+                    return;
+                } else {
+                    Log.i(TAG, "카테고리 종류 : " + value);
+                    getTitles();
+                }
             }
         });
 
-
-        //이게 화면 띄워주는 필수 기능 두 가지인데, 각자가 어떤 역할을 하는지는 잘 모른다.
         listView.setAdapter(adapter);
         listView.getLastVisiblePosition();
         return v;
     }
 
+
     //TODO 삭제시 발생할 문제 고려
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         String strText = (String) l.getItemAtPosition(position);
-        //Log.d("Fragment: ", position + ": " + strText);
+        //Log.i("mytag","Fragment: "+ position + ": " + strText);
         //Toast.makeText(this.getContext(), "클릭: " + position + " " + strText, Toast.LENGTH_SHORT).show();
-        String ID = String.valueOf(position);
-        Intent intent = new Intent(getActivity(), wordbook.class).putExtra("id",ID);
+        String idPosition = String.valueOf(position);
+        Intent intent = new Intent(getActivity(), wordbook.class);
+        intent.putExtra("title", strText);
+        intent.putExtra("id", idPosition);
         startActivity(intent);
     }
 
-    private void getTitles(){
+    private void getTitles() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -127,6 +137,7 @@ public class CategoryFragment extends ListFragment {
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
                     if (task.isSuccessful()) {
+                        titles.clear(); //[시하] TODO 굳이..이렇게 해야하나?? 굳이?
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             //Log.i("mytag", "words : " + document.getData().get("wordbooktitle"));
                             String wordbooktitle = document.getData().get("wordbooktitle").toString();

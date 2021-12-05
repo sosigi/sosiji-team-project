@@ -231,7 +231,7 @@ public class Signup<mDatabase> extends AppCompatActivity implements View.OnClick
                     }
                 });
 
-        mRootRef.child("wordbook").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mRootRef.child("wordbooks").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
@@ -281,7 +281,7 @@ public class Signup<mDatabase> extends AppCompatActivity implements View.OnClick
                                         Log.w("mytag", "Error writing document", e);
                                     }
                                 });
-
+//                        db.collection("users").document(user.getUid()).collection("wordbooks").add(wordbookData);
                     }
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
 
