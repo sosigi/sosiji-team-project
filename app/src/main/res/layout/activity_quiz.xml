@@ -28,14 +28,15 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:gravity="bottom|center_horizontal"
-            android:text="아래 단어의   뜻은?"
+            android:text="아래 단어의 뜻은?"
             android:textSize="20sp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:gravity="top|center_horizontal"
-            android:text="reflex"
+            android:id="@+id/quiz_word"
+            android:text=""
             android:textSize="40sp" />
 
         <Button
@@ -44,7 +45,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
             android:background="@drawable/quiz_btn"
-            android:text="반사행동"
+            android:id="@+id/quiz_answer1"
+            android:text=""
             android:textColor="@color/black"
             app:backgroundTint="@color/backgroundColor" />
 
@@ -54,7 +56,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
             android:background="@drawable/quiz_btn"
-            android:text="용감함"
+            android:id="@+id/quiz_answer2"
+            android:text=""
             android:textColor="@color/black"
             app:backgroundTint="@color/backgroundColor" />
 
@@ -64,7 +67,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
             android:background="@drawable/quiz_btn"
-            android:text="언어학"
+            android:id="@+id/quiz_answer3"
+            android:text=""
             android:textColor="@color/black"
             app:backgroundTint="@color/backgroundColor" />
 
@@ -74,10 +78,10 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
             android:background="@drawable/quiz_btn"
-            android:text="진동하다"
+            android:id="@+id/quiz_answer4"
+            android:text=""
             app:backgroundTint="@color/backgroundColor"
             android:textColor = "@color/black"/>
-
 
     </LinearLayout>
 

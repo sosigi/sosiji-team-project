@@ -85,6 +85,15 @@ public class wordbook extends AppCompatActivity {
         search = findViewById(R.id.dicSearch);
         category = findViewById(R.id.category);
         mypage = findViewById(R.id.setting);
+        wordQuiz = findViewById(R.id.wordQuiz);
+
+        wordQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), QuizDialog.class);
+                startActivity(intent);
+            }
+        });
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
