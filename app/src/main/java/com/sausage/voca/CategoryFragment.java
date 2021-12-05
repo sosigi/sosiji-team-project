@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,11 +28,7 @@ import java.util.ArrayList;
 
 
 public class CategoryFragment extends ListFragment {
-
-
-    TextView wordbook1, wordbook2, wordbook3;
-    LinearLayout linearLayout;
-
+    String TAG ="mytag";
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -47,9 +42,6 @@ public class CategoryFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //firestore에서 wordbooktitle끌어오기.
-        //컬렉션>문서>필드
-
     }
 
     @Override
@@ -60,13 +52,10 @@ public class CategoryFragment extends ListFragment {
         View v = inflater.inflate(R.layout.fragment_category, null);
         listView = v.findViewById(android.R.id.list);
         edit = v.findViewById(R.id.category_edit);
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("mytag", "edit 클릭됨");
-                Intent intent = new Intent(getActivity(), Category.class);
-                startActivity(intent);
-            }
+        edit.setOnClickListener(v1 -> {
+            Log.i("mytag", "edit 클릭됨");
+            Intent intent = new Intent(getActivity(), Category.class);
+            startActivity(intent);
         });
 
         adapter = new ArrayAdapter<String>(listView.getContext(), android.R.layout.simple_list_item_1, titles){
@@ -83,6 +72,20 @@ public class CategoryFragment extends ListFragment {
 
 
         getTitles(); //db에서 title 정보 땡겨오는 함수
+
+        //wordcardTitle List 변경된 내용 있는지 확인.
+        final CollectionReference colRef = db.collection("users").document(user.getUid()).collection("wordbooks");
+        colRef.addSnapshotListener((snapshot, e) -> {
+            if (e != null) {
+                Log.w(TAG, "Listen failed.", e);
+                return;
+            }
+            if (snapshot != null && !snapshot.isEmpty()) {
+                Log.d(TAG, "Current data: ");
+            } else {
+                Log.d(TAG, "Current data: null");
+            }
+        });
         
         v.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
@@ -90,7 +93,6 @@ public class CategoryFragment extends ListFragment {
                 v.removeOnLayoutChangeListener(this);
             }
         });
-
 
         //이게 화면 띄워주는 필수 기능 두 가지인데, 각자가 어떤 역할을 하는지는 잘 모른다.
         listView.setAdapter(adapter);
@@ -112,7 +114,6 @@ public class CategoryFragment extends ListFragment {
     }
 
     private void getTitles(){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             CollectionReference wordbooksRef = db
