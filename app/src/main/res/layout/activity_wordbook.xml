@@ -207,16 +207,8 @@
                     android:id="@+id/dicSearch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="25dp"
+                    android:layout_marginBottom="30dp"
                     android:text="사전 검색"
-                    android:textSize="25dp" />
-
-                <TextView
-                    android:id="@+id/category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="25dp"
-                    android:text="카테고리"
                     android:textSize="25dp" />
 
                 <TextView

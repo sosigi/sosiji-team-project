@@ -55,9 +55,9 @@
     <string name="category_add">단어장 추가</string>
     <string name="category_add_title">단어장의 이름을 작성하시오.</string>
     <string name="category_add_explain">단어장의 설명을 작성하시오.</string>
-        <!-- toast message-->
-        <string name="category_add_can_not_complete">빈칸을 작성하시오.</string>
-        <string name="category_add_rewrite_title">단어장의 이름을 다시 작성하시오.</string>
-        <string name="category_add_complete">단어장이 추가되었습니다.</string>
+    <!-- toast message-->
+    <string name="category_add_can_not_complete">빈칸을 작성하시오.</string>
+    <string name="category_add_rewrite_title">단어장의 이름을 다시 작성하시오.</string>
+    <string name="category_add_complete">단어장이 추가되었습니다.</string>
 
 </resources>

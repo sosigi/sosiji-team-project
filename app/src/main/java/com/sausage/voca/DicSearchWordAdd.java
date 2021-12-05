@@ -2,7 +2,6 @@ package com.sausage.voca;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,33 +18,30 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class wordAdd extends AppCompatActivity {
+public class DicSearchWordAdd extends AppCompatActivity {
 
-    private TextView textView;
     private EditText editText1, editText2;
     private ImageButton word_add_back;
     private TextView word_add_add;
-    private TextView json_test_text;
-    String wordbookID = "0";
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    //[은소]test - edit text에 입력된 내용을 realtime database에 업로드해봄.
-    //데이터베이스에서 데이터를 읽고 쓰려면 DataReference의 인스턴스가 필요하다.
-//    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    //child()는 데이터가 있을 위치의 이름을 정해준다.
-//    DatabaseReference conditionRef = mRootRef.child("test");
-
+    String wordbookID = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_word_add);
-        wordbookID = getIntent().getStringExtra("categoryID");
+        setContentView(R.layout.activity_dic_search_word_add);
+
+        String[] data = getIntent().getStringArrayExtra("data");
 
         editText1 = findViewById(R.id.english);
         editText2 = findViewById(R.id.korean);
+
+        if (data != null) {
+            editText1.setText(data[0]);
+            editText2.setText(data[1]);
+        }
 
         word_add_back = findViewById(R.id.word_add_back);
         word_add_back.setOnClickListener(new View.OnClickListener() {
@@ -59,13 +55,11 @@ public class wordAdd extends AppCompatActivity {
         word_add_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String english = editText1.getText().toString();
-                String korean = editText2.getText().toString();
                 Map<String, Object> wordcardData = new HashMap<>();
-                wordcardData.put("word", english);
-                wordcardData.put("mean1", korean);
-                wordcardData.put("mean2", null);
-                wordcardData.put("mean3", null);
+                wordcardData.put("word", data[0]);
+                wordcardData.put("mean1", data[1]);
+                wordcardData.put("mean2", "");
+                wordcardData.put("mean3", "");
                 wordcardData.put("memorization", 0);
 
 
@@ -89,7 +83,5 @@ public class wordAdd extends AppCompatActivity {
                 finish();
             }
         });
-
     }
-
 }

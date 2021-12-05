@@ -22,9 +22,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.annotations.Nullable;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,6 +36,7 @@ import java.util.Map;
 
 
 public class wordbook extends AppCompatActivity {
+    String TAG = "mytag";
     //단어 정렬
     final private String[] mSorting = {"전체", "암기", "미암기"};
     private TextView mWordSorting;
@@ -54,7 +58,7 @@ public class wordbook extends AppCompatActivity {
     boolean dataChange = false;
     boolean dataDelete = false;
 
-    TextView search, category, mypage;
+    TextView search, mypage;
 
     //단어장 상단바
     TextView categoryName;
@@ -74,16 +78,19 @@ public class wordbook extends AppCompatActivity {
     //default=2, 암기=1, 미암기=0;
     int thisWordbookHideType = 0;
     //default =0, 단어숨김=1, 뜻숨김=2;
+    boolean haveToINIT = false;
+    //단어가 단어장에 새로 추가되었는지 여부
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wordbook);
 
+
+        //From. categoryFragment
         wordbookID = getIntent().getStringExtra("id");
         wordBooksDoc = db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID);
-        Log.i("mytag", "가져온 id값은 " + wordbookID);
-        onSidebarClick();
+        Log.i(TAG, "가져온 id값은 " + wordbookID);
 
         //wordbooktitle, wordbookexplain 출력.
         categoryName = findViewById(R.id.categoryName);
@@ -101,23 +108,42 @@ public class wordbook extends AppCompatActivity {
                     wordbook_top_title.setText(document.get("wordbooktitle").toString());
                     wordbook_top_explain.setText(document.get("wordbookexplain").toString());
                 } else {
-                    Log.i("mytag", "No such document");
+                    Log.i(TAG, "No such document");
                 }
             } else {
-                Log.i("mytag", "get failed with " + task.getException());
+                Log.i(TAG, "get failed with " + task.getException());
             }
         });
 
-        //wordcard List 정렬.
-        updateWordcard(thisWordbookMemorizationType);
+        //wordcard List 변경된 내용 있는지 확인.
+        final DocumentReference docRef = db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID);
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent( DocumentSnapshot snapshot,
+                                 FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e);
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    Log.d(TAG, "Current data: " + snapshot.getData());
+                    updateWordcard(thisWordbookMemorizationType);
+
+                } else {
+                    Log.d(TAG, "Current data: null");
+                }
+            }
+        });
 
 
         //custom font 적용 - quiz btn
         TextView wordQuiztextview = findViewById(R.id.wordQuiz);
         Typeface wordfont = Typeface.createFromAsset(getAssets(), "times_new_roman.ttf");
         wordQuiztextview.setTypeface(wordfont);
-
-
+        
+        //drawer기능
+        onSidebarClick();
 
 
         //단어 정렬 선택 btn (전체/암기/미암기)
@@ -160,7 +186,7 @@ public class wordbook extends AppCompatActivity {
         wordHideBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Log.i("mytag","단어숨김 선택");
+                Log.i(TAG,"단어숨김 선택");
                 thisWordbookHideType=1;
                 updateWordcard(thisWordbookMemorizationType);
                 Toast myToast = Toast.makeText(view.getContext(),R.string.toast_hide_word ,Toast.LENGTH_SHORT);
@@ -173,7 +199,7 @@ public class wordbook extends AppCompatActivity {
         meanHideBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Log.i("mytag","단어숨김 선택");
+                Log.i(TAG,"단어숨김 선택");
                 thisWordbookHideType=2;
                 updateWordcard(thisWordbookMemorizationType);
                 Toast myToast = Toast.makeText(view.getContext(),R.string.toast_hide_mean ,Toast.LENGTH_SHORT);
@@ -219,7 +245,7 @@ public class wordbook extends AppCompatActivity {
         plusBtnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), wordAdd.class);
+                Intent intent = new Intent(getApplicationContext(), wordAdd.class).putExtra("categoryID", wordbookID);
                 startActivity(intent);
             }
         });
@@ -228,19 +254,11 @@ public class wordbook extends AppCompatActivity {
     private void onSidebarClick() {
         //drawer onclickListener
         search = findViewById(R.id.dicSearch);
-        category = findViewById(R.id.category);
         mypage = findViewById(R.id.setting);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Main.class);
-                startActivity(intent);
-            }
-        });
-        category.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Main.class);
+                Intent intent = new Intent(getApplicationContext(), DicSearch.class);
                 startActivity(intent);
             }
         });
@@ -308,10 +326,10 @@ public class wordbook extends AppCompatActivity {
                         text.setVisibility(text.GONE);
                     }
                 } else {
-                    Log.i("mytag", "No such document");
+                    Log.i(TAG, "No such document");
                 }
             } else {
-                Log.i("mytag", "get failed with " + task.getException());
+                Log.i(TAG, "get failed with " + task.getException());
             }
         });
     }
@@ -329,7 +347,7 @@ public class wordbook extends AppCompatActivity {
         alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Log.i("mytag", "YES");
+                Log.i(TAG, "YES");
                 //TODO : 시하 단어추가 참고
                 wordBooksDoc.get().addOnCompleteListener((task) -> {
                     if (task.isSuccessful()) {
@@ -364,7 +382,7 @@ public class wordbook extends AppCompatActivity {
                             }
                             if(dataDelete == true) {
                                 wordBooksDoc.update("wordlist",newWordcardArray);
-                                Log.i("mytag","data delete complete");
+                                Log.i(TAG,"data delete complete");
                                 updateWordcard(thisWordbookMemorizationType);
                                 Toast myToast = Toast.makeText(view.getContext(),R.string.toast_delete_word ,Toast.LENGTH_SHORT);
                                 myToast.show();
@@ -374,7 +392,7 @@ public class wordbook extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     } else {
-                        Log.i("mytag", "get failed with " + task.getException());
+                        Log.i(TAG, "get failed with " + task.getException());
                     }
                 });
             }
@@ -383,7 +401,7 @@ public class wordbook extends AppCompatActivity {
         alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
-                Log.i("mytag", "NO");
+                Log.i(TAG, "NO");
             }
         });
         alert.show();
@@ -451,7 +469,7 @@ public class wordbook extends AppCompatActivity {
                     }
                     wordBooksDoc.update("wordlist",newWordcardArray);
                     if(dataChange == true){
-                        Log.i("mytag","data chage ");
+                        Log.i(TAG,"data chage ");
                         updateWordcard(thisWordbookMemorizationType);
                         dataChange = false;
                     }
@@ -459,7 +477,7 @@ public class wordbook extends AppCompatActivity {
                     e.printStackTrace();
                 }
             } else {
-                Log.i("mytag", "get failed with " + task.getException());
+                Log.i(TAG, "get failed with " + task.getException());
             }
         });
     }

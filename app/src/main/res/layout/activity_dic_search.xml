@@ -41,6 +41,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="16dp"
+            android:hint="검색어를 입력하세요"
+            android:textColorHint="@color/white"
             android:textColor="@color/white" />
     </RelativeLayout>
 
@@ -62,7 +64,8 @@
                 android:padding="16dp"
                 android:text="검색한 단어"
                 android:textColor="@color/black"
-                android:textSize="18dp" />
+                android:textSize="18dp"
+                android:visibility="invisible" />
 
             <ImageButton
                 android:id="@+id/dicSearch_add"
@@ -74,7 +77,8 @@
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:maxWidth="20dp"
-                android:src="@drawable/plus_btn2" />
+                android:src="@drawable/plus_btn2"
+                android:visibility="invisible"/>
         </RelativeLayout>
 
         <TextView
@@ -86,7 +90,7 @@
             android:paddingRight="16dp"
             android:paddingBottom="10dp"
             android:textColor="@color/black"
-            />
+            android:visibility="invisible" />
     </LinearLayout>
 
 </LinearLayout>
