@@ -51,6 +51,8 @@
             android:exported="true"/>
         <activity android:name=".CategoryEdit"
             android:exported="true"/>
+        <activity android:name=".CategoryRevise"
+            android:exported="true"/>
     </application>
 
 </manifest>
