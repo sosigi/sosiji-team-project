@@ -533,6 +533,909 @@
           }
         ]
       }
+    },
+    {
+      "wordBookTitle": "2020 수능특강 3강",
+      "wordBookExplain": "2020년도 수능특강 3강에 관한 단어들이다.",
+      "wordList": {
+        "wordcard": [
+          {
+            "word": "accomplishment",
+            "mean1": "성취",
+            "memorization": "0"
+          },
+          {
+            "word": "scorebook",
+            "mean1": "득점 기록부",
+            "mean2": "스코어 북",
+            "memorization": "0"
+          },
+          {
+            "word": "spectacular",
+            "mean1": "멋진",
+            "mean2": "굉장한",
+            "mean3": "극적인",
+            "memorization": "0"
+          },
+          {
+            "word": "diving catch",
+            "mean1": "(야구) 다이빙 캐치",
+            "memorization": "0"
+          },
+          {
+            "word": "have game",
+            "mean1": "수준 높은 경기력(기술)을 가지다",
+            "memorization": "0"
+          },
+          {
+            "word": "get by",
+            "mean1": "그럭저럭 살아(해) 나가다",
+            "memorization": "0"
+          },
+          {
+            "word": "base hit",
+            "mean1": "안타",
+            "memorization": "0"
+          },
+          {
+            "word": "all-star",
+            "mean1": "(일류 선수 · 인기 연예인 등) 올스타전에 나오는 선수",
+            "mean2": "스타 총출전의",
+            "memorization": "0"
+          },
+          {
+            "word": "legendary",
+            "mean1": "전설적인",
+            "mean2": "아주 유명한",
+            "memorization": "0"
+          },
+          {
+            "word": "self-respect",
+            "mean1": "자존감",
+            "mean2": "자존심",
+            "memorization": "0"
+          },
+          {
+            "word": "sabotage",
+            "mean1": "(고의로) 방해하다",
+            "memorization": "0"
+          },
+          {
+            "word": "Texas Ranger",
+            "mean1": "텍사스㈜ 기마 경관",
+            "memorization": "0"
+          },
+          {
+            "word": "irrational",
+            "mean1": "비합리적인",
+            "memorization": "0"
+          },
+          {
+            "word": "generous",
+            "mean1": "관대한",
+            "memorization": "0"
+          },
+          {
+            "word": "quality",
+            "mean1": "자질",
+            "memorization": "0"
+          },
+          {
+            "word": "admire",
+            "mean1": "감탄하다",
+            "memorization": "0"
+          },
+          {
+            "word": "emotional",
+            "mean1": "정서적인",
+            "mean2": "감정적인",
+            "memorization": "0"
+          },
+          {
+            "word": "intellectual",
+            "mean1": "지적인",
+            "memorization": "0"
+          },
+          {
+            "word": "Inspire",
+            "mean1": "고무하다",
+            "memorization": "0"
+          },
+          {
+            "word": "deed",
+            "mean1": "행동",
+            "memorization": "0"
+          },
+          {
+            "word": "rugged",
+            "mean1": "다부지게 생긴",
+            "memorization": "0"
+          },
+          {
+            "word": "eventually",
+            "mean1": "결국",
+            "memorization": "0"
+          },
+          {
+            "word": "make one's fortune",
+            "mean1": "거금을 벌다",
+            "memorization": "0"
+          },
+          {
+            "word": "cattle drive",
+            "mean1": "소몰이",
+            "memorization": "0"
+          },
+          {
+            "word": "personally",
+            "mean1": "직접",
+            "mean2": "개인적으로",
+            "memorization": "0"
+          },
+          {
+            "word": "incredible",
+            "mean1": "대단한",
+            "mean2": "믿기 어려운",
+            "memorization": "0"
+          },
+          {
+            "word": "sacrifice",
+            "mean1": "희생",
+            "memorization": "0"
+          },
+          {
+            "word": "ship",
+            "mean1": "수송하다",
+            "memorization": "0"
+          },
+          {
+            "word": "argument",
+            "mean1": "주장",
+            "memorization": "0"
+          },
+          {
+            "word": "charm",
+            "mean1": "매력",
+            "memorization": "0"
+          },
+          {
+            "word": "unique",
+            "mean1": "고유한",
+            "mean2": "유일한",
+            "mean3": "독특한",
+            "memorization": "0"
+          },
+          {
+            "word": "cosmos",
+            "mean1": "우주",
+            "memorization": "0"
+          },
+          {
+            "word": "theorize",
+            "mean1": "이론화하다",
+            "memorization": "0"
+          },
+          {
+            "word": "distinguished",
+            "mean1": "저명한",
+            "memorization": "0"
+          },
+          {
+            "word": "anthropologist",
+            "mean1": "인류학자",
+            "memorization": "0"
+          },
+          {
+            "word": "surround",
+            "mean1": "둘러싸다",
+            "memorization": "0"
+          },
+          {
+            "word": "institution",
+            "mean1": "제도",
+            "memorization": "0"
+          },
+          {
+            "word": "scuffed",
+            "mean1": "흠집이 난",
+            "memorization": "0"
+          },
+          {
+            "word": "bounty",
+            "mean1": "선물",
+            "memorization": "0"
+          },
+          {
+            "word": "shoe shine",
+            "mean1": "구두 닦기",
+            "memorization": "0"
+          },
+          {
+            "word": "avail oneself of",
+            "mean1": "~을 이용하다",
+            "memorization": "0"
+          },
+          {
+            "word": "distinctly",
+            "mean1": "참으로",
+            "mean2": "정말로",
+            "memorization": "0"
+          },
+          {
+            "word": "indebted",
+            "mean1": "신세를 진",
+            "mean2": "빚을 진",
+            "memorization": "0"
+          },
+          {
+            "word": "even the score",
+            "mean1": "빚을 청산하다",
+            "memorization": "0"
+          },
+          {
+            "word": "shoe tree",
+            "mean1": "구두의 글",
+            "memorization": "0"
+          },
+          {
+            "word": "polish",
+            "mean1": "광택제",
+            "memorization": "0"
+          }
+        ]
+      }
+    },
+    {
+      "wordBookTitle": "2020 수능특강 4강",
+      "wordBookExplain": "2020 수능특강 4강의 단어들이다.",
+      "wordList": {
+        "wordcard": [
+          {
+            "word": "germicide",
+            "mean1": "살균제",
+            "memorization": "0"
+          },
+          {
+            "word": "deplane",
+            "mean1": "(비행기에서) 내리다",
+            "memorization": "0"
+          },
+          {
+            "word": "cockpit crew",
+            "mean1": "운항 승무원",
+            "memorization": "0"
+          },
+          {
+            "word": "rite",
+            "mean1": "의례",
+            "mean2": "의식",
+            "mean3": "관례",
+            "memorization": "0"
+          },
+          {
+            "word": "profession",
+            "mean1": "직업",
+            "memorization": "0"
+          },
+          {
+            "word": "observe",
+            "mean1": "지키다",
+            "mean2": "준수하다",
+            "memorization": "0"
+          },
+          {
+            "word": "distinctive",
+            "mean1": "독특한",
+            "memorization": "0"
+          },
+          {
+            "word": "superficial",
+            "mean1": "무의미한",
+            "mean2": "피상적인",
+            "memorization": "0"
+          },
+          {
+            "word": "knit",
+            "mean1": "결속하다",
+            "memorization": "0"
+          },
+          {
+            "word": "appropriate",
+            "mean1": "적절한",
+            "memorization": "0"
+          },
+          {
+            "word": "frame of mind",
+            "mean1": "마음(의) 자세",
+            "mean2": "사고방식",
+            "memorization": "0"
+          },
+          {
+            "word": "physician",
+            "mean1": "의사",
+            "mean2": "내과 의사",
+            "memorization": "0"
+          },
+          {
+            "word": "scrub",
+            "mean1": "(외과의가) 수술 전에 손을 문질러 씻다",
+            "mean2": "문질러 씻기",
+            "memorization": "0"
+          },
+          {
+            "word": "surgical",
+            "mean1": "수술의",
+            "memorization": "0"
+          },
+          {
+            "word": "procedure",
+            "mean1": "수술",
+            "mean2": "절차",
+            "memorization": "0"
+          },
+          {
+            "word": "prolonged",
+            "mean1": "오랫동안의",
+            "mean2": "장기간의",
+            "memorization": "0"
+          },
+          {
+            "word": "open to question",
+            "mean1": "의문의 여지가 있는",
+            "memorization": "0"
+          },
+          {
+            "word": "advent",
+            "mean1": "등장",
+            "mean2": "출현",
+            "memorization": "0"
+          },
+          {
+            "word": "delicate",
+            "mean1": "신중을 요하는",
+            "mean2": "민감한",
+            "memorization": "0"
+          },
+          {
+            "word": "undeniable",
+            "mean1": "부인할 수 없는",
+            "mean2": "명백한",
+            "memorization": "0"
+          },
+          {
+            "word": "first officer",
+            "mean1": "부기장",
+            "mean2": "부조종사",
+            "memorization": "0"
+          },
+          {
+            "word": "conduct",
+            "mean1": "실시하다",
+            "mean2": "집행하다",
+            "memorization": "0"
+          },
+          {
+            "word": "inspection",
+            "mean1": "점검",
+            "mean2": "검사",
+            "memorization": "0"
+          },
+          {
+            "word": "awesome",
+            "mean1": "엄청난",
+            "memorization": "0"
+          },
+          {
+            "word": "responsibility",
+            "mean1": "책무",
+            "mean2": "책임",
+            "memorization": "0"
+          },
+          {
+            "word": "destination",
+            "mean1": "목적지",
+            "memorization": "0"
+          },
+          {
+            "word": "besetting sin",
+            "mean1": "지속적인 잘못",
+            "memorization": "0"
+          },
+          {
+            "word": "provoke",
+            "mean1": "~을 유발하다",
+            "mean2": "야기하다",
+            "memorization": "0"
+          },
+          {
+            "word": "performance-focused",
+            "mean1": "성과 중심의",
+            "memorization": "0"
+          },
+          {
+            "word": "misguided",
+            "mean1": "잘못 이해한(판단한)",
+            "memorization": "0"
+          },
+          {
+            "word": "dogged",
+            "mean1": "끈질긴",
+            "mean2": "완고한",
+            "memorization": "0"
+          },
+          {
+            "word": "disapproval",
+            "mean1": "비난",
+            "mean2": "못마땅함",
+            "memorization": "0"
+          },
+          {
+            "word": "motivation",
+            "mean1": "열의",
+            "mean2": "동기",
+            "memorization": "0"
+          },
+          {
+            "word": "criticize",
+            "mean1": "비난하다",
+            "memorization": "0"
+          },
+          {
+            "word": "excessive",
+            "mean1": "지나친",
+            "mean2": "과도한",
+            "memorization": "0"
+          },
+          {
+            "word": "discourage (~from -ing)",
+            "mean1": "(~가 ... 할) 의욕[열의]을 꺾다",
+            "mean2": "막다",
+            "memorization": "0"
+          },
+          {
+            "word": "paternal",
+            "mean1": "아버지의",
+            "memorization": "0"
+          },
+          {
+            "word": "appreciate",
+            "mean1": "환영하다",
+            "mean2": "고마워하다",
+            "memorization": "0"
+          },
+          {
+            "word": "contaminate",
+            "mean1": "~에 나쁜 영흔떨 미치다",
+            "memorization": "0"
+          },
+          {
+            "word": "resentment",
+            "mean1": "분노",
+            "memorization": "0"
+          },
+          {
+            "word": "fault",
+            "mean1": "비난하다",
+            "mean2": "나무라다",
+            "memorization": "0"
+          },
+          {
+            "word": "dissatisfaction",
+            "mean1": "불만족",
+            "memorization": "0"
+          },
+          {
+            "word": "foreign",
+            "mean1": "생소한",
+            "mean2": "이질적인",
+            "memorization": "0"
+          },
+          {
+            "word": "a range of",
+            "mean1": "다양한",
+            "memorization": "0"
+          },
+          {
+            "word": "white-coated",
+            "mean1": "흰 상의를 입은",
+            "mean2": "흰 웃옷을 입은",
+            "memorization": "0"
+          },
+          {
+            "word": "reaction",
+            "mean1": "반응",
+            "mean2": "대응",
+            "memorization": "0"
+          },
+          {
+            "word": "statement",
+            "mean1": "표현",
+            "mean2": "진술",
+            "memorization": "0"
+          },
+          {
+            "word": "equally",
+            "mean1": "마찬가지로",
+            "mean2": "동시에",
+            "memorization": "0"
+          },
+          {
+            "word": "civic",
+            "mean1": "시민의",
+            "mean2": "도시의",
+            "memorization": "0"
+          },
+          {
+            "word": "individualism",
+            "mean1": "개인주의",
+            "memorization": "0"
+          },
+          {
+            "word": "moderate",
+            "mean1": "절제하다",
+            "mean2": "조절하다",
+            "memorization": "0"
+          },
+          {
+            "word": "involvement",
+            "mean1": "관계를 맺음",
+            "mean2": "관여",
+            "memorization": "0"
+          },
+          {
+            "word": "philosophy",
+            "mean1": "주의",
+            "mean2": "인생관",
+            "memorization": "0"
+          },
+          {
+            "word": "convenience",
+            "mean1": "펀리",
+            "mean2": "편의",
+            "memorization": "0"
+          },
+          {
+            "word": "appreciation",
+            "mean1": "이해",
+            "memorization": "0"
+          },
+          {
+            "word": "mute",
+            "mean1": "약화하다",
+            "memorization": "0"
+          },
+          {
+            "word": "trait",
+            "mean1": "자질",
+            "mean2": "특성",
+            "memorization": "0"
+          },
+          {
+            "word": "deprive ~ of...",
+            "mean1": "~에게서 \u2026을 빼앗다",
+            "memorization": "0"
+          },
+          {
+            "word": "personally",
+            "mean1": "개별적으로",
+            "mean2": "직접",
+            "memorization": "0"
+          },
+          {
+            "word": "anymore",
+            "mean1": "(부정문에서) 이제는",
+            "mean2": "더 이상",
+            "memorization": "0"
+          },
+          {
+            "word": "replace",
+            "mean1": "대체하다",
+            "memorization": "0"
+          },
+          {
+            "word": "perception",
+            "mean1": "인식",
+            "mean2": "자각",
+            "memorization": "0"
+          },
+          {
+            "word": "relativity",
+            "mean1": "상대성",
+            "mean2": "관련성",
+            "memorization": "0"
+          },
+          {
+            "word": "inherent",
+            "mean1": "내재하는",
+            "mean2": "타고난",
+            "memorization": "0"
+          },
+          {
+            "word": "undue",
+            "mean1": "과도한",
+            "mean2": "지나친",
+            "memorization": "0"
+          },
+          {
+            "word": "rotate",
+            "mean1": "선회하다",
+            "mean2": "호회전하다",
+            "memorization": "0"
+          },
+          {
+            "word": "concept",
+            "mean1": "개념",
+            "memorization": "0"
+          },
+          {
+            "word": "prevalence",
+            "mean1": "만연",
+            "memorization": "0"
+          },
+          {
+            "word": "fuzzy",
+            "mean1": "애매한",
+            "memorization": "0"
+          },
+          {
+            "word": "conscious ",
+            "mean1": "의식적인",
+            "memorization": "0"
+          },
+          {
+            "word": "require",
+            "mean1": "습득하다",
+            "memorization": "0"
+          },
+          {
+            "word": "by axxident",
+            "mean1": "우연히",
+            "memorization": "0"
+          },
+          {
+            "word": "rigid",
+            "mean1": "경직된",
+            "memorization": "0"
+          },
+          {
+            "word": "cross section",
+            "mean1": "단면",
+            "memorization": "0"
+          },
+          {
+            "word": "replicate",
+            "mean1": "반복하다",
+            "memorization": "0"
+          },
+          {
+            "word": "term",
+            "mean1": "용어",
+            "memorization": "0"
+          },
+          {
+            "word": "statistical significance",
+            "mean1": "통계적 유의미성",
+            "memorization": "0"
+          },
+          {
+            "word": "unfortunate",
+            "mean1": "적절하지 않은",
+            "mean2": "부적당한",
+            "memorization": "0"
+          },
+          {
+            "word": "refer to",
+            "mean1": "~을 나타내다",
+            "memorization": "0"
+          },
+          {
+            "word": "reliably",
+            "mean1": "신뢰할 만하게",
+            "memorization": "0"
+          },
+          {
+            "word": "occur",
+            "mean1": "발생하다",
+            "memorization": "0"
+          },
+          {
+            "word": "conduct",
+            "mean1": "행하다",
+            "memorization": "0"
+          },
+          {
+            "word": "similar",
+            "mean1": "유사한",
+            "memorization": "0"
+          },
+          {
+            "word": "manner",
+            "mean1": "방식",
+            "memorization": "0"
+          },
+          {
+            "word": "phrase",
+            "mean1": "말",
+            "mean2": "어구",
+            "memorization": "0"
+          },
+          {
+            "word": "assume",
+            "mean1": "추정하다",
+            "memorization": "0"
+          },
+          {
+            "word": "depending on",
+            "mean1": "~에 따라서",
+            "memorization": "0"
+          },
+          {
+            "word": "measure",
+            "mean1": "척도",
+            "memorization": "0"
+          },
+          {
+            "word": "reliability",
+            "mean1": "신뢰도",
+            "memorization": "0"
+          },
+          {
+            "word": "interpret",
+            "mean1": "해석하다",
+            "memorization": "0"
+          },
+          {
+            "word": "correctly",
+            "mean1": "정확하게",
+            "memorization": "0"
+          },
+          {
+            "word": "ensure",
+            "mean1": "툴림없이 ~하게 하다",
+            "memorization": "0"
+          },
+          {
+            "word": "organization",
+            "mean1": "조직",
+            "memorization": "0"
+          },
+          {
+            "word": "represent",
+            "mean1": "대표하다",
+            "memorization": "0"
+          },
+          {
+            "word": "sanity",
+            "mean1": "온전한 정신",
+            "memorization": "0"
+          },
+          {
+            "word": "free hand",
+            "mean1": "자유재량",
+            "memorization": "0"
+          },
+          {
+            "word": "grove",
+            "mean1": "(작은) 숲",
+            "memorization": "0"
+          },
+          {
+            "word": "wilderness",
+            "mean1": "야생 구역",
+            "memorization": "0"
+          },
+          {
+            "word": "existence",
+            "mean1": "존속",
+            "mean2": "생존",
+            "memorization": "0"
+          },
+          {
+            "word": "perceive",
+            "mean1": "인지하다",
+            "memorization": "0"
+          },
+          {
+            "word": "require",
+            "mean1": "필요로 하다",
+            "memorization": "0"
+          },
+          {
+            "word": "semiprivate",
+            "mean1": "반사적(半私的)인",
+            "mean2": "반사용(半私用)의",
+            "memorization": "0"
+          },
+          {
+            "word": "occupy",
+            "mean1": "차지하다",
+            "memorization": "0"
+          },
+          {
+            "word": "lot",
+            "mean1": "부지",
+            "mean2": "지역",
+            "memorization": "0"
+          },
+          {
+            "word": "function as",
+            "mean1": "~역할을 하다",
+            "mean2": "기능을 하다",
+            "memorization": "0"
+          },
+          {
+            "word": "intend",
+            "mean1": "의도하다",
+            "memorization": "0"
+          },
+          {
+            "word": "squarely",
+            "mean1": "정면으로",
+            "memorization": "0"
+          },
+          {
+            "word": "head-on",
+            "mean1": "정면으로",
+            "memorization": "0"
+          },
+          {
+            "word": "process",
+            "mean1": "과정",
+            "memorization": "0"
+          },
+          {
+            "word": "promotion ",
+            "mean1": "승진",
+            "memorization": "0"
+          },
+          {
+            "word": "improve",
+            "mean1": "향상하다",
+            "mean2": "개선하다",
+            "memorization": "0"
+          },
+          {
+            "word": "seriously",
+            "mean1": "진지하게",
+            "memorization": "0"
+          },
+          {
+            "word": "treatment",
+            "mean1": "치료법",
+            "memorization": "0"
+          },
+          {
+            "word": "specialist",
+            "mean1": "전문가",
+            "memorization": "0"
+          },
+          {
+            "word": "remedy",
+            "mean1": "치료법",
+            "memorization": "0"
+          },
+          {
+            "word": "prescribe",
+            "mean1": "처방하다",
+            "memorization": "0"
+          },
+          {
+            "word": "severe",
+            "mean1": "심각한",
+            "memorization": "0"
+          },
+          {
+            "word": "beneficial",
+            "mean1": "득이 되는",
+            "memorization": "0"
+          },
+          {
+            "word": "accordingly",
+            "mean1": "그에 맞추어",
+            "memorization": "0"
+          }
+        ]
+      }
     }
   ]
 }

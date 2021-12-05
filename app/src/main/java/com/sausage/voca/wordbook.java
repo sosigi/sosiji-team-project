@@ -39,6 +39,8 @@ public class wordbook extends AppCompatActivity {
     private TextView mWordSorting;
     private AlertDialog mWordSortingSelectDialog;
 
+    String TAG="mytag";
+
     TextView wordHideBtn;
     TextView meanHideBtn;
 
