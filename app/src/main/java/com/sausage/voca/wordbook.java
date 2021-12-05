@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.annotations.Nullable;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -43,7 +42,6 @@ public class wordbook extends AppCompatActivity {
     private TextView mWordSorting;
     private AlertDialog mWordSortingSelectDialog;
 
-    String TAG="mytag";
 
     TextView wordHideBtn;
     TextView meanHideBtn;

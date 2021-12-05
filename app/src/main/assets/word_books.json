@@ -535,9 +535,9 @@
       }
     },
     {
-      "wordBookTitle": "2020 수능특강 3강",
-      "wordBookExplain": "2020년도 수능특강 3강에 관한 단어들이다.",
-      "wordList": {
+      "wordbooktitle": "2020 수능특강 3강",
+      "wordbookexplain": "2020년도 수능특강 3강에 관한 단어들이다.",
+      "wordlist": {
         "wordcard": [
           {
             "word": "accomplishment",
@@ -786,9 +786,9 @@
       }
     },
     {
-      "wordBookTitle": "2020 수능특강 4강",
-      "wordBookExplain": "2020 수능특강 4강의 단어들이다.",
-      "wordList": {
+      "wordbooktitle": "2020 수능특강 4강",
+      "wordbookexplain": "2020 수능특강 4강의 단어들이다.",
+      "wordlist": {
         "wordcard": [
           {
             "word": "germicide",

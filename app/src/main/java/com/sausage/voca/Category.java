@@ -42,6 +42,7 @@ public class Category extends AppCompatActivity {
 
         //wordbooktitle 정렬
         this.InitializeData();
+        String TAG="mytag";
 
 
         back_btn = findViewById(R.id.category_back);
