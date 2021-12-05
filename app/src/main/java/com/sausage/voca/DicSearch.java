@@ -50,7 +50,6 @@ public class DicSearch extends AppCompatActivity {
         if (search!=null) {
             searching_word.setText(search);
             RunThread();
-
         }
 
         searching_word.setOnKeyListener(new View.OnKeyListener() {
@@ -82,6 +81,9 @@ public class DicSearch extends AppCompatActivity {
             }
         });
 
+        searched.setVisibility(View.VISIBLE);
+        meaning.setVisibility(View.VISIBLE);
+        dicSearch_add.setVisibility(View.VISIBLE);
     }
 
     public void RunThread() { //TODO:스레드를 dicFragment로 옮기면 더 빨라지지 않을까?
@@ -106,9 +108,7 @@ public class DicSearch extends AppCompatActivity {
             }
         });
         thread.start();
-        searched.setVisibility(View.VISIBLE);
-        meaning.setVisibility(View.VISIBLE);
-        dicSearch_add.setVisibility(View.VISIBLE);
+
     }
 
     public static String main(String args) throws JSONException {

@@ -87,6 +87,13 @@ public class CategoryAdd extends AppCompatActivity {
                                         myToast.show();
                                         wordBookAddComplete = false;
                                         break;
+                                    }else if (document.getData().get("wordbooktitle")==null){
+                                        wordbooksCol.document(String.valueOf(wordBooksCount))
+                                                .set(newWordBook);
+//                                wordbooksCol.add(newWordBook);
+                                        Toast myToast = Toast.makeText(view.getContext(), R.string.category_add_complete, Toast.LENGTH_SHORT);
+                                        myToast.show();
+                                        wordBookAddComplete = false;
                                     }
                                 }
                             }

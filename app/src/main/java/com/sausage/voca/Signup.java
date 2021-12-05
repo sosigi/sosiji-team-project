@@ -231,7 +231,7 @@ public class Signup<mDatabase> extends AppCompatActivity implements View.OnClick
                     }
                 });
 
-        mRootRef.child("wordbook").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mRootRef.child("wordbooks").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
