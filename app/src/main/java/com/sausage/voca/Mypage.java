@@ -67,8 +67,7 @@ public class Mypage extends AppCompatActivity {
         mypage_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Main.class);
-                startActivity(intent);
+                finish();
             }
         });
     }

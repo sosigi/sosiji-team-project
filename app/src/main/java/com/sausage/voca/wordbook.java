@@ -59,7 +59,7 @@ public class wordbook extends AppCompatActivity {
     boolean dataChange = false;
     boolean dataDelete = false;
 
-    TextView search, category, mypage;
+    TextView search, mypage;
 
     //단어장 상단바
     TextView categoryName;
@@ -101,7 +101,6 @@ public class wordbook extends AppCompatActivity {
 
         //drawer onclickListener
         search = findViewById(R.id.dicSearch);
-        category = findViewById(R.id.category);
         mypage = findViewById(R.id.setting);
         wordQuiz = findViewById(R.id.wordQuiz);
 
@@ -118,16 +117,6 @@ public class wordbook extends AppCompatActivity {
                 Intent intent = new Intent().putExtra("inform", "search");
                 Log.i("mytag", "보낼 Data는 search");
                 setResult(RESULT_OK, intent);
-                finish();
-            }
-        });
-        category.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent().putExtra("inform", "category");
-                Log.i("mytag", "보낼 Data는 category");
-                setResult(RESULT_OK, intent);
-
                 finish();
             }
         });
@@ -523,7 +512,7 @@ public class wordbook extends AppCompatActivity {
                     }
                     wordBooksDoc.update("wordlist",newWordcardArray);
                     if(dataChange == true){
-                        Log.i(TAG,"data chage ");
+                        Log.i("mytag","data chage ");
                         updateWordcard(thisWordbookMemorizationType);
                         dataChange = false;
                     }
@@ -531,7 +520,7 @@ public class wordbook extends AppCompatActivity {
                     e.printStackTrace();
                 }
             } else {
-                Log.i(TAG, "get failed with " + task.getException());
+                Log.i("mytag", "get failed with " + task.getException());
             }
         });
     }
