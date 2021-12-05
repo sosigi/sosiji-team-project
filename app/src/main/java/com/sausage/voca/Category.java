@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +28,7 @@ public class Category extends AppCompatActivity {
     RecyclerView recyclerView;
     LinearLayoutManager manager;
     CategoryTitleAdapter categoryTitleAdapter;
+    int wordBooksCount=0;
 
     //database
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -35,6 +38,7 @@ public class Category extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+
 
         //wordbooktitle 정렬
         this.InitializeData();
@@ -57,6 +61,7 @@ public class Category extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), CategoryAdd.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -69,11 +74,12 @@ public class Category extends AppCompatActivity {
                 .get().addOnCompleteListener((task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
+                    wordBooksCount++;
                     Log.i("mytag", document.getId() + " => " + document.getData().get("wordbooktitle").toString());
                     String title=document.getData().get("wordbooktitle").toString();
                     titlesDataList.add(new CategoryTitle(title));
                 }
-                recyclerView = (RecyclerView) findViewById(R.id.recycler_category_title_list);
+                recyclerView = findViewById(R.id.recycler_category_title_list);
                 manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                 recyclerView.setLayoutManager(manager); // LayoutManager 등록
                 categoryTitleAdapter = new CategoryTitleAdapter(titlesDataList);
@@ -83,4 +89,15 @@ public class Category extends AppCompatActivity {
             }
         }));
     }
+
+    public void editBtn(View view){
+        LinearLayout categoryLayout = (LinearLayout) view.getParent();
+        TextView titleTextView = categoryLayout.findViewById(R.id.list_category_title_text);
+        String title = titleTextView.getText().toString();
+        Intent intent = new Intent(view.getContext(), CategoryRevise.class).putExtra("titleID",title);
+//        intent.putExtra("count", wordBooksCount);
+        startActivity(intent);
+        finish();
+    }
+
 }

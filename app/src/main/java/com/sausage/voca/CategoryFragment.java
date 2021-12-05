@@ -102,10 +102,12 @@ public class CategoryFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         String strText = (String) l.getItemAtPosition(position);
-        //Log.d("Fragment: ", position + ": " + strText);
+        //Log.i("mytag","Fragment: "+ position + ": " + strText);
         //Toast.makeText(this.getContext(), "클릭: " + position + " " + strText, Toast.LENGTH_SHORT).show();
-        String ID = String.valueOf(position);
-        Intent intent = new Intent(getActivity(), wordbook.class).putExtra("id",ID);
+        String idPosition = String.valueOf(position);
+        Intent intent = new Intent(getActivity(), wordbook.class);
+        intent.putExtra("title",strText);
+        intent.putExtra("id",idPosition);
         startActivity(intent);
     }
 
