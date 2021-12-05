@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -66,9 +67,11 @@ public class wordbook extends AppCompatActivity {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DocumentReference wordBooksDoc;
+    CollectionReference wordBooksCol;
 
     //[단어장 정보]
-    String wordbookID = "0";
+    String wordbookID;
+    String wordbookTitle;
     //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
     int thisWordbookMemorizationType = 2;
     //default=2, 암기=1, 미암기=0;
@@ -80,6 +83,7 @@ public class wordbook extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wordbook);
 
+        wordbookTitle = getIntent().getStringExtra("title");
         wordbookID = getIntent().getStringExtra("id");
         wordBooksDoc = db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID);
         Log.i("mytag", "가져온 id값은 " + wordbookID);
