@@ -50,6 +50,9 @@
     <string name="list_category_title">단어장 title</string>
     <string name="category_edit_btn">수정</string>
 
+    <!-- [categoryEdit]에서 사용되는 string   -->
+    <string name="this_category_edit_btn">이 단어장 삭제하기</string>
+
 
     <!-- [categoryAdd]에서 사용되는 string   -->
     <string name="category_add">단어장 추가</string>

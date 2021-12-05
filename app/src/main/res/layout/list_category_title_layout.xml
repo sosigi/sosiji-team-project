@@ -27,7 +27,8 @@
             android:background="@android:color/transparent"
             android:text="@string/category_edit_btn"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:onClick="editBtn"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -26,14 +26,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="12dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
-                android:maxWidth="35dp"
+                android:maxWidth="30dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/backbutton" />
-
-
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -41,17 +38,16 @@
                 android:gravity="center"
                 android:text="@string/category_edit"
                 android:textColor="@color/white"
-                android:textSize="28sp" />
+                android:textSize="25sp" />
 
             <ImageButton
                 android:id="@+id/category_plus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="12dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
-                android:maxWidth="35dp"
+                android:maxWidth="30dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/plus_btn" />
         </LinearLayout>

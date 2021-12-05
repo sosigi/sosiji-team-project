@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.annotations.Nullable;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -47,7 +48,7 @@ public class wordbook extends AppCompatActivity {
 
 
 //    final private String[] wordQuizSorting = {"전체", "암기", "미암기"};
-//    private TextView wordQuiz;
+    TextView wordQuiz;
 //    private AlertDialog wordQuizSortingSelectDialog;
 
     //word card data list
@@ -58,7 +59,7 @@ public class wordbook extends AppCompatActivity {
     boolean dataChange = false;
     boolean dataDelete = false;
 
-    TextView search, mypage;
+    TextView search, category, mypage;
 
     //단어장 상단바
     TextView categoryName;
@@ -70,16 +71,16 @@ public class wordbook extends AppCompatActivity {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DocumentReference wordBooksDoc;
+    CollectionReference wordBooksCol;
 
     //[단어장 정보]
-    String wordbookID = "0";
+    String wordbookID;
+    String wordbookTitle;
     //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
     int thisWordbookMemorizationType = 2;
     //default=2, 암기=1, 미암기=0;
     int thisWordbookHideType = 0;
     //default =0, 단어숨김=1, 뜻숨김=2;
-    boolean haveToINIT = false;
-    //단어가 단어장에 새로 추가되었는지 여부
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +93,60 @@ public class wordbook extends AppCompatActivity {
         wordBooksDoc = db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID);
         Log.i(TAG, "가져온 id값은 " + wordbookID);
 
+
+        //custom font 적용 - quiz btn
+        //TextView wordQuiztextview = findViewById(R.id.wordQuiz);
+        //Typeface wordfont = Typeface.createFromAsset(getAssets(), "times_new_roman.ttf");
+        //wordQuiztextview.setTypeface(wordfont);
+
+        //drawer onclickListener
+        search = findViewById(R.id.dicSearch);
+        category = findViewById(R.id.category);
+        mypage = findViewById(R.id.setting);
+        wordQuiz = findViewById(R.id.wordQuiz);
+
+        wordQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), QuizDialog.class);
+                startActivity(intent);
+            }
+        });
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent().putExtra("inform", "search");
+                Log.i("mytag", "보낼 Data는 search");
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+        category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent().putExtra("inform", "category");
+                Log.i("mytag", "보낼 Data는 category");
+                setResult(RESULT_OK, intent);
+
+                finish();
+            }
+        });
+        mypage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("inform", "mypage");
+                Log.i("mytag", "보낼 Data는 mypage");
+
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+
+        //단어장 title, explain Textset
+
         //wordbooktitle, wordbookexplain 출력.
+
         categoryName = findViewById(R.id.categoryName);
         categoryName.setSelected(true);
         wordbook_top_title = findViewById(R.id.wordbook_top_title);
@@ -141,7 +195,7 @@ public class wordbook extends AppCompatActivity {
         TextView wordQuiztextview = findViewById(R.id.wordQuiz);
         Typeface wordfont = Typeface.createFromAsset(getAssets(), "times_new_roman.ttf");
         wordQuiztextview.setTypeface(wordfont);
-        
+
         //drawer기능
         onSidebarClick();
 

@@ -10,10 +10,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -30,13 +33,6 @@ public class wordAdd extends AppCompatActivity {
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    //[은소]test - edit text에 입력된 내용을 realtime database에 업로드해봄.
-    //데이터베이스에서 데이터를 읽고 쓰려면 DataReference의 인스턴스가 필요하다.
-//    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    //child()는 데이터가 있을 위치의 이름을 정해준다.
-//    DatabaseReference conditionRef = mRootRef.child("test");
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
