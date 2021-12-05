@@ -44,7 +44,7 @@ public class wordbook extends AppCompatActivity {
 
 
 //    final private String[] wordQuizSorting = {"전체", "암기", "미암기"};
-//    private TextView wordQuiz;
+    TextView wordQuiz;
 //    private AlertDialog wordQuizSortingSelectDialog;
 
     //word card data list
@@ -91,9 +91,9 @@ public class wordbook extends AppCompatActivity {
 
 
         //custom font 적용 - quiz btn
-        TextView wordQuiztextview = findViewById(R.id.wordQuiz);
-        Typeface wordfont = Typeface.createFromAsset(getAssets(), "times_new_roman.ttf");
-        wordQuiztextview.setTypeface(wordfont);
+        //TextView wordQuiztextview = findViewById(R.id.wordQuiz);
+        //Typeface wordfont = Typeface.createFromAsset(getAssets(), "times_new_roman.ttf");
+        //wordQuiztextview.setTypeface(wordfont);
 
         //drawer onclickListener
         search = findViewById(R.id.dicSearch);
