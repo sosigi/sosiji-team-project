@@ -94,7 +94,7 @@ public class wordbook extends AppCompatActivity {
         wordQuiz.setTypeface(wordfont);
 
         wordQuiz.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), QuizDialog.class);
+            Intent intent = new Intent(getApplicationContext(), QuizDialog.class).putExtra("id",wordbookID);
             startActivity(intent);
         });
 
