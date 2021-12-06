@@ -6,13 +6,18 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-public class QuizResult extends Quiz {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class QuizResult extends AppCompatActivity {
 
     Button back_btn;
     CheckBox checkbox = findViewById(R.id.quiz_result_check);
     TextView result = findViewById(R.id.result_accuracy);
     TextView correct = findViewById(R.id.result_correct);
     TextView wrong = findViewById(R.id.result_wrong);
+
+    int wrong_count;
+    int accuracy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
