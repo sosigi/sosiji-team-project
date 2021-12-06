@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Voca">
         <activity
+            android:name=".QuizDone"
+            android:exported="false" />
+        <activity
             android:name=".Quiz"
             android:exported="false" />
         <activity
@@ -40,9 +43,6 @@
             android:name=".Mypage"
             android:exported="false" />
         <activity android:name=".QuizDialog" />
-        <activity
-            android:name=".QuizResult"
-            android:exported="true" />
         <activity
             android:name=".Signup"
             android:exported="true" />

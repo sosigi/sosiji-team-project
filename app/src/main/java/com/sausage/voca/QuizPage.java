@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -40,22 +41,21 @@ public class QuizPage extends AppCompatActivity {
 
     //quiz_option와 맞는 단어수
     int size = 0;
-
-    Random r;
-    int turn = 1;
     int random[] = new int[5];
+//    Random rd = new Random();
 
     int wrong_count = 0, accuracy = 0;
 
     Button quiz_answer1, quiz_answer2, quiz_answer3, quiz_answer4;
+
+    //정오답 toast
+    Toast correctToast, wrongToast;
 
 
     //firebase 연동
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DocumentReference docRef;
-
-    Toast toast2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +75,11 @@ public class QuizPage extends AppCompatActivity {
         quiz_answer2 = findViewById(R.id.quiz_answer2);
         quiz_answer3 = findViewById(R.id.quiz_answer3);
         quiz_answer4 = findViewById(R.id.quiz_answer4);
+
+        correctToast = Toast.makeText(getApplicationContext(),"정답입니다.🎉",Toast.LENGTH_SHORT);
+        correctToast.setGravity(Gravity.CENTER,0,0);
+        wrongToast = Toast.makeText(getApplicationContext(),"오답입니다!❗",Toast.LENGTH_SHORT);
+        wrongToast.setGravity(Gravity.CENTER,0,0);
 
 
         back_btn = findViewById(R.id.quiz_back);
@@ -122,14 +127,15 @@ public class QuizPage extends AppCompatActivity {
                                 }
                                 size = countWordlist;
                                 //Log.i("mytag",String.valueOf(size));
-                                quizStart(data);
-
+//
                             }catch(NullPointerException e){
                                 e.printStackTrace();
                             }
                             if(countWordlist<5){
                                 Toast.makeText(getApplicationContext(),"단어수 부족으로 퀴즈 실행이 불가능합니다.",Toast.LENGTH_SHORT).show();
                                 finish();
+                            }else{
+                                quizStart(data);
                             }
                         } else {
                             Log.i("mytag", "No such document");
@@ -143,11 +149,11 @@ public class QuizPage extends AppCompatActivity {
 
     //퀴즈 실행하는 함수.
     public void quizStart(ArrayList<Map<String, Object>> myData){
-        Random r = new Random();
-        r.setSeed(System.currentTimeMillis());
+        Random rd = new Random();
+        rd.setSeed(System.currentTimeMillis());
 
         for(int i = 0; i < 5; i++) { //랜덤숫자 0 ~ size-1까지
-            random[i] = r.nextInt(size); //random[i] = (int) (Math.random()* 5) + 1;
+            random[i] = rd.nextInt(size); //random[i] = (int) (Math.random()* 5) + 1;
             for (int j = 0; j < i; j++) {
                 if (random[i] == random[j]) {
                     i--;
@@ -155,36 +161,37 @@ public class QuizPage extends AppCompatActivity {
                 }
             }
         }
-        for(int i=0;i<size;i++){
+        for(int i=0;i<5;i++){
             Log.i("mytag",String.valueOf(random[i]));
         }
-        Log.i("mytag","함수안 "+myData.toString());
+        //Log.i("mytag","함수안 "+myData.toString());
 
         //객관식 퀴즈 5문제
-        quiz(1,myData);
+        quiz(0,myData);
 
     }
 
     //quiz종료후 결과페이지 실행
     public void complete(){
         Toast.makeText(getApplicationContext(),"Quiz가 모두 완료되었습니다.",Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getApplicationContext(), QuizResult.class);
+        Log.i("mytag",sendData.toString());
+        Intent intent = new Intent(getApplicationContext(), QuizDone.class).putExtra("sendData", sendData);
         startActivity(intent);
         finish();
     }
 
     public void quiz(int i,ArrayList<Map<String, Object>> myData){
         if(i==random.length){
-            Log.i("mytag","quiz종료 : "+String.valueOf(i));
+            Log.i("mytag","quiz종료 : " + String.valueOf(i));
             complete();
-            return;
+//            return;
         }else {
             quiz_word.setText(myData.get(random[i]).get("word").toString());
             Random rd = new Random();
             int answer_num = rd.nextInt(4) + 1; //정답으로 할 답 번호 1 2 3 4 랜덤
+
             int first = random[i];
             int second, third, forth;
-
             do {
                 second = rd.nextInt(size);
             } while (second == first);
@@ -194,21 +201,18 @@ public class QuizPage extends AppCompatActivity {
             do {
                 forth = rd.nextInt(size);
             } while (forth == first || forth == second || forth == third);
-            Log.i("mytag", String.valueOf(first) + "," + String.valueOf(second) + "," + String.valueOf(third) + "," + String.valueOf(forth));
 
             switch (answer_num) {
                 case 1:
-                    quiz_answer1.setText(myData.get(random[i]).get("mean1").toString());
+                    quiz_answer1.setText(myData.get(first).get("mean1").toString());
 
-                    quiz_answer2.setText(myData.get(random[second]).get("mean1").toString());
-                    quiz_answer3.setText(myData.get(random[third]).get("mean1").toString());
-                    quiz_answer4.setText(myData.get(random[forth]).get("mean1").toString());
+                    quiz_answer2.setText(myData.get(second).get("mean1").toString());
+                    quiz_answer3.setText(myData.get(third).get("mean1").toString());
+                    quiz_answer4.setText(myData.get(forth).get("mean1").toString());
 
-                    quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
 
                     quiz_answer1.setOnClickListener(v -> {
-                        quiz_answer1.setBackgroundColor(1179392);
-//                        quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
+                        correctToast.show();
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
@@ -216,10 +220,8 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer2.setOnClickListener(v -> {
-                        quiz_answer1.setBackgroundColor(1179392);
-                        quiz_answer2.setBackgroundColor(16711680);
-//                        quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
-//                        quiz_answer2.setBackgroundResource(R.drawable.wrong_btn);
+                        wrongToast.show();
+                        sendData = new StringBuilder().append(sendData).append("/").append(quiz_word.getText().toString()).toString();
                         wrong_count++;
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
@@ -228,10 +230,8 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer3.setOnClickListener(v -> {
-                        quiz_answer1.setBackgroundColor(1179392);
-                        quiz_answer3.setBackgroundColor(16711680);
-//                        quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
-//                        quiz_answer3.setBackgroundResource(R.drawable.wrong_btn);
+                        wrongToast.show();
+                        sendData = new StringBuilder().append(sendData).append("/").append(quiz_word.getText().toString()).toString();
                         wrong_count++;
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
@@ -240,10 +240,8 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer4.setOnClickListener(v -> {
-                        quiz_answer1.setBackgroundColor(1179392);
-                        quiz_answer4.setBackgroundColor(16711680);
-//                        quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
-//                        quiz_answer4.setBackgroundResource(R.drawable.wrong_btn);
+                        wrongToast.show();
+                        sendData = new StringBuilder().append(sendData).append("/").append(quiz_word.getText().toString()).toString();
                         wrong_count++;
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
@@ -253,17 +251,16 @@ public class QuizPage extends AppCompatActivity {
 
                 break;
                 case 2:
-                    quiz_answer2.setText(myData.get(random[i]).get("mean1").toString());
+                    quiz_answer2.setText(myData.get(first).get("mean1").toString());
 
-                    quiz_answer1.setText(myData.get(random[second]).get("mean1").toString());
-                    quiz_answer3.setText(myData.get(random[third]).get("mean1").toString());
-                    quiz_answer4.setText(myData.get(random[forth]).get("mean1").toString());
+                    quiz_answer1.setText(myData.get(second).get("mean1").toString());
+                    quiz_answer3.setText(myData.get(third).get("mean1").toString());
+                    quiz_answer4.setText(myData.get(forth).get("mean1").toString());
 
                     quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
 
                     quiz_answer2.setOnClickListener(v -> {
-                        quiz_answer2.setBackgroundColor(1179392);
-//                        quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
+                        correctToast.show();
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
@@ -271,10 +268,8 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer1.setOnClickListener(v -> {
-                        quiz_answer2.setBackgroundColor(1179392);
-                        quiz_answer4.setBackgroundColor(16711680);
-//                        quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
-//                        quiz_answer1.setBackgroundResource(R.drawable.wrong_btn);
+                        wrongToast.show();
+                        sendData = new StringBuilder().append(sendData).append("/").append(quiz_word.getText().toString()).toString();
                         wrong_count++;
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
@@ -283,11 +278,9 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer3.setOnClickListener(v -> {
-                        quiz_answer2.setBackgroundColor(1179392);
-                        quiz_answer4.setBackgroundColor(16711680);
-//                        quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
+                        wrongToast.show();
+                        sendData = new StringBuilder().append(sendData).append("/").append(quiz_word.getText().toString()).toString();
                         wrong_count++;
-//                        quiz_answer3.setBackgroundResource(R.drawable.wrong_btn);
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
@@ -295,10 +288,8 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer4.setOnClickListener(v -> {
-                        quiz_answer2.setBackgroundColor(1179392);
-                        quiz_answer4.setBackgroundColor(16711680);
-//                        quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
-//                        quiz_answer4.setBackgroundResource(R.drawable.wrong_btn);
+                        wrongToast.show();
+                        sendData = new StringBuilder().append(sendData).append("/").append(quiz_word.getText().toString()).toString();
                         wrong_count++;
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
@@ -307,15 +298,14 @@ public class QuizPage extends AppCompatActivity {
                     });
                 break;
                 case 3:
-                    quiz_answer3.setText(myData.get(random[i]).get("mean1").toString());
+                    quiz_answer3.setText(myData.get(first).get("mean1").toString());
 
-                    quiz_answer1.setText(myData.get(random[second]).get("mean1").toString());
-                    quiz_answer2.setText(myData.get(random[third]).get("mean1").toString());
-                    quiz_answer4.setText(myData.get(random[forth]).get("mean1").toString());
+                    quiz_answer1.setText(myData.get(second).get("mean1").toString());
+                    quiz_answer2.setText(myData.get(third).get("mean1").toString());
+                    quiz_answer4.setText(myData.get(forth).get("mean1").toString());
 
-                    quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
                     quiz_answer3.setOnClickListener(v -> {
-                        quiz_answer3.setBackgroundResource(R.drawable.correct_btn);
+                        correctToast.show();
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
@@ -323,8 +313,8 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer2.setOnClickListener(v -> {
-                        quiz_answer3.setBackgroundResource(R.drawable.correct_btn);
-                        quiz_answer2.setBackgroundResource(R.drawable.wrong_btn);
+                        wrongToast.show();
+                        sendData = new StringBuilder().append(sendData).append("/").append(quiz_word.getText().toString()).toString();
                         wrong_count++;
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
@@ -333,8 +323,8 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer1.setOnClickListener(v -> {
-                        quiz_answer3.setBackgroundResource(R.drawable.correct_btn);
-                        quiz_answer1.setBackgroundResource(R.drawable.wrong_btn);
+                        wrongToast.show();
+                        sendData = new StringBuilder().append(sendData).append("/").append(quiz_word.getText().toString()).toString();
                         wrong_count++;
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
@@ -343,8 +333,8 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer4.setOnClickListener(v -> {
-                        quiz_answer3.setBackgroundResource(R.drawable.correct_btn);
-                        quiz_answer4.setBackgroundResource(R.drawable.wrong_btn);
+                        wrongToast.show();
+                        sendData = new StringBuilder().append(sendData).append("/").append(quiz_word.getText().toString()).toString();
                         wrong_count++;
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
@@ -353,16 +343,14 @@ public class QuizPage extends AppCompatActivity {
                     });
                 break;
                 case 4:
-                    quiz_answer4.setText(myData.get(random[i]).get("mean1").toString());
+                    quiz_answer4.setText(myData.get(first).get("mean1").toString());
 
-                    quiz_answer1.setText(myData.get(random[second]).get("mean1").toString());
-                    quiz_answer2.setText(myData.get(random[third]).get("mean1").toString());
-                    quiz_answer3.setText(myData.get(random[forth]).get("mean1").toString());
+                    quiz_answer1.setText(myData.get(second).get("mean1").toString());
+                    quiz_answer2.setText(myData.get(third).get("mean1").toString());
+                    quiz_answer3.setText(myData.get(forth).get("mean1").toString());
 
                     quiz_answer4.setOnClickListener(v -> {
-                        quiz_answer4.setBackgroundColor(1179392);
-
-//                        quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
+                        correctToast.show();
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
@@ -370,11 +358,8 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer2.setOnClickListener(v -> {
-                        quiz_answer4.setBackgroundColor(1179392);
-                        quiz_answer2.setBackgroundColor(16711680);
-
-//                        quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
-//                        quiz_answer2.setBackgroundResource(R.drawable.wrong_btn);
+                        wrongToast.show();
+                        sendData = new StringBuilder().append(sendData).append("/").append(quiz_word.getText().toString()).toString();
                         wrong_count++;
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
@@ -383,11 +368,8 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer3.setOnClickListener(v -> {
-
-                        quiz_answer4.setBackgroundColor(1179392);
-                        quiz_answer3.setBackgroundColor(16711680);
-//                        quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
-//                        quiz_answer3.setBackgroundResource(R.drawable.wrong_btn);
+                        wrongToast.show();
+                        sendData = new StringBuilder().append(sendData).append("/").append(quiz_word.getText().toString()).toString();
                         wrong_count++;
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
@@ -396,12 +378,8 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer1.setOnClickListener(v -> {
-
-                        quiz_answer4.setBackgroundColor(1179392);
-                        quiz_answer1.setBackgroundColor(16711680);
-
-//                        quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
-//                        quiz_answer1.setBackgroundResource(R.drawable.wrong_btn);
+                        wrongToast.show();
+                        sendData = new StringBuilder().append(sendData).append("/").append(quiz_word.getText().toString()).toString();
                         wrong_count++;
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);

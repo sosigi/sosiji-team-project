@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -95,20 +96,20 @@ public class wordAdd extends AppCompatActivity {
         wordcardData.put("mean1", korean1);
         wordcardData.put("memorization", 0);
 
-        boolean korean2AddExist=false;
-        if(korean2Add){
-            if(!korean2.equals("")){
+        boolean korean2AddExist = false;
+        if (korean2Add) {
+            if (!korean2.equals("")) {
                 wordcardData.put("mean2", korean2);
-                korean2AddExist=true;
+                korean2AddExist = true;
             }
         }
-        if(korean3Add){
-            if(korean2AddExist){
-                if(!korean3.equals("")){
+        if (korean3Add) {
+            if (korean2AddExist) {
+                if (!korean3.equals("")) {
                     wordcardData.put("mean3", korean3);
                 }
-            }else{
-                if(!korean3.equals("")){
+            } else {
+                if (!korean3.equals("")) {
                     wordcardData.put("mean2", korean3);
                 }
             }
@@ -119,34 +120,43 @@ public class wordAdd extends AppCompatActivity {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
-                    Map<String, Object> wordList = (Map<String, Object>) Objects.requireNonNull(document.getData()).get("wordlist");
+                    if (Objects.requireNonNull(document.getData()).get("wordlist") == null) {
+                        Map<String, Object> newMap = new HashMap<>();
+                        newMap.put("0", wordcardData);
+                        Map<String, Object> newnewMap = new HashMap<>();
+                        newnewMap.put("wordlist", newMap);
+                        wordBooksDoc.set(newnewMap, SetOptions.merge());
+                    } else {
 
-                    //영단어 중복되는지 검사.
-                    boolean alreadyWordExist = false;
-                    try {
-                        if (wordList != null) {
-                            for(int i=0;i<wordList.size();i++){
-                                Map<String, Object> map_find = (HashMap) wordList.get(String.valueOf(i));
-                                Log.i("mtyag", Objects.requireNonNull(map_find.get("word")).toString()+"::"+english);
-                                if (Objects.requireNonNull(map_find.get("word")).toString().equals(english)) {
-                                    alreadyWordExist = true;
+                        Map<String, Object> wordList = (Map<String, Object>) Objects.requireNonNull(document.getData()).get("wordlist");
+
+                        //영단어 중복되는지 검사.
+                        boolean alreadyWordExist = false;
+                        try {
+                            if (wordList != null) {
+                                for (int i = 0; i < wordList.size(); i++) {
+                                    Map<String, Object> map_find = (HashMap) wordList.get(String.valueOf(i));
+                                    Log.i("mtyag", Objects.requireNonNull(map_find.get("word")).toString() + "::" + english);
+                                    if (Objects.requireNonNull(map_find.get("word")).toString().equals(english)) {
+                                        alreadyWordExist = true;
+                                    }
                                 }
                             }
-                        }
-                        if(!alreadyWordExist){
-                            //중복안됨을 확인하고 db로 데이터 전송.
-                            int wordBookNum;
-                            if (wordList != null) {
-                                wordBookNum = wordList.size();
-                                wordList.put(String.valueOf(wordBookNum), wordcardData);
+                            if (!alreadyWordExist) {
+                                //중복안됨을 확인하고 db로 데이터 전송.
+                                int wordBookNum;
+                                if (wordList != null) {
+                                    wordBookNum = wordList.size();
+                                    wordList.put(String.valueOf(wordBookNum), wordcardData);
+                                }
+                                wordBooksDoc.update("wordlist", wordList);
+                                finish();
+                            } else {
+                                Toast.makeText(view.getContext(), "중복되는 단어가 존재합니다.", Toast.LENGTH_SHORT).show();
                             }
-                            wordBooksDoc.update("wordlist", wordList);
-                            finish();
-                        }else{
-                            Toast.makeText(view.getContext(),"중복되는 단어가 존재합니다." ,Toast.LENGTH_SHORT).show();
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
                         }
-                    }catch(NullPointerException e){
-                        e.printStackTrace();
                     }
                 } else {
                     Log.i("mytag", "No such document");
@@ -158,21 +168,21 @@ public class wordAdd extends AppCompatActivity {
     }
 
     public void addKoreanMean(View view) {
-        if (koreanCount==1) {
+        if (koreanCount == 1) {
             view2.setVisibility(View.VISIBLE);
             titleText2.setVisibility(View.VISIBLE);
             linearLayout2.setVisibility(View.VISIBLE);
             imageButton2.setVisibility(View.VISIBLE);
             editText3.setVisibility(View.VISIBLE);
-            koreanCount = koreanCount+1;
+            koreanCount = koreanCount + 1;
             korean2Add = true;
-        } else if (koreanCount==2) {
+        } else if (koreanCount == 2) {
             view3.setVisibility(View.VISIBLE);
             titleText3.setVisibility(View.VISIBLE);
             linearLayout3.setVisibility(View.VISIBLE);
             editText4.setVisibility(View.VISIBLE);
             imageButton3.setVisibility(View.VISIBLE);
-            koreanCount=koreanCount+1;
+            koreanCount = koreanCount + 1;
             korean3Add = true;
         } else {
             Toast.makeText(view.getContext(), "한 단어당 의미는 최대 3개까지 저장 가능합니다.", Toast.LENGTH_SHORT).show();
@@ -188,7 +198,7 @@ public class wordAdd extends AppCompatActivity {
             linearLayout2.setVisibility(View.GONE);
             imageButton2.setVisibility(View.GONE);
             editText3.setVisibility(View.GONE);
-            koreanCount = koreanCount-1;
+            koreanCount = koreanCount - 1;
             korean2Add = false;
         } else {
             Log.i("mytag", "2삭제 실행되지 않음.");
@@ -204,7 +214,7 @@ public class wordAdd extends AppCompatActivity {
             linearLayout3.setVisibility(View.GONE);
             editText4.setVisibility(View.GONE);
             imageButton3.setVisibility(View.GONE);
-            koreanCount= koreanCount-1;
+            koreanCount = koreanCount - 1;
             korean3Add = false;
         } else {
             Log.i("mytag", "삭제 실행되지 않음.");

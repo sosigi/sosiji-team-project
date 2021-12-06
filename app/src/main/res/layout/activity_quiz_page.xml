@@ -51,13 +51,13 @@
                 android:id="@+id/quiz_answer1"
                 android:layout_width="350dp"
                 android:layout_height="50dp"
-                android:padding="10dp"
                 android:background="@drawable/quiz_btn"
                 android:text="답1"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 app:backgroundTint="@color/backgroundColor" />
         </FrameLayout>
+
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

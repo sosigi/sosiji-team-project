@@ -70,6 +70,8 @@ public class wordbook extends AppCompatActivity {
     //default=2, 암기=1, 미암기=0;
     int thisWordbookHideType = 0;
     //default =0, 단어숨김=1, 뜻숨김=2;
+    //단어장의 단어수
+    int coundWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +130,8 @@ public class wordbook extends AppCompatActivity {
                     categoryName.setText(document.get("wordbooktitle").toString());
                     wordbook_top_title.setText(document.get("wordbooktitle").toString());
                     wordbook_top_explain.setText(document.get("wordbookexplain").toString());
+
+
                 } else {
                     Log.i(TAG, "No such document");
                 }
@@ -135,6 +139,7 @@ public class wordbook extends AppCompatActivity {
                 Log.i(TAG, "get failed with " + task.getException());
             }
         });
+
         updateWordcard(thisWordbookMemorizationType);
 
         //wordcard List 변경된 내용 있는지 확인.
@@ -146,7 +151,13 @@ public class wordbook extends AppCompatActivity {
             }
             if (snapshot != null && snapshot.exists()) {
                 Log.d(TAG, "Current data: " + snapshot.getData());
-                updateWordcard(thisWordbookMemorizationType);
+                Map<String,Object> wordList = (Map<String, Object>) snapshot.getData().get("wordlist");
+                int countWordlist =0;
+                countWordlist = wordList.size();
+                if(countWordlist > coundWord){
+                    Log.i("mytag","실행된");
+                    updateWordcard(thisWordbookMemorizationType);
+                }
             } else {
                 Log.d(TAG, "Current data: null");
             }
@@ -292,6 +303,7 @@ public class wordbook extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     TextView text = findViewById(R.id.recommend_word_add);
+                    coundWord = countWordlist;
                     if(countWordlist==0){
                         text.setVisibility(View.VISIBLE);
                     }else{
@@ -356,7 +368,7 @@ public class wordbook extends AppCompatActivity {
                             if (dataDelete) {
                                 wordBooksDoc.update("wordlist", newWordcardArray);
                                 Log.i(TAG, "data delete complete");
-                                updateWordcard(thisWordbookMemorizationType);
+                                //updateWordcard(thisWordbookMemorizationType);
                                 Toast.makeText(view.getContext(), R.string.toast_delete_word, Toast.LENGTH_SHORT).show();
                                 dataDelete = false;
                             }
@@ -402,13 +414,13 @@ public class wordbook extends AppCompatActivity {
 
                             if (map_find.get("mean2") != "") {
                                 newWordCard.put("mean2", map_find.get("mean2"));
-                            } else {
-                                newWordCard.put("mean2", "");
+//                            } else {
+//                                newWordCard.put("mean2", "");
                             }
                             if (map_find.get("mean3") != "") {
                                 newWordCard.put("mean3", map_find.get("mean3"));
-                            } else {
-                                newWordCard.put("mean3", "");
+//                            } else {
+//                                newWordCard.put("mean3", "");
                             }
                             if (englishWordText.equals(word_english)) {
                                 dataChange = true;
@@ -420,8 +432,7 @@ public class wordbook extends AppCompatActivity {
                                     wordMean1.setTextColor(Color.LTGRAY);
                                     wordMean2.setTextColor(Color.LTGRAY);
                                     wordMean3.setTextColor(Color.LTGRAY);
-                                    Toast myToast = Toast.makeText(this.getApplicationContext(), R.string.toast_change_to_memorization, Toast.LENGTH_SHORT);
-                                    myToast.show();
+                                    Toast.makeText(this.getApplicationContext(), R.string.toast_change_to_memorization, Toast.LENGTH_SHORT).show();
                                 } else {
                                     newWordCard.put("memorization", 0);
                                     memorizeBtn.setImageResource(R.drawable.memorization_uncheck);
@@ -429,8 +440,7 @@ public class wordbook extends AppCompatActivity {
                                     wordMean1.setTextColor(Color.BLACK);
                                     wordMean2.setTextColor(Color.BLACK);
                                     wordMean3.setTextColor(Color.BLACK);
-                                    Toast myToast = Toast.makeText(this.getApplicationContext(), R.string.toast_change_to_notmemorization, Toast.LENGTH_SHORT);
-                                    myToast.show();
+                                    Toast.makeText(this.getApplicationContext(), R.string.toast_change_to_notmemorization, Toast.LENGTH_SHORT).show();
                                 }
                             } else {
                                 newWordCard.put("memorization", map_find.get("memorization"));
