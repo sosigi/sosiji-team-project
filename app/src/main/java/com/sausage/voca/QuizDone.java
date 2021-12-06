@@ -65,20 +65,21 @@ public class QuizDone extends AppCompatActivity {
         back_btn = findViewById(R.id.quiz_result_back);
         back_btn.setOnClickListener(view -> {
             if (checkbox.isChecked()) {
-                Log.i("mytag","체크함");
+                Log.i("mytag", "체크함");
                 //ToDo 오답을 미암기 단어로 표기
-                for (num =0; num<wrong_count;num++) {
+                for (num = 0; num < wrong_count; num++) {
                     //Log.i("mytag",String.valueOf(num)+"::"+sendDataArr[num+2]);
                     dbCheck();
                 }
-                Toast.makeText(getApplicationContext(),"오답을 미암기 단어로 표기하였습니다.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "오답을 미암기 단어로 표기하였습니다.", Toast.LENGTH_SHORT).show();
             }
             finish();
         });
 
 
     }
-    public void dbCheck(){
+
+    public void dbCheck() {
         db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID)
                 .get().addOnCompleteListener((task) -> {
             if (task.isSuccessful()) {
