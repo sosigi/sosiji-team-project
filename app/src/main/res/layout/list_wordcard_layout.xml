@@ -29,47 +29,49 @@
                     android:orientation="horizontal"
                     android:stretchColumns="0">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="10">
-
+                    <TableRow>
                         <TextView
                             android:id="@+id/list_english_word"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="7"
-                            android:fontFamily="@font/times_new_roman_bold"
                             android:text="@string/word"
                             android:textColor="#000"
-                            android:textSize="24dp" />
+                            android:textSize="24dp"
+                            android:fontFamily="@font/times_new_roman_bold"
+                            android:maxLength="20"/>
 
-                        <LinearLayout
-                            android:layout_width="0dp"
+                        <ImageView
+                            android:id="@+id/list_memorization_check"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="3"
-                            android:orientation="horizontal">
+                            android:layout_marginRight="20dp"
+                            android:maxWidth="28dp"
+                            android:maxHeight="28dp"
+                            android:onClick="wordMemoryBtnClick"
+                            android:src="@drawable/memorization_uncheck" />
 
-                            <ImageView
-                                android:id="@+id/list_memorization_check"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginRight="20dp"
-                                android:onClick="wordMemoryBtnClick"
-                                android:src="@drawable/memorization_uncheck" />
+                        <!--                        <ImageView-->
+                        <!--                            android:id="@+id/list_memorization_check"-->
+                        <!--                            android:layout_width="wrap_content"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:layout_marginRight="20dp"-->
+                        <!--                            android:maxWidth="28dp"-->
+                        <!--                            android:maxHeight="28dp"-->
+                        <!--                            android:onClick="wordMemoryBtnClick"-->
+                        <!--                            android:src="@drawable/memorization_check"-->
+                        <!--                            android:visibility="gone" />-->
 
-                            <ImageView
-                                android:id="@+id/list_delete_word"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:adjustViewBounds="true"
-                                android:background="@android:color/transparent"
-                                android:onClick="deleteWordBtnClick"
-                                android:src="@drawable/delete_word" />
-                        </LinearLayout>
-                    </LinearLayout>
+                        <ImageButton
+                            android:id="@+id/list_delete_word"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:background="@android:color/transparent"
+                            android:maxWidth="28dp"
+                            android:onClick="deleteWordBtnClick"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/delete_word" />
+                    </TableRow>
                 </TableLayout>
 
                 <TextView
@@ -79,9 +81,7 @@
                     android:paddingTop="15dp"
                     android:text="@string/word_m1"
                     android:textColor="#000"
-                    android:textSize="16dp"
-                    android:maxLength="30"
-                    android:maxLines="1"/>
+                    android:textSize="16dp" />
 
                 <TextView
                     android:id="@+id/list_word_mean2"
@@ -90,9 +90,7 @@
                     android:paddingTop="15dp"
                     android:text="@string/word_m2"
                     android:textColor="#000"
-                    android:textSize="16dp"
-                    android:maxLength="30"
-                    android:maxLines="1"/>
+                    android:textSize="16dp" />
 
                 <TextView
                     android:id="@+id/list_word_mean3"
@@ -101,9 +99,7 @@
                     android:paddingTop="15dp"
                     android:text="@string/word_m3"
                     android:textColor="#000"
-                    android:textSize="16dp"
-                    android:maxLength="30"
-                    android:maxLines="1"/>
+                    android:textSize="16dp" />
             </LinearLayout>
         </FrameLayout>
     </LinearLayout>
