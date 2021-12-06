@@ -11,10 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 public class DictionaryFragment extends Fragment {
 
     EditText search;
+    ImageButton search_btn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,17 @@ public class DictionaryFragment extends Fragment {
                 return true;
             }
             return false;
+        });
+
+        search_btn = v.findViewById(R.id.search_btn);
+        search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), DicSearch.class);
+                // 입력한 단어 data도 넘어가게 하고싶은데,,, 자꾸 에러가 뜬다
+                intent.putExtra("search", search.getText());
+                startActivity(intent);
+            }
         });
 
 

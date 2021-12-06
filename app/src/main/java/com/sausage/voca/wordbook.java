@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,11 +31,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class wordbook extends AppCompatActivity {
+public class wordbook extends AppCompatActivity implements View.OnClickListener {
     String TAG = "mytag";
     //단어 정렬
     final private String[] mSorting = {"전체", "암기", "미암기"};
-    private TextView mWordSorting;
+    private TextView mWordSorting, logout;
     private AlertDialog mWordSortingSelectDialog;
 
 
@@ -73,14 +74,17 @@ public class wordbook extends AppCompatActivity {
     int thisWordbookMemorizationType = 2;
     //default=2, 암기=1, 미암기=0;
     int thisWordbookHideType = 0;
+    private View HamburgerBarButton;
     //default =0, 단어숨김=1, 뜻숨김=2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wordbook);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //상태 바 없애기
 
-
+        logout = findViewById(R.id.logout_txt);
+        logout.setOnClickListener(this);
         //From. categoryFragment
         wordbookID = getIntent().getStringExtra("id");
         wordBooksDoc = db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID);
@@ -89,32 +93,13 @@ public class wordbook extends AppCompatActivity {
 
         //quiz btn onclickListener & custom font 적용
         wordQuiz = findViewById(R.id.wordQuiz);
+        wordQuiz.setOnClickListener(this);
         Typeface wordfont = Typeface.createFromAsset(getAssets(), "times_new_roman.ttf");
         wordQuiz.setTypeface(wordfont);
-
-        wordQuiz.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), QuizDialog.class).putExtra("id",wordbookID);
-            startActivity(intent);
-        });
 
         //drawer onclickListener
         search = findViewById(R.id.dicSearch);
         mypage = findViewById(R.id.setting);
-
-        search.setOnClickListener(view -> {
-            Intent intent = new Intent().putExtra("inform", "search");
-            Log.i("mytag", "보낼 Data는 search");
-            setResult(RESULT_OK, intent);
-            finish();
-        });
-        mypage.setOnClickListener(view -> {
-            Intent intent = new Intent();
-            intent.putExtra("inform", "mypage");
-            Log.i("mytag", "보낼 Data는 mypage");
-
-            setResult(RESULT_OK, intent);
-            finish();
-        });
 
         //단어장 title, explain Textset
         //wordbooktitle, wordbookexplain 출력.
@@ -162,10 +147,7 @@ public class wordbook extends AppCompatActivity {
 
         //단어 정렬 선택 btn (전체/암기/미암기)
         mWordSorting = findViewById(R.id.select_wordSorting);
-        mWordSorting.setOnClickListener(view -> {
-            mWordSortingSelectDialog.show();
-            //선택된 정렬방식에 따라 wordcard 정렬
-        });
+        mWordSorting.setOnClickListener(this);
         mWordSortingSelectDialog = new AlertDialog.Builder(wordbook.this)
                 .setItems(mSorting, (dialogInterface, i) -> {
                     mWordSorting.setText(mSorting[i] + " ▼");
@@ -195,30 +177,15 @@ public class wordbook extends AppCompatActivity {
 
         //단어 숨김 btn 선택
         wordHideBtn = findViewById(R.id.hideWord);
-        wordHideBtn.setOnClickListener(view -> {
-            Log.i(TAG,"단어숨김 선택");
-            thisWordbookHideType=1;
-            updateWordcard(thisWordbookMemorizationType);
-            Toast myToast = Toast.makeText(view.getContext(),R.string.toast_hide_word ,Toast.LENGTH_SHORT);
-            myToast.show();
-        });
+        wordHideBtn.setOnClickListener(this);
 
         //뜻 숨김 btn 선택
         meanHideBtn = findViewById(R.id.hideMeaning);
-        meanHideBtn.setOnClickListener(view -> {
-            Log.i(TAG,"단어숨김 선택");
-            thisWordbookHideType=2;
-            updateWordcard(thisWordbookMemorizationType);
-            Toast myToast = Toast.makeText(view.getContext(),R.string.toast_hide_mean ,Toast.LENGTH_SHORT);
-            myToast.show();
-        });
+        meanHideBtn.setOnClickListener(this);
 
         //Quiz Btn 선택
         wordQuiz = findViewById(R.id.wordQuiz);
-        wordQuiz.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), QuizDialog.class).putExtra("id",wordbookID);
-            startActivity(intent);
-        });
+        wordQuiz.setOnClickListener(this);
 
         /*
         wordQuizSortingSelectDialog = new AlertDialog.Builder(wordbook.this)
@@ -254,14 +221,8 @@ public class wordbook extends AppCompatActivity {
         //drawer onclickListener
         search = findViewById(R.id.dicSearch);
         mypage = findViewById(R.id.setting);
-        search.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), DicSearch.class);
-            startActivity(intent);
-        });
-        mypage.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), Mypage.class);
-            startActivity(intent);
-        });
+        search.setOnClickListener(this);
+        mypage.setOnClickListener(this);
     }
 
     //update wordbook wordcard
@@ -461,5 +422,59 @@ public class wordbook extends AppCompatActivity {
                 Log.i("mytag", "get failed with " + task.getException());
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == logout) {
+            FirebaseAuth.getInstance().signOut();
+            checkCurrentUser();
+        }else if (v == wordQuiz) {
+            Intent intent = new Intent(getApplicationContext(), QuizDialog.class).putExtra("id",wordbookID);
+            startActivity(intent);
+        }else if (v == search) {
+            Intent intent = new Intent(getApplicationContext(), DicSearch.class);
+            startActivity(intent);
+        }else if (v == mypage) {
+            Intent intent = new Intent(getApplicationContext(), Mypage.class);
+            startActivity(intent);
+        }else if (v == mWordSorting) {
+            mWordSortingSelectDialog.show();
+        }else if (v == wordHideBtn) {
+            Log.i(TAG,"단어숨김 선택");
+            thisWordbookHideType=1;
+            updateWordcard(thisWordbookMemorizationType);
+            Toast myToast = Toast.makeText(this,R.string.toast_hide_word ,Toast.LENGTH_SHORT);
+            myToast.show();
+        }else if (v == meanHideBtn) {
+            Log.i(TAG,"단어숨김 선택");
+            thisWordbookHideType=2;
+            updateWordcard(thisWordbookMemorizationType);
+            Toast myToast = Toast.makeText(this,R.string.toast_hide_mean ,Toast.LENGTH_SHORT);
+            myToast.show();
+        }
+    }
+    public void checkCurrentUser() {
+        // [START check_current_user]
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // User is signed in
+        } else {
+            updateUI(user);
+            // No user is signed in
+        }
+        // [END check_current_user]
+    }
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            // User is signed in
+        } else {
+            // No user is signed in
+            // 로그아웃 실행
+            Intent main = new Intent(this, Index.class);
+            startActivity(main);
+            Toast.makeText(this.getApplicationContext(), "로그아웃되었습니다", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 }

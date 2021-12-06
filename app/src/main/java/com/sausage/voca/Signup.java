@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,6 +51,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     private static final String GoogleTAG = "GoogleActivity";
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
+    private View mainLayout;
 
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -58,7 +62,9 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) { //public으로 바꿈. 꼭 이런 방식이어야 할까?
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //상태 바 없애기
 
+        mainLayout = findViewById(R.id.main_layout);
         new_name = findViewById(R.id.signup_name);
         new_email = findViewById(R.id.signup_email);
         new_password = findViewById(R.id.signup_password);
@@ -68,6 +74,27 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         login.setOnClickListener(this);
         signup.setOnClickListener(this);
         google.setOnClickListener(this);
+
+        new_email.setOnKeyListener((view, keyCode, keyEvent) -> {
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                if (!new_email.getText().equals("") && !new_password.getText().equals("")){
+                    login.callOnClick();
+                    return true;
+                }
+                Snackbar.make(mainLayout, "빈 칸을 모두 빠짐없이 기입해주세요.", Snackbar.LENGTH_SHORT).show();
+            }
+            return false;
+        });
+        new_password.setOnKeyListener((view, keyCode, keyEvent) -> {
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                if (!new_email.getText().equals("") && !new_password.getText().equals("")){
+                    login.callOnClick();
+                    return true;
+                }
+                Snackbar.make(mainLayout, "빈 칸을 모두 빠짐없이 기입해주세요.", Snackbar.LENGTH_SHORT).show();
+            }
+            return false;
+        });
 
         // [START config_google_signin]
         // Configure Google Sign In
@@ -114,8 +141,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(EmailTAG, "createUserWithEmail:failure", task.getException());
-                        Toast.makeText(Signup.this, "다시 시도해주세요",
-                                Toast.LENGTH_SHORT).show();
+                        Snackbar.make(mainLayout, "회원가입에 실패했습니다. 다시 시도해주세요,", Snackbar.LENGTH_SHORT).show();
                         updateUI(null);
                     }
                 });

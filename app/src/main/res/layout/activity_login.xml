@@ -6,40 +6,85 @@
     android:layout_height="match_parent"
     tools:context=".Login"
     android:background="#507255"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/main_layout">
 
-    <EditText
-        android:id="@+id/login_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email"
-        android:textColorHint="@color/white"
-        android:selectAllOnFocus="true"/>
-    <EditText
-        android:id="@+id/login_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:textColorHint="@color/white"
-        android:selectAllOnFocus="true"/>
-    <Button
-        android:id="@+id/login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="login"
-        android:onClick="onClick"/>
     <TextView
-        android:id="@+id/signup"
+        android:fontFamily="serif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="이메일로 5초만에 가입하기"
-        android:textColor="@color/white"/>
-
-    <Button
-        android:id="@+id/google_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:text="Vocabulary"
         android:layout_gravity="center"
-        android:text="Google로 로그인"
-        android:layout_marginTop="30dp"/>
+        android:textSize="50dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="100dp"
+        android:textColor="@color/white"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+    <EditText
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:id="@+id/login_email"
+        android:layout_width="350dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="13dp"
+        android:hint="email"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/white"
+        android:maxLength="25"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:textColorHint="#50FFFFFF"
+        android:selectAllOnFocus="true"
+        android:background="@drawable/edit_bg"/>
+        <EditText
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:id="@+id/login_password"
+            android:layout_width="350dp"
+            android:layout_height="55dp"
+            android:hint="password"
+            android:textColor="@color/white"
+            android:inputType="textPassword"
+            android:textAlignment="center"
+            android:textColorHint="#50FFFFFF"
+            android:selectAllOnFocus="true"
+            android:background="@drawable/edit_bg"
+            android:maxLength="25"
+            android:maxLines="1"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/login_button"
+            android:layout_width="350dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="80dp"
+            android:textColor="@color/white"
+            android:text="login"
+            android:onClick="onClick"
+            android:background="@drawable/edit_bg"/>
+        <TextView
+            android:id="@+id/signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="이메일로 5초만에 가입하기"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+
+
+
+
+<!--    <Button-->
+<!--        android:id="@+id/google_btn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:text="Google로 로그인"-->
+<!--        android:layout_marginTop="30dp"/>-->
+
 </LinearLayout>

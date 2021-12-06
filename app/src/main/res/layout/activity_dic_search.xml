@@ -55,6 +55,7 @@
                 android:layout_weight="28"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:layout_marginBottom="5dp"
                 android:layout_gravity="bottom"
                 android:backgroundTint="@color/backgroundColor"
                 android:hint="검색어를 입력하세요"
@@ -63,6 +64,7 @@
                 android:textColorHint="@color/white" />
 
             <ImageButton
+                android:id="@+id/search_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -70,6 +72,7 @@
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
+                android:baselineAlignBottom="true"
                 android:src="@drawable/reading_glasses" />
         </LinearLayout>
     </LinearLayout>
@@ -118,7 +121,7 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingBottom="10dp"
-            android:text="검색결과 화면"
+            android:text="검색결과"
             android:textColor="@color/black"
             android:visibility="invisible" />
     </LinearLayout>

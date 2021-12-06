@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -23,26 +25,35 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "EmailPassword";
     private FirebaseAuth mAuth;
+    private View mainLayout;
     //google로 로그인 안되는 문제.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //상태 바 없애기
 
+        mainLayout = findViewById(R.id.main_layout);
         email = findViewById(R.id.login_email);
         password = findViewById(R.id.login_password);
         email.setOnKeyListener((view, keyCode, keyEvent) -> {
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                login.callOnClick();
-                return true;
+                if (!email.getText().equals("") && !password.getText().equals("")){
+                    login.callOnClick();
+                    return true;
+                }
+                Snackbar.make(mainLayout, "이메일 혹은 패스워드를 입력해주세요.", Snackbar.LENGTH_SHORT).show();
             }
             return false;
         });
         password.setOnKeyListener((view, keyCode, keyEvent) -> {
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                login.callOnClick();
-                return true;
+                if (!email.getText().equals("") && !password.getText().equals("")){
+                    login.callOnClick();
+                    return true;
+                }
+                Snackbar.make(mainLayout, "이메일 혹은 패스워드를 입력해주세요.", Snackbar.LENGTH_SHORT).show();
             }
             return false;
         });
@@ -82,8 +93,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.getException());
-                        Toast.makeText(Login.this, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show();
+                        Snackbar.make(mainLayout, "로그인에 실패했습니다. 다시 시도해주세요.", Snackbar.LENGTH_SHORT).show();
                         updateUI(null);
                     }
                 });

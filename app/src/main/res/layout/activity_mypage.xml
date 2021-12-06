@@ -15,7 +15,7 @@
         android:background="@color/pointColor"
         android:baselineAligned="true"
         android:orientation="horizontal"
-        android:padding="10dp"
+        android:padding="13dp"
         android:scaleType="fitCenter">
 
         <ImageButton

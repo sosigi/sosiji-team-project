@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -31,33 +32,50 @@ public class DicSearch extends AppCompatActivity {
     private EditText searching_word; //이게 회색이면 안 쓰인거니까 뭐가 문제인지 눈여겨볼것...
     private TextView searched, meaning;
     private String letsSearch, searchResult;
+    ImageButton dicSearch_add, dicSearch_back, search_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dic_search);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //상태 바 없애기
 
         searching_word = findViewById(R.id.search_result);
         searched = findViewById(R.id.result_searched);
         meaning = findViewById(R.id.result_meaning);
+        dicSearch_add = findViewById(R.id.dicSearch_add);
+        dicSearch_back = findViewById(R.id.dicSearch_back);
+
+
+        invisible();
 
         //TODO 여기서 뭔 문제가 있는지, 자꾸 검색결과 화면이 두 개가 겹친다
         CharSequence search = getIntent().getCharSequenceExtra("search");
         if (search!=null) {
             searching_word.setText(search);
             RunThread();
+            visible();
         }
 
         searching_word.setOnKeyListener((v, keyCode, event) ->  {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     RunThread();
+                    visible();
+
                     return true;
                 }
                 return false;
         });
 
-        ImageButton dicSearch_back = findViewById(R.id.dicSearch_back);
-        ImageButton dicSearch_add = findViewById(R.id.dicSearch_add);
+        search_btn = findViewById(R.id.search_btn);
+        search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RunThread();
+                visible();
+            }
+        });
+
 
         dicSearch_back.setOnClickListener(view -> finish());
         dicSearch_add.setOnClickListener(v -> {
@@ -66,9 +84,6 @@ public class DicSearch extends AppCompatActivity {
             startActivity(intent);
         });
 
-        searched.setVisibility(View.VISIBLE);
-        meaning.setVisibility(View.VISIBLE);
-        dicSearch_add.setVisibility(View.VISIBLE);
     }
 
     public void RunThread() { //TODO:스레드 공부하자...
@@ -87,6 +102,18 @@ public class DicSearch extends AppCompatActivity {
             }
         });
         thread.start();
+    }
+
+    public void visible(){
+        searched.setVisibility(View.VISIBLE);
+        meaning.setVisibility(View.VISIBLE);
+        dicSearch_add.setVisibility(View.VISIBLE);
+    }
+
+    public void invisible(){
+        searched.setVisibility(View.INVISIBLE);
+        meaning.setVisibility(View.INVISIBLE);
+        dicSearch_add.setVisibility(View.INVISIBLE);
     }
 
     private static String papagoTranslate(String args) {

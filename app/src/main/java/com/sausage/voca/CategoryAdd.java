@@ -3,6 +3,7 @@ package com.sausage.voca;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -42,6 +43,8 @@ public class CategoryAdd extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_add);
         //wordBooksCount = Integer.parseInt(getIntent().getStringExtra("wordBooksCount"));
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //상태 바 없애기
+
 
         ImageButton back_btn = findViewById(R.id.category_add_back);
         TextView complete_btn = findViewById(R.id.category_add_complete);

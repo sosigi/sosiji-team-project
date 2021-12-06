@@ -3,6 +3,7 @@ package com.sausage.voca;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ public class QuizDialog extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_dialog);
         wordbookID = getIntent().getStringExtra("id");
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //상태 바 없애기
 
         start = findViewById(R.id.quiz_start);
         Toast toast = Toast.makeText(getApplicationContext() ,"한 가지 옵션을 선택하세요.", Toast.LENGTH_SHORT);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -46,6 +47,7 @@ public class CategoryRevise extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_revise);
         wordbooktitle = getIntent().getStringExtra("titleID");
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //상태 바 없애기
 
         ImageButton back_btn = findViewById(R.id.category_edit_back);
         TextView complete_btn = findViewById(R.id.category_edit_complete);

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="110dp"
         android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="20dp"
         android:orientation="horizontal"
         android:weightSum="30">
         <!-- TODO: Update blank fragment layout -->
@@ -28,6 +28,7 @@
             android:maxLength="45"/>
 
         <ImageButton
+            android:id="@+id/search_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="fitCenter"

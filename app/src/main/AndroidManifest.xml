@@ -12,9 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Voca">
         <activity
-            android:name=".Quiz"
-            android:exported="false" />
-        <activity
             android:name=".QuizPage"
             android:exported="false" />
         <activity
@@ -58,9 +55,6 @@
             android:exported="true" />
         <activity
             android:name=".CategoryAdd"
-            android:exported="true" />
-        <activity
-            android:name=".CategoryEdit"
             android:exported="true" />
         <activity
             android:name=".CategoryRevise"
