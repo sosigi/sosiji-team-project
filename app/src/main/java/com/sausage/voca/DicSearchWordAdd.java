@@ -49,9 +49,9 @@ public class DicSearchWordAdd extends AppCompatActivity {
         setContentView(R.layout.activity_dic_search_word_add);
         getTitles();
 
-
         drawer = findViewById(R.id.drawer);
         category_view = findViewById(R.id.category_view);
+
 
         drawer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,13 +68,6 @@ public class DicSearchWordAdd extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         category_view.setText(versionArray[which]);
                         wordbookID = String.valueOf(which);
-                    }
-                });
-//                버튼 클릭시 동작
-                dlg.setPositiveButton("확인",new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int which) {
-                        //토스트 메시지
-                        Toast.makeText(DicSearchWordAdd.this,"변경 : ",Toast.LENGTH_SHORT).show();
                     }
                 });
                 dlg.show();
@@ -166,6 +159,8 @@ public class DicSearchWordAdd extends AppCompatActivity {
                             titles.add(wordbooktitle);
                             //Log.i("mytag", titles.toString());
                         }
+                        //default category 설정
+                        category_view.setText(titles.get(0));
                     } else {
                         Log.d("mytag", "Error getting documents: ", task.getException());
                     }
