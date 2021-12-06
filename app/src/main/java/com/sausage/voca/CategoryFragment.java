@@ -36,14 +36,11 @@ public class CategoryFragment extends ListFragment {
 
     String TAG = "mytag";
 
-    TextView wordbook1, wordbook2, wordbook3;
-    LinearLayout linearLayout;
-
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     ListView listView;
-    TextView edit;
+    TextView edit, loading;
     ArrayList<String> titles = new ArrayList<>();
     ArrayAdapter<String> adapter;
 
@@ -61,6 +58,8 @@ public class CategoryFragment extends ListFragment {
 
         View v = inflater.inflate(R.layout.fragment_category, null);
         listView = v.findViewById(android.R.id.list);
+        loading = v.findViewById(R.id.loading);
+        loading.setVisibility(View.VISIBLE);
         edit = v.findViewById(R.id.category_edit);
         edit.setOnClickListener(v1 -> {
             Log.i("mytag", "edit 클릭됨");
@@ -96,6 +95,7 @@ public class CategoryFragment extends ListFragment {
 
         listView.setAdapter(adapter);
         listView.getLastVisiblePosition();
+
         return v;
     }
 
@@ -129,7 +129,6 @@ public class CategoryFragment extends ListFragment {
             wordbooksRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
                     if (task.isSuccessful()) {
                         titles.clear(); //[시하] TODO 굳이..이렇게 해야하나?? 굳이?
                         for (QueryDocumentSnapshot document : task.getResult()) {
@@ -141,6 +140,7 @@ public class CategoryFragment extends ListFragment {
                     } else {
                         Log.d("mytag", "Error getting documents: ", task.getException());
                     }
+                    loading.setVisibility(View.INVISIBLE);
                 }
             });
         }

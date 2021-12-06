@@ -72,7 +72,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:hint="@string/category_add_title"
-                android:inputType="text" />
+                android:inputType="text"
+                android:maxLength="15"/>
         </LinearLayout>
 
         <LinearLayout
