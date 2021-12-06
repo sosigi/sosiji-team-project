@@ -3,10 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2171875" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/correct_btn.xml" value="0.209375" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1287037037037037" />
-        <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/quiz_btn.xml" value="0.2171875" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/round_quiz_btn.xml" value="0.1287037037037037" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/word_quiz_shadow.xml" value="0.1287037037037037" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/wordbook_title_list_layout.xml" value="0.20364583333333333" />
@@ -32,6 +30,16 @@
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/list_category_title_layout.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/list_wordcard_layout.xml" value="0.33" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/wordbook_title_list_layout.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/mlice/AndroidStudioProjects/voca/app/src/main/res/drawable/round_quiz_btn.xml" value="0.3536458333333333" />
+        <entry key="..\:/Users/mlice/AndroidStudioProjects/voca/app/src/main/res/drawable/word_quiz_shadow.xml" value="0.3536458333333333" />
+        <entry key="..\:/Users/mlice/AndroidStudioProjects/voca/app/src/main/res/drawable/wordcard_shadow.xml" value="0.3536458333333333" />
+        <entry key="..\:/Users/mlice/AndroidStudioProjects/voca/app/src/main/res/layout-v21/activity_dic_search.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/mlice/AndroidStudioProjects/voca/app/src/main/res/layout/activity_category.xml" value="0.3066123188405797" />
+        <entry key="..\:/Users/mlice/AndroidStudioProjects/voca/app/src/main/res/layout/activity_category_add.xml" value="0.3066123188405797" />
+        <entry key="..\:/Users/mlice/AndroidStudioProjects/voca/app/src/main/res/layout/activity_category_edit.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/mlice/AndroidStudioProjects/voca/app/src/main/res/layout/activity_category_revise.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/mlice/AndroidStudioProjects/voca/app/src/main/res/layout/activity_dic_search.xml" value="0.33" />
+        <entry key="..\:/Users/mlice/AndroidStudioProjects/voca/app/src/main/res/layout/activity_dic_search_word_add.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/mlice/AndroidStudioProjects/voca/app/src/main/res/drawable/round_quiz_btn.xml" value="0.3536458333333333" />
         <entry key="..\:/Users/mlice/AndroidStudioProjects/voca/app/src/main/res/drawable/word_quiz_shadow.xml" value="0.3536458333333333" />
         <entry key="..\:/Users/mlice/AndroidStudioProjects/voca/app/src/main/res/drawable/wordcard_shadow.xml" value="0.3536458333333333" />

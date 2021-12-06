@@ -1,5 +1,6 @@
 package com.sausage.voca;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,28 +9,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.ListFragment;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 
 public class CategoryFragment extends ListFragment {
@@ -56,7 +49,7 @@ public class CategoryFragment extends ListFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View v = inflater.inflate(R.layout.fragment_category, null);
+        @SuppressLint("InflateParams") View v = inflater.inflate(R.layout.fragment_category, null);
         listView = v.findViewById(android.R.id.list);
         loading = v.findViewById(R.id.loading);
         loading.setVisibility(View.VISIBLE);
@@ -79,17 +72,12 @@ public class CategoryFragment extends ListFragment {
         };
 
         final CollectionReference docRef = db.collection("users").document(user.getUid()).collection("wordbooks");
-        docRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(QuerySnapshot value,
-                                FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.w(TAG, "Listen failed.", e);
-                    return;
-                } else {
-                    Log.i(TAG, "카테고리 종류 : " + value);
-                    getTitles();
-                }
+        docRef.addSnapshotListener((value, e) -> {
+            if (e != null) {
+                Log.w(TAG, "Listen failed.", e);
+            } else {
+                Log.i(TAG, "카테고리 종류 : " + value);
+                getTitles();
             }
         });
 
@@ -102,10 +90,8 @@ public class CategoryFragment extends ListFragment {
 
     //TODO 삭제시 발생할 문제 고려
     @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
+    public void onListItemClick(ListView l, @NonNull View v, int position, long id) {
         String strText = (String) l.getItemAtPosition(position);
-        //Log.i("mytag","Fragment: "+ position + ": " + strText);
-        //Toast.makeText(this.getContext(), "클릭: " + position + " " + strText, Toast.LENGTH_SHORT).show();
         String idPosition = String.valueOf(position);
         Intent intent = new Intent(getActivity(), wordbook.class);
         intent.putExtra("title", strText);
@@ -126,22 +112,19 @@ public class CategoryFragment extends ListFragment {
             //Log.i("mytag", "wordbooksRef 경로 : " + wordbooksRef.getPath());
 
             //이제 wordbook 안에 있는 두 문서(0,1)에 접근하고, 그 각각의 문서에서 wordbooktitle 필드를 빼내와야 한다
-            wordbooksRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()) {
-                        titles.clear(); //[시하] TODO 굳이..이렇게 해야하나?? 굳이?
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            //Log.i("mytag", "words : " + document.getData().get("wordbooktitle"));
-                            String wordbooktitle = document.getData().get("wordbooktitle").toString();
-                            titles.add(wordbooktitle);
-                            adapter.notifyDataSetChanged(); //데이터 갱신됐다는 알림 전달 -> adapter가 화면에 띄워줌
-                        }
-                    } else {
-                        Log.d("mytag", "Error getting documents: ", task.getException());
+            wordbooksRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    titles.clear(); //[시하] TODO 굳이..이렇게 해야하나?? 굳이?
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        //Log.i("mytag", "words : " + document.getData().get("wordbooktitle"));
+                        String wordbooktitle = Objects.requireNonNull(document.getData().get("wordbooktitle")).toString();
+                        titles.add(wordbooktitle);
+                        adapter.notifyDataSetChanged(); //데이터 갱신됐다는 알림 전달 -> adapter가 화면에 띄워줌
                     }
-                    loading.setVisibility(View.INVISIBLE);
+                } else {
+                    Log.d("mytag", "Error getting documents: ", task.getException());
                 }
+                loading.setVisibility(View.INVISIBLE);
             });
         }
     }

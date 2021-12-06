@@ -65,7 +65,6 @@ public class wordbook extends AppCompatActivity {
 
     //[단어장 정보]
     String wordbookID;
-    String wordbookTitle;
     //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
     int thisWordbookMemorizationType = 2;
     //default=2, 암기=1, 미암기=0;
@@ -294,9 +293,9 @@ public class wordbook extends AppCompatActivity {
                     }
                     TextView text = findViewById(R.id.recommend_word_add);
                     if(countWordlist==0){
-                        text.setVisibility(text.VISIBLE);
+                        text.setVisibility(View.VISIBLE);
                     }else{
-                        text.setVisibility(text.GONE);
+                        text.setVisibility(View.GONE);
                     }
                 } else {
                     Log.i(TAG, "No such document");

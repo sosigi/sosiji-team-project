@@ -1,6 +1,5 @@
 package com.sausage.voca;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,12 +10,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -24,19 +20,17 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class DicSearchWordAdd extends AppCompatActivity {
 
     private EditText editText1, editText2,editText3,editText4;
-    private ImageButton word_add_back;
-    private TextView word_add_add, category_view;
-    private RelativeLayout drawer;
+    private TextView category_view;
 
     TextView titleText2, titleText3;
     LinearLayout linearLayout2, linearLayout3;
@@ -59,7 +53,7 @@ public class DicSearchWordAdd extends AppCompatActivity {
         setContentView(R.layout.activity_dic_search_word_add);
         getTitles();
 
-        drawer = findViewById(R.id.drawer);
+        RelativeLayout drawer = findViewById(R.id.drawer);
         category_view = findViewById(R.id.category_view);
 
         editText3 = findViewById(R.id.korean2);
@@ -74,25 +68,19 @@ public class DicSearchWordAdd extends AppCompatActivity {
         linearLayout3 = findViewById(R.id.korean3_layout);
         imageButton3 = findViewById(R.id.korean3_deleteBtn);
 
-        drawer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Log.i("mytag", titles.toString());
+        drawer.setOnClickListener(v -> {
+            //Log.i("mytag", titles.toString());
 
-                AlertDialog.Builder dlg = new AlertDialog.Builder(DicSearchWordAdd.this);
-                dlg.setTitle("카테고리 선택"); //제목
-                String[] versionArray = titles.toArray(new String[titles.size()]);
-                //Log.i("mytag", titles.toString());
+            AlertDialog.Builder dlg = new AlertDialog.Builder(DicSearchWordAdd.this);
+            dlg.setTitle("카테고리 선택"); //제목
+            String[] versionArray = titles.toArray(new String[0]);
+            //Log.i("mytag", titles.toString());
 
-                dlg.setItems(versionArray, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        category_view.setText(versionArray[which]);
-                        wordbookID = String.valueOf(which);
-                    }
-                });
-                dlg.show();
-            }
+            dlg.setItems(versionArray, (dialog, which) -> {
+                category_view.setText(versionArray[which]);
+                wordbookID = String.valueOf(which);
+            });
+            dlg.show();
         });
 
 
@@ -109,10 +97,10 @@ public class DicSearchWordAdd extends AppCompatActivity {
             finish();
         }
 
-        word_add_back = findViewById(R.id.word_add_back);
+        ImageButton word_add_back = findViewById(R.id.word_add_back);
         word_add_back.setOnClickListener(view -> finish());
 
-        word_add_add = findViewById(R.id.wordAddCompelete);
+        TextView word_add_add = findViewById(R.id.wordAddCompelete);
         word_add_add.setOnClickListener(v -> {
             Map<String, Object> wordcardData = new HashMap<>();
             String english = editText1.getText().toString();
@@ -153,7 +141,7 @@ public class DicSearchWordAdd extends AppCompatActivity {
                     //Log.i("mytag", "여기까지는 들어옴");
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        if (document.getData().get("wordlist")==null){
+                        if (Objects.requireNonNull(document.getData()).get("wordlist")==null){
                             Map<String, Object> newMap = new HashMap<>();
                             newMap.put("0", wordcardData);
                             Map<String, Object> newnewMap = new HashMap<>();
@@ -164,11 +152,10 @@ public class DicSearchWordAdd extends AppCompatActivity {
                             //영단어 중복되는지 검사.
                             boolean alreadyWordExist = false;
                             try {
-                                for(int i=0;i<wordList.size();i++){
+                                for(int i = 0; i< Objects.requireNonNull(wordList).size(); i++){
                                     Map<String, Object> map_find = (HashMap) wordList.get(String.valueOf(i));
-                                    Log.i("mtyag",map_find.get("word").toString()+"::"+english);
-                                    if(map_find.get("word").toString().equals(english)){
-                                        alreadyWordExist=true;
+                                    if (map_find != null && Objects.requireNonNull(map_find.get("word")).toString().equals(english)) {
+                                        alreadyWordExist = true;
                                     }
                                 }
                                 if(!alreadyWordExist){
@@ -207,22 +194,19 @@ public class DicSearchWordAdd extends AppCompatActivity {
             //Log.i("mytag", "wordbooksRef 경로 : " + wordbooksRef.getPath());
 
             //이제 wordbook 안에 있는 두 문서(0,1)에 접근하고, 그 각각의 문서에서 wordbooktitle 필드를 빼내와야 한다
-            wordbooksRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()) {
-                        titles.clear();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            //Log.i("mytag", "words : " + document.getData().get("wordbooktitle"));
-                            String wordbooktitle = document.getData().get("wordbooktitle").toString();
-                            titles.add(wordbooktitle);
-                            //Log.i("mytag", titles.toString());
-                        }
-                        //default category 설정
-                        category_view.setText(titles.get(0));
-                    } else {
-                        Log.d("mytag", "Error getting documents: ", task.getException());
+            wordbooksRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    titles.clear();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        //Log.i("mytag", "words : " + document.getData().get("wordbooktitle"));
+                        String wordbooktitle = Objects.requireNonNull(document.getData().get("wordbooktitle")).toString();
+                        titles.add(wordbooktitle);
+                        //Log.i("mytag", titles.toString());
                     }
+                    //default category 설정
+                    category_view.setText(titles.get(0));
+                } else {
+                    Log.d("mytag", "Error getting documents: ", task.getException());
                 }
             });
         }

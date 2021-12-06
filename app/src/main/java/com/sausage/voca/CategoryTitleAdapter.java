@@ -5,16 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 public class CategoryTitleAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
-    private ArrayList<CategoryTitle> titlesDataList = null;
+    private final ArrayList<CategoryTitle> titlesDataList;
     CategoryTitleAdapter(ArrayList<CategoryTitle> dataList) {
         titlesDataList = dataList;
     }
 
+    @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
@@ -22,9 +24,8 @@ public class CategoryTitleAdapter extends RecyclerView.Adapter<CategoryViewHolde
 
         //전개자(Inflater)를 통해 얻은 참조 객체를 통해 뷰홀더 객체 생성
         View view = inflater.inflate(R.layout.list_category_title_layout, parent, false);
-        CategoryViewHolder categoryViewHolder = new CategoryViewHolder(view);
 
-        return categoryViewHolder;
+        return new CategoryViewHolder(view);
     }
 
     @Override

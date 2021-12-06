@@ -17,14 +17,13 @@
             android:background="@color/pointColor"
             android:baselineAligned="true"
             android:orientation="horizontal"
-            android:padding="10dp"
+            android:padding="13dp"
             android:scaleType="fitCenter">
 
             <ImageButton
                 android:id="@+id/category_add_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:maxWidth="30dp"
@@ -61,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:text="@string/category_name"
-                android:textColor="@color/unActiveColor"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <EditText
@@ -69,8 +68,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
-                android:hint="@string/category_add_title"
-                android:inputType="text" />
+                android:layout_marginRight="25dp"
+                android:hint="단어장의 이름을 작성하시오."
+                android:inputType="text"
+                android:maxLength="45"
+                android:maxLines="3"
+                android:textColor="@color/black" />
         </LinearLayout>
 
         <LinearLayout
@@ -85,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:text="@string/category_explain"
-                android:textColor="@color/unActiveColor"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <EditText
@@ -93,8 +96,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
                 android:hint="@string/category_add_explain"
-                android:inputType="text" />
+                android:inputType="text"
+                android:maxLength="45"
+                android:maxLines="3"
+                android:textColor="@color/black" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

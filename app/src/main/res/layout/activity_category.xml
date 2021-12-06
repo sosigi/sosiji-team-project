@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Category"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".Category">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,19 +18,19 @@
             android:background="@color/pointColor"
             android:baselineAligned="true"
             android:orientation="horizontal"
-            android:padding="10dp"
+            android:padding="13dp"
             android:scaleType="fitCenter">
 
             <ImageButton
                 android:id="@+id/category_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:maxWidth="30dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/backbutton" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -44,7 +44,6 @@
                 android:id="@+id/category_plus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:maxWidth="30dp"
@@ -56,6 +55,6 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_category_title_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </LinearLayout>
 </LinearLayout>

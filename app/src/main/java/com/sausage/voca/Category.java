@@ -19,10 +19,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Category extends AppCompatActivity {
-    private ImageButton back_btn;
-    private ImageButton plus_btn;
 
     private ArrayList<CategoryTitle> titlesDataList = new ArrayList<>();
     RecyclerView recyclerView;
@@ -43,8 +42,8 @@ public class Category extends AppCompatActivity {
         //wordbooktitle 정렬
         this.InitializeData();
 
-        back_btn = findViewById(R.id.category_back);
-        plus_btn = findViewById(R.id.category_plus);
+        ImageButton back_btn = findViewById(R.id.category_back);
+        ImageButton plus_btn = findViewById(R.id.category_plus);
 
         //back btn 클릭시
         back_btn.setOnClickListener(view -> finish());
@@ -66,8 +65,8 @@ public class Category extends AppCompatActivity {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     wordBooksCount++;
-                    Log.i("mytag", document.getId() + " => " + document.getData().get("wordbooktitle").toString());
-                    String title=document.getData().get("wordbooktitle").toString();
+                    Log.i("mytag", document.getId() + " => " + Objects.requireNonNull(document.getData().get("wordbooktitle")).toString());
+                    String title= Objects.requireNonNull(document.getData().get("wordbooktitle")).toString();
                     titlesDataList.add(new CategoryTitle(title));
                 }
                 recyclerView = findViewById(R.id.recycler_category_title_list);

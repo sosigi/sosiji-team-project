@@ -3,7 +3,6 @@ package com.sausage.voca;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -24,8 +23,6 @@ import java.util.Objects;
 
 public class CategoryAdd extends AppCompatActivity {
 
-    private ImageButton back_btn;
-    private TextView complete_btn;
     EditText newWordBookTitle;
     EditText newWordBookExplain;
 
@@ -34,7 +31,6 @@ public class CategoryAdd extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     //단어장 정보
-    String wordbookID = "0";
     //db에 저장된 단어장 개수
     int wordBooksCount=0;
 
@@ -47,8 +43,8 @@ public class CategoryAdd extends AppCompatActivity {
         setContentView(R.layout.activity_category_add);
         //wordBooksCount = Integer.parseInt(getIntent().getStringExtra("wordBooksCount"));
 
-        back_btn = findViewById(R.id.category_add_back);
-        complete_btn = findViewById(R.id.category_add_complete);
+        ImageButton back_btn = findViewById(R.id.category_add_back);
+        TextView complete_btn = findViewById(R.id.category_add_complete);
         newWordBookTitle = findViewById(R.id.category_new_title);
         newWordBookExplain = findViewById(R.id.category_new_explain);
 
