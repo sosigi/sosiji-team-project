@@ -3,6 +3,7 @@ package com.sausage.voca;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -32,7 +33,8 @@ public class CategoryAdd extends AppCompatActivity {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-
+    //단어장 정보
+    String wordbookID = "0";
     //db에 저장된 단어장 개수
     int wordBooksCount=0;
 
@@ -81,6 +83,13 @@ public class CategoryAdd extends AppCompatActivity {
                                     myToast.show();
                                     wordBookAddComplete = false;
                                     break;
+                                } else if (document.getData().get("wordbooktitle")==null){
+                                    wordbooksCol.document(String.valueOf(wordBooksCount))
+                                            .set(newWordBook);
+//                                wordbooksCol.add(newWordBook);
+                                    Toast myToast = Toast.makeText(view.getContext(), R.string.category_add_complete, Toast.LENGTH_SHORT);
+                                    myToast.show();
+                                    wordBookAddComplete = false;
                                 }
                             }
                         }

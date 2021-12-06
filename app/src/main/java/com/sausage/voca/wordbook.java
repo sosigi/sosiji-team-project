@@ -1,5 +1,6 @@
 package com.sausage.voca;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -21,12 +22,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.annotations.Nullable;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 
@@ -69,6 +75,8 @@ public class wordbook extends AppCompatActivity {
 
     //[단어장 정보]
     String wordbookID;
+    String wordbookTitle;
+    //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
     int thisWordbookMemorizationType = 2;
     //default=2, 암기=1, 미암기=0;
     int thisWordbookHideType = 0;
@@ -138,7 +146,6 @@ public class wordbook extends AppCompatActivity {
                 Log.i(TAG, "get failed with " + task.getException());
             }
         });
-        updateWordcard(thisWordbookMemorizationType);
 
         //wordcard List 변경된 내용 있는지 확인.
         final DocumentReference docRef = db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID);
@@ -158,7 +165,6 @@ public class wordbook extends AppCompatActivity {
 
         //drawer기능
         onSidebarClick();
-
 
         //단어 정렬 선택 btn (전체/암기/미암기)
         mWordSorting = findViewById(R.id.select_wordSorting);
