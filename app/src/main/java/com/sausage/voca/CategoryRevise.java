@@ -20,11 +20,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class CategoryRevise extends AppCompatActivity {
-    private ImageButton back_btn;
-    private TextView complete_btn;
-    private TextView delete_btn;
     private EditText title_editText;
     private EditText explain_editText;
 
@@ -49,9 +47,9 @@ public class CategoryRevise extends AppCompatActivity {
         setContentView(R.layout.activity_category_revise);
         wordbooktitle = getIntent().getStringExtra("titleID");
 
-        back_btn = findViewById(R.id.category_edit_back);
-        complete_btn = findViewById(R.id.category_edit_complete);
-        delete_btn = findViewById(R.id.category_delete);
+        ImageButton back_btn = findViewById(R.id.category_edit_back);
+        TextView complete_btn = findViewById(R.id.category_edit_complete);
+        TextView delete_btn = findViewById(R.id.category_delete);
         title_editText = findViewById(R.id.category_new_title);
         explain_editText = findViewById(R.id.category_new_explain);
 
@@ -61,12 +59,12 @@ public class CategoryRevise extends AppCompatActivity {
                 .get().addOnCompleteListener((task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    String title = document.getData().get("wordbooktitle").toString();
+                    String title = Objects.requireNonNull(document.getData().get("wordbooktitle")).toString();
                     wordBooksCountInt = wordBooksCountInt + 1;
                     if (title.equals(wordbooktitle)) {
                         wordbookID = document.getId();
                         wordbookIDInt = Integer.parseInt(wordbookID);
-                        wordbookexplain = document.getData().get("wordbookexplain").toString();
+                        wordbookexplain = Objects.requireNonNull(document.getData().get("wordbookexplain")).toString();
                         title_editText.setText(wordbooktitle);
                         explain_editText.setText(wordbookexplain);
                         wordBookDoc = db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID);
@@ -96,7 +94,7 @@ public class CategoryRevise extends AppCompatActivity {
                         if (document.getId().equals(wordbookID)) {
                             continue;
                         }
-                        String title = document.getData().get("wordbooktitle").toString();
+                        String title = Objects.requireNonNull(document.getData().get("wordbooktitle")).toString();
                         if (title.equals(newTitle)) {
                             complete = false;
                             Toast.makeText(view.getContext(), "중복되는 이름이 존재합니다.", Toast.LENGTH_SHORT).show();
@@ -118,14 +116,12 @@ public class CategoryRevise extends AppCompatActivity {
             }));
         });
 
-        delete_btn.setOnClickListener(view -> deleteCategory(view));
+        delete_btn.setOnClickListener(this::deleteCategory);
 
     }
 
     public void deleteCategory(View view) {
         deleteNum = wordbookIDInt;
-        //Log.i("mytag","deleteNum : "+deleteNum);
-        //Log.i("mytag","wordBooksCountInt : "+wordBooksCountInt);
         wordbooksCol
                 .get().addOnCompleteListener((task -> {
             if (task.isSuccessful()) {
@@ -133,9 +129,15 @@ public class CategoryRevise extends AppCompatActivity {
                 for (; deleteNum < wordBooksCountInt - 1; deleteNum = deleteNum + 1) {
                     removeDoc = task.getResult().getDocuments().get(deleteNum + 1).getData();
                     Map<String, Object> newData = new HashMap<>();
-                    newData.put("wordbooktitle", removeDoc.get("wordbooktitle").toString());
-                    newData.put("wordbookexplain", removeDoc.get("wordbookexplain").toString());
-                    newData.put("wordbooklist", removeDoc.get("wordbooklist"));
+                    if (removeDoc != null) {
+                        newData.put("wordbooktitle", Objects.requireNonNull(removeDoc.get("wordbooktitle")).toString());
+                    }
+                    if (removeDoc != null) {
+                        newData.put("wordbookexplain", Objects.requireNonNull(removeDoc.get("wordbookexplain")).toString());
+                    }
+                    if (removeDoc != null) {
+                        newData.put("wordbooklist", removeDoc.get("wordbooklist"));
+                    }
                     //Log.i("mytag","이동할데이터"+newData.toString()+"->to:"+deleteNum);
 
                     wordbooksCol.document(String.valueOf(deleteNum)).set(newData);

@@ -19,14 +19,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class wordAdd extends AppCompatActivity {
 
     TextView textView;
     ImageButton word_add_btn;
     EditText editText1, editText2, editText3, editText4;
-    private ImageButton word_add_back;
-    private TextView word_add_add;
 
     View view2, view3;
     TextView titleText2, titleText3;
@@ -70,15 +69,15 @@ public class wordAdd extends AppCompatActivity {
 
 
         word_add_btn = findViewById(R.id.word_mean_add_btn);
-        word_add_btn.setOnClickListener(view -> addKoreanMean(view));
+        word_add_btn.setOnClickListener(this::addKoreanMean);
         textView = findViewById(R.id.koreanAddBtn);
-        textView.setOnClickListener(view -> addKoreanMean(view));
+        textView.setOnClickListener(this::addKoreanMean);
 
-        word_add_back = findViewById(R.id.word_add_back);
+        ImageButton word_add_back = findViewById(R.id.word_add_back);
         word_add_back.setOnClickListener(view -> finish());
 
-        word_add_add = findViewById(R.id.wordAddCompelete);
-        word_add_add.setOnClickListener(view -> end(view));
+        TextView word_add_add = findViewById(R.id.wordAddCompelete);
+        word_add_add.setOnClickListener(this::end);
     }
 
     public void end(View view) {
@@ -86,8 +85,8 @@ public class wordAdd extends AppCompatActivity {
 
         english = editText1.getText().toString();
         String korean1 = editText2.getText().toString();
-        String korean2 = "";
-        String korean3 = "";
+        String korean2 = editText3.getText().toString();
+        String korean3 = editText4.getText().toString();
         if (english.equals("") || korean1.equals("")) {
             Toast.makeText(view.getContext(), "한 단어당 최소 단어 1개와 의미1개가 필요합니다.", Toast.LENGTH_SHORT).show();
             return;
@@ -120,22 +119,27 @@ public class wordAdd extends AppCompatActivity {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
-                    Map<String, Object> wordList = (Map<String, Object>) document.getData().get("wordlist");
+                    Map<String, Object> wordList = (Map<String, Object>) Objects.requireNonNull(document.getData()).get("wordlist");
 
                     //영단어 중복되는지 검사.
                     boolean alreadyWordExist = false;
                     try {
-                        for(int i=0;i<wordList.size();i++){
-                            Map<String, Object> map_find = (HashMap) wordList.get(String.valueOf(i));
-                            Log.i("mtyag",map_find.get("word").toString()+"::"+english);
-                            if(map_find.get("word").toString().equals(english)){
-                                alreadyWordExist=true;
+                        if (wordList != null) {
+                            for(int i=0;i<wordList.size();i++){
+                                Map<String, Object> map_find = (HashMap) wordList.get(String.valueOf(i));
+                                Log.i("mtyag", Objects.requireNonNull(map_find.get("word")).toString()+"::"+english);
+                                if (Objects.requireNonNull(map_find.get("word")).toString().equals(english)) {
+                                    alreadyWordExist = true;
+                                }
                             }
                         }
                         if(!alreadyWordExist){
                             //중복안됨을 확인하고 db로 데이터 전송.
-                            int wordBookNum = wordList.size();
-                            wordList.put(String.valueOf(wordBookNum), wordcardData);
+                            int wordBookNum;
+                            if (wordList != null) {
+                                wordBookNum = wordList.size();
+                                wordList.put(String.valueOf(wordBookNum), wordcardData);
+                            }
                             wordBooksDoc.update("wordlist", wordList);
                             finish();
                         }else{

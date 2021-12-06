@@ -29,7 +29,9 @@
         <activity
             android:name=".DicSearchWordAdd"
             android:exported="false" />
-        <activity android:name=".DicSearch" />
+        <activity
+            android:name=".DicSearch"
+            android:launchMode="singleTask" />
         <activity
             android:name=".Main"
             android:exported="true"

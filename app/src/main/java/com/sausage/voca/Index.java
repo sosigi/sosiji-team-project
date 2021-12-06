@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -20,10 +19,7 @@ public class Index extends AppCompatActivity implements View.OnClickListener {
     private Button email_btn;
     private TextView signup_btn;
 
-    private static final String TAG = "GoogleActivity";
-    private static final int RC_SIGN_IN = 9001;
     private FirebaseAuth mAuth;
-    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

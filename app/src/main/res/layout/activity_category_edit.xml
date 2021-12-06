@@ -17,18 +17,16 @@
             android:background="@color/pointColor"
             android:baselineAligned="true"
             android:orientation="horizontal"
-            android:padding="10dp"
+            android:padding="13dp"
             android:scaleType="fitCenter">
 
             <ImageButton
                 android:id="@+id/category_edit_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="12dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
-                android:maxWidth="35dp"
+                android:maxWidth="30dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/backbutton" />
 
@@ -39,7 +37,7 @@
                 android:gravity="center"
                 android:text="@string/category_edit"
                 android:textColor="@color/white"
-                android:textSize="28sp" />
+                android:textSize="25sp" />
 
             <TextView
                 android:id="@+id/category_edit_complete"
@@ -47,8 +45,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/word_add_complete"
                 android:textColor="@color/white"
-                android:textSize="23sp"
-                android:layout_marginRight="12dp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -63,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:text="@string/category_name"
-                android:textColor="@color/unActiveColor"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <EditText
@@ -71,6 +68,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:textColor="@color/black"
                 android:hint="@string/category_add_title"
                 android:inputType="text"
                 android:maxLength="15"/>
@@ -88,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:text="@string/category_explain"
-                android:textColor="@color/unActiveColor"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <EditText
@@ -96,6 +95,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:textColor="@color/black"
                 android:hint="@string/category_add_explain"
                 android:inputType="text" />
         </LinearLayout>

@@ -3,7 +3,6 @@ package com.sausage.voca;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Movie;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,7 +30,6 @@ public class DicSearch extends AppCompatActivity {
 
     private EditText searching_word; //이게 회색이면 안 쓰인거니까 뭐가 문제인지 눈여겨볼것...
     private TextView searched, meaning;
-    private ImageButton dicSearch_back, dicSearch_add;
     private String letsSearch, searchResult;
 
     @Override
@@ -41,7 +38,6 @@ public class DicSearch extends AppCompatActivity {
         setContentView(R.layout.activity_dic_search);
 
         searching_word = findViewById(R.id.search_result);
-        //나 대체 왜 그랬는지는 모르겠는데 search_result.findViewById(R.id.search_result); 라고 자꾸 써서 error냈다... 정신차려
         searched = findViewById(R.id.result_searched);
         meaning = findViewById(R.id.result_meaning);
 
@@ -52,33 +48,22 @@ public class DicSearch extends AppCompatActivity {
             RunThread();
         }
 
-        searching_word.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
+        searching_word.setOnKeyListener((v, keyCode, event) ->  {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     RunThread();
                     return true;
                 }
                 return false;
-            }
         });
 
-        dicSearch_back = findViewById(R.id.dicSearch_back);
-        dicSearch_add = findViewById(R.id.dicSearch_add);
+        ImageButton dicSearch_back = findViewById(R.id.dicSearch_back);
+        ImageButton dicSearch_add = findViewById(R.id.dicSearch_add);
 
-        dicSearch_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        dicSearch_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String[] data = {letsSearch, searchResult};
-                Intent intent = new Intent(getApplicationContext(), DicSearchWordAdd.class).putExtra("data", data);
-                startActivity(intent);
-            }
+        dicSearch_back.setOnClickListener(view -> finish());
+        dicSearch_add.setOnClickListener(v -> {
+            String[] data = {letsSearch, searchResult};
+            Intent intent = new Intent(getApplicationContext(), DicSearchWordAdd.class).putExtra("data", data);
+            startActivity(intent);
         });
 
         searched.setVisibility(View.VISIBLE);
@@ -86,32 +71,25 @@ public class DicSearch extends AppCompatActivity {
         dicSearch_add.setVisibility(View.VISIBLE);
     }
 
-    public void RunThread() { //TODO:스레드를 dicFragment로 옮기면 더 빨라지지 않을까?
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    letsSearch = searching_word.getText().toString();
-                    searchResult = main(letsSearch);
+    public void RunThread() { //TODO:스레드 공부하자...
+        Thread thread = new Thread(() -> {
+            try {
+                letsSearch = searching_word.getText().toString();
+                searchResult = papagoTranslate(letsSearch);
 
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            searched.setText(letsSearch); //TODO 이 방법이 최선인가?
-                            meaning.setText(searchResult);
-                        }
-                    });
+                runOnUiThread(() -> {
+                    searched.setText(letsSearch);
+                    meaning.setText(searchResult);
+                });
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
         thread.start();
-
     }
 
-    public static String main(String args) throws JSONException {
+    private static String papagoTranslate(String args) {
         String clientId = "9nlapeOCtCRa3WR16aMM";//애플리케이션 클라이언트 아이디값";
         String clientSecret = "ddORBhc9I9";//애플리케이션 클라이언트 시크릿값";
 
@@ -142,7 +120,6 @@ public class DicSearch extends AppCompatActivity {
         }
         return responseBody; //위의 try가 제대로 안 돼면 파싱 안 한 날것의 정보 return. TODO:코드 정리
     }
-    
 
     private static String post(String apiUrl, Map<String, String> requestHeaders, String text) {
         HttpURLConnection con = connect(apiUrl);

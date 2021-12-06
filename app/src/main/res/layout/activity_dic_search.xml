@@ -5,54 +5,82 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DicSearch"
-    android:weightSum="10">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="#507255"
-        android:layout_weight="3.5">
-
-        <ImageButton
-            android:id="@+id/dicSearch_back"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:adjustViewBounds="true"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/transparent"
-            android:maxWidth="30dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/backbutton" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:gravity="center_vertical"
-            android:text="            사전 검색"
-            android:textColor="@color/white"
-            android:textSize="22dp" />
-
-        <EditText
-            android:id="@+id/search_result"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="16dp"
-            android:hint="검색어를 입력하세요"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:maxLines="3"/>
-    </RelativeLayout>
+    android:weightSum="10"
+    tools:context=".DicSearch">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#FFFCF3"
-        android:layout_weight="6.5"
+        android:layout_weight="3.5"
+        android:background="#507255"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
+
+            <ImageButton
+                android:id="@+id/dicSearch_back"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginLeft="13dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:maxWidth="30dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/backbutton" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:text="사전 검색"
+                android:textColor="@color/white"
+                android:textSize="22dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="30">
+
+            <EditText
+                android:id="@+id/search_result"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="28"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_gravity="bottom"
+                android:backgroundTint="@color/backgroundColor"
+                android:hint="검색어를 입력하세요"
+                android:maxLines="3"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:maxWidth="25dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/reading_glasses" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6.5"
+        android:background="#FFFCF3"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,12 +91,12 @@
                 android:id="@+id/result_searched"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="9.9"
                 android:padding="16dp"
                 android:text="검색한 단어"
                 android:textColor="@color/black"
                 android:textSize="18dp"
-                android:visibility="invisible"
-                android:layout_weight="9.9"/>
+                android:visibility="invisible" />
 
             <ImageButton
                 android:id="@+id/dicSearch_add"
@@ -87,10 +115,10 @@
             android:id="@+id/result_meaning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="검색결과 화면"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingBottom="10dp"
+            android:text="검색결과 화면"
             android:textColor="@color/black"
             android:visibility="invisible" />
     </LinearLayout>
