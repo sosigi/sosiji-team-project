@@ -219,7 +219,7 @@ public class wordbook extends AppCompatActivity {
         wordQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), QuizDialog.class);
+                Intent intent = new Intent(getApplicationContext(), QuizDialog.class).putExtra("id",wordbookID);
                 startActivity(intent);
             }
         });
