@@ -215,13 +215,10 @@ public class wordbook extends AppCompatActivity {
         });
 
         //Quiz Btn 선택
-        wordQuiz = (TextView) findViewById(R.id.wordQuiz);
-        wordQuiz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), QuizDialog.class);
-                startActivity(intent);
-            }
+        wordQuiz = findViewById(R.id.wordQuiz);
+        wordQuiz.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), QuizDialog.class).putExtra("id",wordbookID);
+            startActivity(intent);
         });
 
         /*
@@ -272,7 +269,6 @@ public class wordbook extends AppCompatActivity {
     //입력받는 memorizationType의 int값에 따라 암기 or 미암기 단어들만을 출력한다.
     //암기 1 미암기 0 전체 2
     private void updateWordcard(int memorizationType){
-        //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
         wordBooksDoc.get().addOnCompleteListener((task) -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
