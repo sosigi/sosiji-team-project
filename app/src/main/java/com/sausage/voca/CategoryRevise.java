@@ -9,11 +9,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -33,10 +30,9 @@ public class CategoryRevise extends AppCompatActivity {
 
     //단어장 정보
     String wordbookID;
-    int wordbookIDInt=0;
+    int wordbookIDInt = 0;
     String wordbooktitle;
     String wordbookexplain;
-    String wordBooksCount;
     int wordBooksCountInt = 0;
 
     int deleteNum;
@@ -52,8 +48,6 @@ public class CategoryRevise extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_revise);
         wordbooktitle = getIntent().getStringExtra("titleID");
-        //wordBooksCount= getIntent().getStringExtra("count");
-        //wordBooksCountInt = Integer.parseInt(wordBooksCount);
 
         back_btn = findViewById(R.id.category_edit_back);
         complete_btn = findViewById(R.id.category_edit_complete);
@@ -76,8 +70,6 @@ public class CategoryRevise extends AppCompatActivity {
                         title_editText.setText(wordbooktitle);
                         explain_editText.setText(wordbookexplain);
                         wordBookDoc = db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID);
-                        //Log.i("mytag","id->"+wordbookID);
-                        //Log.i("mytag","//count->"+String.valueOf(wordBooksCountInt));
                     }
                 }
             } else {
@@ -86,100 +78,81 @@ public class CategoryRevise extends AppCompatActivity {
         }));
 
         //back btn 클릭시
-        back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Category.class);
-                startActivity(intent);
-                finish();
-            }
+        back_btn.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), Category.class);
+            startActivity(intent);
+            finish();
         });
 
         //category 수정 완료
-        complete_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String newTitle = title_editText.getText().toString();
-                String newExplain = explain_editText.getText().toString();
-                //완료시 db접근.
-                wordbooksCol.get().addOnCompleteListener((task -> {
-                    if (task.isSuccessful()) {
-                        boolean complete = true;
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            if (document.getId().toString().equals(wordbookID)) {
-                                continue;
-                            }
-                            String title = document.getData().get("wordbooktitle").toString();
-                            if (title.equals(newTitle) && title.length() == newTitle.length()) {
-                                complete = false;
-                                Toast.makeText(view.getContext(), "중복되는 이름이 존재합니다.", Toast.LENGTH_SHORT).show();
-                                break;
-                            }
+        complete_btn.setOnClickListener(view -> {
+            String newTitle = title_editText.getText().toString();
+            String newExplain = explain_editText.getText().toString();
+            //완료시 db접근.
+            wordbooksCol.get().addOnCompleteListener((task -> {
+                if (task.isSuccessful()) {
+                    boolean complete = true;
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (document.getId().equals(wordbookID)) {
+                            continue;
                         }
-                        if (complete) {
-                            //db의 wordbooktitle들과 중복 여부가 확인됨.
-                            wordBookDoc.update("wordbooktitle", newTitle);
-                            wordBookDoc.update("wordbookexplain", newExplain);
-                            Toast.makeText(view.getContext(), newTitle + "이/가 수정되었습니다.", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), Category.class);
-                            startActivity(intent);
-                            finish();
+                        String title = document.getData().get("wordbooktitle").toString();
+                        if (title.equals(newTitle)) {
+                            complete = false;
+                            Toast.makeText(view.getContext(), "중복되는 이름이 존재합니다.", Toast.LENGTH_SHORT).show();
+                            break;
                         }
-                    } else {
-                        Log.i("mytag", "get failed with " + task.getException());
                     }
-                }));
-            }
+                    if (complete) {
+                        //db의 wordbooktitle들과 중복 여부가 확인됨.
+                        wordBookDoc.update("wordbooktitle", newTitle);
+                        wordBookDoc.update("wordbookexplain", newExplain);
+                        Toast.makeText(view.getContext(), newTitle + "이/가 수정되었습니다.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), Category.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                } else {
+                    Log.i("mytag", "get failed with " + task.getException());
+                }
+            }));
         });
 
-        delete_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deleteCategory(view);
-            }
-        });
+        delete_btn.setOnClickListener(view -> deleteCategory(view));
 
     }
 
     public void deleteCategory(View view) {
         deleteNum = wordbookIDInt;
-        Log.i("mytag","deleteNum : "+deleteNum);
-        Log.i("mytag","wordBooksCountInt : "+wordBooksCountInt);
-
+        //Log.i("mytag","deleteNum : "+deleteNum);
+        //Log.i("mytag","wordBooksCountInt : "+wordBooksCountInt);
         wordbooksCol
                 .get().addOnCompleteListener((task -> {
             if (task.isSuccessful()) {
-                Log.i("mytag","함수실행!");
-                Map<String,Object> removeDoc;
-                for(;deleteNum<wordBooksCountInt-1;deleteNum=deleteNum+1){
-                    removeDoc = task.getResult().getDocuments().get(deleteNum+1).getData();
+                Map<String, Object> removeDoc;
+                for (; deleteNum < wordBooksCountInt - 1; deleteNum = deleteNum + 1) {
+                    removeDoc = task.getResult().getDocuments().get(deleteNum + 1).getData();
                     Map<String, Object> newData = new HashMap<>();
                     newData.put("wordbooktitle", removeDoc.get("wordbooktitle").toString());
                     newData.put("wordbookexplain", removeDoc.get("wordbookexplain").toString());
                     newData.put("wordbooklist", removeDoc.get("wordbooklist"));
-                    Log.i("mytag","이동할데이터"+newData.toString()+"->to:"+String.valueOf(deleteNum));
+                    //Log.i("mytag","이동할데이터"+newData.toString()+"->to:"+deleteNum);
 
                     wordbooksCol.document(String.valueOf(deleteNum)).set(newData);
                 }
-                wordbooksCol.document(String.valueOf(wordBooksCountInt-1))
+                wordbooksCol.document(String.valueOf(wordBooksCountInt - 1))
                         .delete()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d("mytag", "Last DocumentSnapshot successfully deleted!");
-                                Toast.makeText(view.getContext(),wordbooktitle+"이/가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                        .addOnSuccessListener(aVoid -> {
+                            Log.d("mytag", "Last DocumentSnapshot successfully deleted!");
+                            Toast.makeText(view.getContext(), wordbooktitle + "이/가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
 
-                                Intent intent = new Intent(getApplicationContext(), Category.class);
-                                startActivity(intent);
-                                finish();
-                            }
+                            Intent intent = new Intent(getApplicationContext(), Category.class);
+                            startActivity(intent);
+                            finish();
                         })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w("mytag", "Error deleting document", e);
-                                Toast.makeText(view.getContext(),"다시 시도하시오.", Toast.LENGTH_SHORT).show();
-                            }
+                        .addOnFailureListener(e -> {
+                            Log.w("mytag", "Error deleting document", e);
+                            Toast.makeText(view.getContext(), "다시 시도하시오.", Toast.LENGTH_SHORT).show();
                         });
             } else {
                 Log.i("mytag", "get failed with " + task.getException());

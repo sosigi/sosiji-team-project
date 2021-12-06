@@ -3,6 +3,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!--  공통으로 사용되는 string  -->
+    <string name="complete">완료</string>
 
     <!-- [wordBook] db접근전 title, explain, wordcard 초기값   -->
     <string name="wordbook_title">단어장 이름이 로딩중입니다 ... </string>
@@ -30,6 +32,10 @@
     <string name="word_add_word">단어</string>
     <string name="word_add_word_edit_text">영단어(필수)</string>
     <string name="word_add_mean">의미</string>
+    <string name="mean">의미</string>
+    <string name="word_add_mean1">의미1</string>
+    <string name="word_add_mean2">의미2</string>
+    <string name="word_add_mean3">의미3</string>
     <string name="word_add_mean_edit_text">의미(필수)</string>
     <string name="word_add_mean_add">의미추가</string>
 
@@ -58,7 +64,7 @@
     <string name="category_add">단어장 추가</string>
     <string name="category_add_title">단어장의 이름을 작성하시오.</string>
     <string name="category_add_explain">단어장의 설명을 작성하시오.</string>
-    <!-- toast message-->
+    <!-- [categoryAdd]에서 사용되는 toast message-->
     <string name="category_add_can_not_complete">빈칸을 작성하시오.</string>
     <string name="category_add_rewrite_title">단어장의 이름을 다시 작성하시오.</string>
     <string name="category_add_complete">단어장이 추가되었습니다.</string>
