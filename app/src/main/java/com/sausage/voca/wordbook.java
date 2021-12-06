@@ -62,7 +62,7 @@ public class wordbook extends AppCompatActivity {
     TextView search, mypage;
 
     //단어장 상단바
-    TextView categoryName, wordQuiz;
+    TextView categoryName;
     //단어장 상단부 - 소개 (wordbookTitle & explain)
     TextView wordbook_top_title;
     TextView wordbook_top_explain;
@@ -179,9 +179,6 @@ public class wordbook extends AppCompatActivity {
             }
         });
 
-        //custom font 적용 - quiz btn
-        wordQuiztextview.setTypeface(wordfont);
-
 
         //drawer기능
         onSidebarClick();
@@ -248,14 +245,16 @@ public class wordbook extends AppCompatActivity {
         });
 
         //Quiz Btn 선택
-        /*wordQuiz = (TextView) findViewById(R.id.wordQuiz);
+        wordQuiz = (TextView) findViewById(R.id.wordQuiz);
         wordQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                wordQuizSortingSelectDialog.show();
-                //선택된 정렬방식에 따라 wordcard 정렬
+                Intent intent = new Intent(getApplicationContext(), QuizDialog.class);
+                startActivity(intent);
             }
         });
+
+        /*
         wordQuizSortingSelectDialog = new AlertDialog.Builder(wordbook.this)
                 .setItems(wordQuizSorting, new DialogInterface.OnClickListener() {
                     @Override
