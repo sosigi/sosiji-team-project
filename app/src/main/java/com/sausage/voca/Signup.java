@@ -264,6 +264,8 @@ public class Signup<mDatabase> extends AppCompatActivity implements View.OnClick
                         wordbookData.put("wordbooktitle", String.valueOf(wordbooktask.child("wordbooktitle").getValue()));
                         wordbookData.put("wordbookexplain", String.valueOf(wordbooktask.child("wordbookexplain").getValue()));
                         wordbookData.put("wordlist", wordcardArrayData);
+                        Log.i("mytag",wordbookData.toString());
+                        Log.i("mytag",wordbookData.get("wordbooktitle").toString());
 
 //                                            wordbookArrayData.put(Integer.toString(i), wordbookData);
 

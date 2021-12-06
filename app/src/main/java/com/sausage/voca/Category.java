@@ -43,26 +43,17 @@ public class Category extends AppCompatActivity {
         //wordbooktitle 정렬
         this.InitializeData();
 
-
         back_btn = findViewById(R.id.category_back);
         plus_btn = findViewById(R.id.category_plus);
 
         //back btn 클릭시
-        back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        back_btn.setOnClickListener(view -> finish());
 
         //plus btn 클릭시 categoryAdd page 열기.
-        plus_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), CategoryAdd.class);
-                startActivity(intent);
-                finish();
-            }
+        plus_btn.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), CategoryAdd.class);
+            startActivity(intent);
+            finish();
         });
     }
 
