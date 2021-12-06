@@ -33,27 +33,33 @@
         <activity
             android:name=".Quiz"
             android:exported="true" />
-        <activity android:name=".QuizDialog" />
+        <activity
+            android:name=".QuizDialog" />
         <activity
             android:name=".QuizResult"
             android:exported="true" />
         <activity
             android:name=".Signup"
             android:exported="true" />
-        <activity android:name=".Login" />
+        <activity
+            android:name=".Login" />
         <activity
             android:name=".wordAdd"
             android:exported="true" />
         <activity
             android:name=".wordbook"
             android:exported="true"/>
-        <activity android:name=".Category"
+        <activity
+            android:name=".Category"
             android:exported="true"/>
-        <activity android:name=".CategoryAdd"
+        <activity
+            android:name=".CategoryAdd"
             android:exported="true"/>
-        <activity android:name=".CategoryEdit"
+        <activity
+            android:name=".CategoryEdit"
             android:exported="true"/>
-        <activity android:name=".CategoryRevise"
+        <activity
+            android:name=".CategoryRevise"
             android:exported="true"/>
     </application>
 
