@@ -1,92 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Quiz">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/backgroundColor"
-        android:orientation="vertical">
-
-
-        <ImageButton
-            android:id="@+id/quiz_back"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            android:adjustViewBounds="true"
-            android:background="@android:color/transparent"
-            android:maxWidth="30dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/backbutton2" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:gravity="bottom|center_horizontal"
-            android:text="아래 단어의 뜻은?"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/quiz_word"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:gravity="top|center_horizontal"
-            android:text=""
-            android:textSize="40sp" />
-
-        <Button
-            android:id="@+id/quiz_answer1"
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="10dp"
-            android:background="@drawable/quiz_btn"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            app:backgroundTint="@color/backgroundColor" />
-
-        <Button
-            android:id="@+id/quiz_answer2"
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="10dp"
-            android:background="@drawable/quiz_btn"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            app:backgroundTint="@color/backgroundColor" />
-
-        <Button
-            android:id="@+id/quiz_answer3"
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="10dp"
-            android:background="@drawable/quiz_btn"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            app:backgroundTint="@color/backgroundColor" />
-
-        <Button
-            android:id="@+id/quiz_answer4"
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="10dp"
-            android:background="@drawable/quiz_btn"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            app:backgroundTint="@color/backgroundColor" />
-
-    </LinearLayout>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

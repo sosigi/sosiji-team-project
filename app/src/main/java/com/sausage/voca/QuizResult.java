@@ -6,7 +6,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-public class QuizResult extends Quiz {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class QuizResult extends AppCompatActivity {
 
     Button back_btn;
     CheckBox checkbox = findViewById(R.id.quiz_result_check);
@@ -19,10 +21,10 @@ public class QuizResult extends Quiz {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_result);
 
-        accuracy = (5 - wrong_count)*20;
-        result.setText(accuracy +"%\n정답률");
-        correct.setText(5-wrong_count);
-        wrong.setText(wrong_count);
+//        accuracy = (5 - wrong_count)*20;
+//        result.setText(accuracy +"%\n정답률");
+//        correct.setText(5-wrong_count);
+//        wrong.setText(wrong_count);
 
         back_btn = findViewById(R.id.quiz_result_back);
 
