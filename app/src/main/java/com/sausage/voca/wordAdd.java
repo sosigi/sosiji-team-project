@@ -86,8 +86,8 @@ public class wordAdd extends AppCompatActivity {
 
         english = editText1.getText().toString();
         String korean1 = editText2.getText().toString();
-        String korean2 = "";
-        String korean3 = "";
+        String korean2 = editText3.getText().toString();
+        String korean3 = editText4.getText().toString();
         if (english.equals("") || korean1.equals("")) {
             Toast.makeText(view.getContext(), "한 단어당 최소 단어 1개와 의미1개가 필요합니다.", Toast.LENGTH_SHORT).show();
             return;

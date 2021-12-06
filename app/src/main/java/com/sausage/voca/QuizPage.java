@@ -207,7 +207,8 @@ public class QuizPage extends AppCompatActivity {
                     quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
 
                     quiz_answer1.setOnClickListener(v -> {
-                        quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
+                        quiz_answer1.setBackgroundColor(1179392);
+//                        quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
@@ -215,8 +216,10 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer2.setOnClickListener(v -> {
-                        quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
-                        quiz_answer2.setBackgroundResource(R.drawable.wrong_btn);
+                        quiz_answer1.setBackgroundColor(1179392);
+                        quiz_answer2.setBackgroundColor(16711680);
+//                        quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
+//                        quiz_answer2.setBackgroundResource(R.drawable.wrong_btn);
                         wrong_count++;
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
@@ -225,8 +228,10 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer3.setOnClickListener(v -> {
-                        quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
-                        quiz_answer3.setBackgroundResource(R.drawable.wrong_btn);
+                        quiz_answer1.setBackgroundColor(1179392);
+                        quiz_answer3.setBackgroundColor(16711680);
+//                        quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
+//                        quiz_answer3.setBackgroundResource(R.drawable.wrong_btn);
                         wrong_count++;
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
@@ -235,8 +240,10 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer4.setOnClickListener(v -> {
-                        quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
-                        quiz_answer4.setBackgroundResource(R.drawable.wrong_btn);
+                        quiz_answer1.setBackgroundColor(1179392);
+                        quiz_answer4.setBackgroundColor(16711680);
+//                        quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
+//                        quiz_answer4.setBackgroundResource(R.drawable.wrong_btn);
                         wrong_count++;
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
@@ -255,7 +262,8 @@ public class QuizPage extends AppCompatActivity {
                     quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
 
                     quiz_answer2.setOnClickListener(v -> {
-                        quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
+                        quiz_answer2.setBackgroundColor(1179392);
+//                        quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
@@ -263,8 +271,10 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer1.setOnClickListener(v -> {
-                        quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
-                        quiz_answer1.setBackgroundResource(R.drawable.wrong_btn);
+                        quiz_answer2.setBackgroundColor(1179392);
+                        quiz_answer4.setBackgroundColor(16711680);
+//                        quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
+//                        quiz_answer1.setBackgroundResource(R.drawable.wrong_btn);
                         wrong_count++;
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
@@ -273,9 +283,11 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer3.setOnClickListener(v -> {
-                        quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
+                        quiz_answer2.setBackgroundColor(1179392);
+                        quiz_answer4.setBackgroundColor(16711680);
+//                        quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
                         wrong_count++;
-                        quiz_answer3.setBackgroundResource(R.drawable.wrong_btn);
+//                        quiz_answer3.setBackgroundResource(R.drawable.wrong_btn);
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
@@ -283,8 +295,10 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer4.setOnClickListener(v -> {
-                        quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
-                        quiz_answer4.setBackgroundResource(R.drawable.wrong_btn);
+                        quiz_answer2.setBackgroundColor(1179392);
+                        quiz_answer4.setBackgroundColor(16711680);
+//                        quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
+//                        quiz_answer4.setBackgroundResource(R.drawable.wrong_btn);
                         wrong_count++;
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
@@ -346,7 +360,9 @@ public class QuizPage extends AppCompatActivity {
                     quiz_answer3.setText(myData.get(random[forth]).get("mean1").toString());
 
                     quiz_answer4.setOnClickListener(v -> {
-                        quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
+                        quiz_answer4.setBackgroundColor(1179392);
+
+//                        quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
@@ -354,8 +370,11 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer2.setOnClickListener(v -> {
-                        quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
-                        quiz_answer2.setBackgroundResource(R.drawable.wrong_btn);
+                        quiz_answer4.setBackgroundColor(1179392);
+                        quiz_answer2.setBackgroundColor(16711680);
+
+//                        quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
+//                        quiz_answer2.setBackgroundResource(R.drawable.wrong_btn);
                         wrong_count++;
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
@@ -364,8 +383,11 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer3.setOnClickListener(v -> {
-                        quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
-                        quiz_answer3.setBackgroundResource(R.drawable.wrong_btn);
+
+                        quiz_answer4.setBackgroundColor(1179392);
+                        quiz_answer3.setBackgroundColor(16711680);
+//                        quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
+//                        quiz_answer3.setBackgroundResource(R.drawable.wrong_btn);
                         wrong_count++;
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
@@ -374,8 +396,12 @@ public class QuizPage extends AppCompatActivity {
                     });
 
                     quiz_answer1.setOnClickListener(v -> {
-                        quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
-                        quiz_answer1.setBackgroundResource(R.drawable.wrong_btn);
+
+                        quiz_answer4.setBackgroundColor(1179392);
+                        quiz_answer1.setBackgroundColor(16711680);
+
+//                        quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
+//                        quiz_answer1.setBackgroundResource(R.drawable.wrong_btn);
                         wrong_count++;
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);

@@ -16,6 +16,9 @@
     <color name="wordCardBackground">#FFFEF9</color>
     <color name="warning_color">#E26B6B</color>
 
+    <color name="correct">#11FF00</color>
+    <color name="correct_int">1179392</color>
+
     <!--    toast 배경 색상 -->
     <color name="toastBackground">#DCDCDC</color>
     <color name="toastTextColor">#4F4F4F</color>
