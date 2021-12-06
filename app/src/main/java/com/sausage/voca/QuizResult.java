@@ -16,15 +16,18 @@ public class QuizResult extends AppCompatActivity {
     TextView correct = findViewById(R.id.result_correct);
     TextView wrong = findViewById(R.id.result_wrong);
 
+    int wrong_count;
+    int accuracy;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_result);
 
-//        accuracy = (5 - wrong_count)*20;
-//        result.setText(accuracy +"%\n정답률");
-//        correct.setText(5-wrong_count);
-//        wrong.setText(wrong_count);
+        accuracy = (5 - wrong_count)*20;
+        result.setText(Integer.toString(accuracy) +"%\n정답률");
+        correct.setText(Integer.toString(5-wrong_count));
+        wrong.setText(Integer.toString(wrong_count));
 
         back_btn = findViewById(R.id.quiz_result_back);
 
