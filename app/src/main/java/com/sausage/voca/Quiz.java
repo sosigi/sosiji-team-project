@@ -1,11 +1,5 @@
 package com.sausage.voca;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,8 +8,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -47,7 +39,7 @@ public class Quiz extends QuizDialog {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    private Toast toast2 = Toast.makeText(this,"해당 옵션 단어가 5개 이상이어야 합니다", Toast.LENGTH_SHORT);
+    //private Toast toast2 = Toast.makeText(this,"해당 옵션 단어가 5개 이상이어야 합니다", Toast.LENGTH_SHORT);
 
 
     @Override
@@ -55,7 +47,7 @@ public class Quiz extends QuizDialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        r = new Random();
+
 
         quiz_word = findViewById(R.id.quiz_word);
 
@@ -116,7 +108,7 @@ public class Quiz extends QuizDialog {
         });
 
         if (size < 5) {     //해당 옵션 단어가 5개 미만일 때
-            toast2.show();
+            //toast2.show();
             finish();
         }
 
@@ -125,7 +117,7 @@ public class Quiz extends QuizDialog {
             for (int j = 0; j < i; j++) {
                 if (random[i] == random[j]) {
                     i--;
-                    break;
+                    break;          
                 }
             }
         }
@@ -357,7 +349,7 @@ public class Quiz extends QuizDialog {
             }
         });
 
-        Intent intent = new Intent(getApplicationContext(), QuizResult.class);
-        startActivity(intent);
+
+
     }
 }

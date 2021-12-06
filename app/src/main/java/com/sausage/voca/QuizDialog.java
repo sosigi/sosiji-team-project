@@ -17,7 +17,7 @@ public class QuizDialog extends AppCompatActivity {
     Button start;
     public int quiz_option;
 
-    private Toast toast = Toast.makeText(QuizDialog.this ,"한 가지 옵션을 선택하세요.", Toast.LENGTH_SHORT);
+    //private Toast toast = Toast.makeText(QuizDialog.this ,"한 가지 옵션을 선택하세요.", Toast.LENGTH_SHORT);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +36,16 @@ public class QuizDialog extends AppCompatActivity {
 
                 while(true) { //중복 선택 방지
                     if (checkBox1.isChecked()&&checkBox2.isChecked()) {
-                        toast.show();
+                        //toast.show();
                     }
                     else if(checkBox2.isChecked()&&checkBox3.isChecked()) {
-                        toast.show();
+                        //toast.show();
                     }
                     else if(checkBox3.isChecked()&&checkBox1.isChecked()) {
-                        toast.show();
+                        //toast.show();
                     }
                     else if(checkBox1.isChecked()&&checkBox2.isChecked()&&checkBox3.isChecked()) {
-                        toast.show();
+                        //toast.show();
                     }
                     else {
                         if(checkBox1.isChecked()) {
@@ -61,7 +61,7 @@ public class QuizDialog extends AppCompatActivity {
                             break;
                         }
                         else { //아무것도 선택 안 했을 때
-                            toast.show();
+                            //toast.show();
                         }
                     }
                 }

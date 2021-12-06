@@ -23,9 +23,9 @@ public class QuizResult extends Quiz {
         setContentView(R.layout.activity_quiz_result);
 
         accuracy = (5 - wrong_count)*20;
-        result.setText(accuracy +"%\n정답률");
-        correct.setText(5-wrong_count);
-        wrong.setText(wrong_count);
+        result.setText(Integer.toString(accuracy) +"%\n정답률");
+        correct.setText(Integer.toString(5-wrong_count));
+        wrong.setText(Integer.toString(wrong_count));
 
         back_btn = findViewById(R.id.quiz_result_back);
 
