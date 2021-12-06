@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/correct_btn.xml" value="0.209375" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1287037037037037" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/round_quiz_btn.xml" value="0.1287037037037037" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/word_quiz_shadow.xml" value="0.1287037037037037" />
@@ -12,6 +13,9 @@
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/activity_login.xml" value="0.20208333333333334" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/activity_main.xml" value="0.20208333333333334" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/activity_mypage.xml" value="0.17603850050658562" />
+        <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/activity_quiz.xml" value="0.1890625" />
+        <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/activity_quiz_page.xml" value="0.5" />
+        <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/activity_quiz_result.xml" value="0.20104166666666667" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/activity_signup.xml" value="0.20208333333333334" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/activity_word_add.xml" value="0.22" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/layout/activity_wordbook.xml" value="0.2" />

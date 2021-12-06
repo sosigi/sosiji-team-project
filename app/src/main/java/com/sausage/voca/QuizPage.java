@@ -3,7 +3,6 @@ package com.sausage.voca;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -32,6 +31,8 @@ public class QuizPage extends AppCompatActivity {
     //단어장 정보 - 단어장 id
     String wordbookID = "0";
     int quiz_option = 0;
+    //db에서 끌어오는 단어 정보를 저장.
+    ArrayList<Map<String,Object>> data;
 
     //quiz_option와 맞는 단어수
     int size = 0;
@@ -41,12 +42,9 @@ public class QuizPage extends AppCompatActivity {
     int random[] = new int[5];
 
     int wrong_count = 0, accuracy = 0;
-    String[] eng, kor;
 
     Button quiz_answer1, quiz_answer2, quiz_answer3, quiz_answer4;
 
-    HashMap<String,Object> dataList;
-    ArrayList<Map<String,Object>> data;
 
     //firebase 연동
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -65,7 +63,7 @@ public class QuizPage extends AppCompatActivity {
         wordbookID = sendData.substring(0,sendDataIdx);
         quiz_option = Integer.parseInt(sendData.substring(sendDataIdx+1));
 
-//        docRef = db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID);
+        docRef = db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID);
 
         quiz_word = findViewById(R.id.quiz_word);
 
@@ -79,12 +77,10 @@ public class QuizPage extends AppCompatActivity {
         back_btn.setOnClickListener(view -> finish());
 
         //db에서 quiz_option에 따라 단어 mapping해오기.
-        db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID)
-                .get().addOnCompleteListener((task) -> {
+        docRef.get().addOnCompleteListener((task) -> {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
-                            dataList = new HashMap<>();
                             data = new ArrayList<>();
                             Map<String, Object> wordList = (Map<String, Object>) document.getData().get("wordlist");
                             Log.i("mytag","wordList : "+wordList.toString());
@@ -116,7 +112,6 @@ public class QuizPage extends AppCompatActivity {
                                                 newMap.put("mean3",map.get("mean3").toString());
                                             }
                                         }
-                                        dataList.put(String.valueOf(countWordlist),newMap);
                                         data.add(countWordlist,newMap);
                                         countWordlist++;
                                     }
@@ -143,7 +138,7 @@ public class QuizPage extends AppCompatActivity {
     }
 
     //퀴즈 실행하는 함수.
-    public void quizStart(ArrayList<Map<String, Object>> mapTest){
+    public void quizStart(ArrayList<Map<String, Object>> myData){
         Random r = new Random();
         r.setSeed(System.currentTimeMillis());
 
@@ -156,231 +151,205 @@ public class QuizPage extends AppCompatActivity {
                 }
             }
         }
+        for(int i=0;i<size;i++){
+            Log.i("mytag",String.valueOf(random[i]));
+        }
+        Log.i("mytag","함수안 "+myData.toString());
 
         //객관식 퀴즈 5문제
-        for(int i = 0; i < 5; i++) {
-            quiz_word.setText(data.get(random[i]).get("word").toString());
-
-            int answer_num = r.nextInt(4) + 1; //정답으로 할 답 번호 1 2 3 4 랜덤
-            int first = random[i];
-            int second, third, forth;
-
-            switch (answer_num) {
-                case 1:
-                    quiz_answer1.setText(data.get(random[i]).get("mean1").toString());
-                    do {
-                        second = r.nextInt(size);
-                    } while (second == first);
-                    do {
-                        third = r.nextInt(size);
-                    } while (third == first || third == second);
-                    do {
-                        forth = r.nextInt(size);
-                    } while (forth == first || forth == second || forth == third);
-
-                    quiz_answer2.setText(data.get(random[second]).get("mean1").toString());
-                    quiz_answer3.setText(data.get(random[third]).get("mean1").toString());
-                    quiz_answer4.setText(data.get(random[forth]).get("mean1").toString());
-
-                    quiz_answer1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
-                        }
-                    });
-
-                    quiz_answer2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
-                            quiz_answer2.setBackgroundResource(R.drawable.wrong_btn);
-                            wrong_count++;
-                        }
-                    });
-
-                    quiz_answer3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
-                            quiz_answer3.setBackgroundResource(R.drawable.wrong_btn);
-                            wrong_count++;
-                        }
-                    });
-
-                    quiz_answer4.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
-                            quiz_answer4.setBackgroundResource(R.drawable.wrong_btn);
-                            wrong_count++;
-                        }
-                    });
-
-                    break;
-                case 2:
-                    quiz_answer2.setText(data.get(random[i]).get("mean1").toString());
-                    do {
-                        second = r.nextInt(size);
-                    } while (second == first);
-                    do {
-                        third = r.nextInt(size);
-                    } while (third == first || third == second);
-                    do {
-                        forth = r.nextInt(size);
-                    } while (forth == first || forth == second || forth == third);
-
-                    quiz_answer1.setText(data.get(random[second]).get("mean1").toString());
-                    quiz_answer3.setText(data.get(random[third]).get("mean1").toString());
-                    quiz_answer4.setText(data.get(random[forth]).get("mean1").toString());
-
-                    quiz_answer2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
-                        }
-                    });
-
-                    quiz_answer1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
-                            quiz_answer1.setBackgroundResource(R.drawable.wrong_btn);
-                            wrong_count++;
-                        }
-                    });
-
-                    quiz_answer3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
-                            wrong_count++;
-                            quiz_answer3.setBackgroundResource(R.drawable.wrong_btn);
-                        }
-                    });
-
-                    quiz_answer4.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
-                            quiz_answer4.setBackgroundResource(R.drawable.wrong_btn);
-                            wrong_count++;
-                        }
-                    });
-
-                    break;
-                case 3:
-                    quiz_answer3.setText(data.get(random[i]).get("mean1").toString());
-                    do {
-                        second = r.nextInt(size);
-                    } while (second == first);
-                    do {
-                        third = r.nextInt(size);
-                    } while (third == first || third == second);
-                    do {
-                        forth = r.nextInt(size);
-                    } while (forth == first || forth == second || forth == third);
-
-                    quiz_answer1.setText(data.get(random[second]).get("mean1").toString());
-                    quiz_answer2.setText(data.get(random[third]).get("mean1").toString());
-                    quiz_answer4.setText(data.get(random[forth]).get("mean1").toString());
-
-                    quiz_answer3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            quiz_answer3.setBackgroundResource(R.drawable.correct_btn);
-                        }
-                    });
-
-                    quiz_answer2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            quiz_answer3.setBackgroundResource(R.drawable.correct_btn);
-                            quiz_answer2.setBackgroundResource(R.drawable.wrong_btn);
-                            wrong_count++;
-                        }
-                    });
-
-                    quiz_answer1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            quiz_answer3.setBackgroundResource(R.drawable.correct_btn);
-                            quiz_answer1.setBackgroundResource(R.drawable.wrong_btn);
-                            wrong_count++;
-                        }
-                    });
-
-                    quiz_answer4.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            quiz_answer3.setBackgroundResource(R.drawable.correct_btn);
-                            quiz_answer4.setBackgroundResource(R.drawable.wrong_btn);
-                            wrong_count++;
-                        }
-                    });
-
-                    break;
-                case 4:
-                    quiz_answer4.setText(data.get(random[i]).get("mean1").toString());
-                    do {
-                        second = r.nextInt(size);
-                    } while (second == first);
-                    do {
-                        third = r.nextInt(size);
-                    } while (third == first || third == second);
-                    do {
-                        forth = r.nextInt(size);
-                    } while (forth == first || forth == second || forth == third);
-
-                    quiz_answer1.setText(data.get(random[second]).get("mean1").toString());
-                    quiz_answer2.setText(data.get(random[third]).get("mean1").toString());
-                    quiz_answer3.setText(data.get(random[forth]).get("mean1").toString());
-
-                    quiz_answer4.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
-                        }
-                    });
-
-                    quiz_answer2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
-                            quiz_answer2.setBackgroundResource(R.drawable.wrong_btn);
-                            wrong_count++;
-                        }
-                    });
-
-                    quiz_answer3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
-                            quiz_answer3.setBackgroundResource(R.drawable.wrong_btn);
-                            wrong_count++;
-                        }
-                    });
-
-                    quiz_answer1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
-                            quiz_answer1.setBackgroundResource(R.drawable.wrong_btn);
-                            wrong_count++;
-                        }
-                    });
-                    break;
-            }
-
-        }
-
-
+        quiz(1,myData);
 
     }
 
     //quiz종료후 결과페이지 실행
     public void complete(){
+        Toast.makeText(getApplicationContext(),"Quiz가 모두 완료되었습니다.",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getApplicationContext(), QuizResult.class);
         startActivity(intent);
         finish();
+    }
+
+    public void quiz(int i,ArrayList<Map<String, Object>> myData){
+        if(i==random.length){
+            Log.i("mytag","quiz종료 : "+String.valueOf(i));
+            complete();
+            return;
+        }else {
+            quiz_word.setText(myData.get(random[i]).get("word").toString());
+            Random rd = new Random();
+            int answer_num = rd.nextInt(4) + 1; //정답으로 할 답 번호 1 2 3 4 랜덤
+            int first = random[i];
+            int second, third, forth;
+
+            do {
+                second = rd.nextInt(size);
+            } while (second == first);
+            do {
+                third = rd.nextInt(size);
+            } while (third == first || third == second);
+            do {
+                forth = rd.nextInt(size);
+            } while (forth == first || forth == second || forth == third);
+            Log.i("mytag", String.valueOf(first) + "," + String.valueOf(second) + "," + String.valueOf(third) + "," + String.valueOf(forth));
+
+            switch (answer_num) {
+                case 1:
+                    quiz_answer1.setText(myData.get(random[i]).get("mean1").toString());
+
+                    quiz_answer2.setText(myData.get(random[second]).get("mean1").toString());
+                    quiz_answer3.setText(myData.get(random[third]).get("mean1").toString());
+                    quiz_answer4.setText(myData.get(random[forth]).get("mean1").toString());
+
+                    quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
+
+                    quiz_answer1.setOnClickListener(v -> {
+                        quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
+                        quiz(i + 1, myData);
+                        return;
+                    });
+
+                    quiz_answer2.setOnClickListener(v -> {
+                        quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
+                        quiz_answer2.setBackgroundResource(R.drawable.wrong_btn);
+                        wrong_count++;
+                        quiz(i + 1, myData);
+                        return;
+                    });
+
+                    quiz_answer3.setOnClickListener(v -> {
+                        quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
+                        quiz_answer3.setBackgroundResource(R.drawable.wrong_btn);
+                        wrong_count++;
+                        quiz(i + 1, myData);
+                        return;
+                    });
+
+                    quiz_answer4.setOnClickListener(v -> {
+                        quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
+                        quiz_answer4.setBackgroundResource(R.drawable.wrong_btn);
+                        wrong_count++;
+                        quiz(i + 1, myData);
+                        return;
+                    });
+
+//                break;
+                case 2:
+                    quiz_answer2.setText(myData.get(random[i]).get("mean1").toString());
+
+                    quiz_answer1.setText(myData.get(random[second]).get("mean1").toString());
+                    quiz_answer3.setText(myData.get(random[third]).get("mean1").toString());
+                    quiz_answer4.setText(myData.get(random[forth]).get("mean1").toString());
+
+                    quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
+
+                    quiz_answer2.setOnClickListener(v -> {
+                        quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
+                        quiz(i + 1, myData);
+                        return;
+                    });
+
+                    quiz_answer1.setOnClickListener(v -> {
+                        quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
+                        quiz_answer1.setBackgroundResource(R.drawable.wrong_btn);
+                        wrong_count++;
+                        quiz(i + 1, myData);
+                        return;
+                    });
+
+                    quiz_answer3.setOnClickListener(v -> {
+                        quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
+                        wrong_count++;
+                        quiz_answer3.setBackgroundResource(R.drawable.wrong_btn);
+                        quiz(i + 1, myData);
+                        return;
+                    });
+
+                    quiz_answer4.setOnClickListener(v -> {
+                        quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
+                        quiz_answer4.setBackgroundResource(R.drawable.wrong_btn);
+                        wrong_count++;
+                        quiz(i + 1, myData);
+                        return;
+                    });
+
+//                break;
+                case 3:
+                    quiz_answer3.setText(myData.get(random[i]).get("mean1").toString());
+
+                    quiz_answer1.setText(myData.get(random[second]).get("mean1").toString());
+                    quiz_answer2.setText(myData.get(random[third]).get("mean1").toString());
+                    quiz_answer4.setText(myData.get(random[forth]).get("mean1").toString());
+
+                    quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
+                    quiz_answer3.setOnClickListener(v -> {
+                        quiz_answer3.setBackgroundResource(R.drawable.correct_btn);
+                        quiz(i + 1, myData);
+                        return;
+                    });
+
+                    quiz_answer2.setOnClickListener(v -> {
+                        quiz_answer3.setBackgroundResource(R.drawable.correct_btn);
+                        quiz_answer2.setBackgroundResource(R.drawable.wrong_btn);
+                        wrong_count++;
+                        quiz(i + 1, myData);
+                        return;
+                    });
+
+                    quiz_answer1.setOnClickListener(v -> {
+                        quiz_answer3.setBackgroundResource(R.drawable.correct_btn);
+                        quiz_answer1.setBackgroundResource(R.drawable.wrong_btn);
+                        wrong_count++;
+                        quiz(i + 1, myData);
+                        return;
+                    });
+
+                    quiz_answer4.setOnClickListener(v -> {
+                        quiz_answer3.setBackgroundResource(R.drawable.correct_btn);
+                        quiz_answer4.setBackgroundResource(R.drawable.wrong_btn);
+                        wrong_count++;
+                        quiz(i + 1, myData);
+                        return;
+                    });
+
+//                break;
+                case 4:
+                    quiz_answer4.setText(myData.get(random[i]).get("mean1").toString());
+
+                    quiz_answer1.setText(myData.get(random[second]).get("mean1").toString());
+                    quiz_answer2.setText(myData.get(random[third]).get("mean1").toString());
+                    quiz_answer3.setText(myData.get(random[forth]).get("mean1").toString());
+
+                    quiz_answer4.setOnClickListener(v -> {
+                        quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
+                        quiz(i + 1, myData);
+                        return;
+                    });
+
+                    quiz_answer2.setOnClickListener(v -> {
+                        quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
+                        quiz_answer2.setBackgroundResource(R.drawable.wrong_btn);
+                        wrong_count++;
+                        quiz(i + 1, myData);
+                        return;
+                    });
+
+                    quiz_answer3.setOnClickListener(v -> {
+                        quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
+                        quiz_answer3.setBackgroundResource(R.drawable.wrong_btn);
+                        wrong_count++;
+                        quiz(i + 1, myData);
+                        return;
+                    });
+
+                    quiz_answer1.setOnClickListener(v -> {
+                        quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
+                        quiz_answer1.setBackgroundResource(R.drawable.wrong_btn);
+                        wrong_count++;
+                        quiz(i + 1, myData);
+                        return;
+                    });
+//                break;
+            }
+        }
     }
 }
