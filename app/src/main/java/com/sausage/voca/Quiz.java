@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -26,11 +27,6 @@ import java.util.Random;
 
 public class Quiz extends QuizDialog {
     ImageButton back_btn;
-    TextView word1;
-    TextView word1_m1;
-    TextView categoryName;
-    TextView wordbook_top_title;
-    TextView wordbook_top_explain;
     TextView quiz_word;
     String wordbookID = "0";
 
@@ -48,6 +44,9 @@ public class Quiz extends QuizDialog {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    private Toast toast2 = Toast.makeText(this,"해당 옵션 단어가 5개 이상이어야 합니다", Toast.LENGTH_SHORT);
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,30 +61,7 @@ public class Quiz extends QuizDialog {
         quiz_answer3 = findViewById(R.id.quiz_answer3);
         quiz_answer4 = findViewById(R.id.quiz_answer4);
 
-        if (user != null) {
-            //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
-            DocumentReference docRef = db.collection("users").document(user.getUid()).collection("wordbooks").document("0");
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            //Log.i("mytag", "DocumentSnapshot data: " + document.getData());
-                            categoryName.setText(document.get("wordbooktitle").toString());
-                            wordbook_top_title.setText(document.get("wordbooktitle").toString());
-                            wordbook_top_explain.setText(document.get("wordbookexplain").toString());
-                        } else {
-                            Log.i("mytag", "No such document");
-                        }
-                    } else {
-                        Log.i("mytag", "get failed with ", task.getException());
-                    }
-                }
-            });
-        } else {
-            Log.i("mytag", "user is null");
-        }
+        DocumentReference docRef = db.collection("users").document(user.getUid()).collection("wordbooks").document("0");
 
         db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID)
                 .get().addOnCompleteListener((task) -> {
@@ -102,15 +78,6 @@ public class Quiz extends QuizDialog {
                         String word_english = map.get("word").toString();
                         String word_meaning1 = map.get("mean1").toString();
                         int memorization = Integer.parseInt(map.get("memorization").toString());
-                        /*
-                        String word_meaning2 = "";
-                        String word_meaning3 = "";
-                        if (map.get("mean2") != null) {
-                            word_meaning2 = map.get("mean2").toString();
-                        }
-                        if (map.get("mean3") != null) {
-                            word_meaning3 = map.get("mean3").toString();
-                        }*/
 
                         switch(quiz_option) {
                             case 0 : //전체
@@ -132,16 +99,11 @@ public class Quiz extends QuizDialog {
                                     i++;
                                 }
                                 break;
-                        }
+                        };
                     }
 
-                    size = i+1;
-                    /*
-                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.word_card_recycleView);
-                    LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-                    recyclerView.setLayoutManager(manager); // LayoutManager 등록
-                    recyclerView.setAdapter(new WordAdapter(dataList));  // Adapter 등록
-*/
+                    size = eng.length;
+
                 }catch(NullPointerException e){
                     e.printStackTrace();
                 }
@@ -150,6 +112,10 @@ public class Quiz extends QuizDialog {
             }
         });
 
+        if (size < 5) {     //해당 옵션 단어가 5개 미만일 때
+            toast2.show();
+            finish();
+        }
 
         for(int i = 0; i < 5; i++) { //랜덤숫자 5개 생성 0 ~ size-1
             random[i] = r.nextInt(size);

@@ -215,14 +215,16 @@ public class wordbook extends AppCompatActivity {
         });
 
         //Quiz Btn 선택
-        /*wordQuiz = (TextView) findViewById(R.id.wordQuiz);
+        wordQuiz = (TextView) findViewById(R.id.wordQuiz);
         wordQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                wordQuizSortingSelectDialog.show();
-                //선택된 정렬방식에 따라 wordcard 정렬
+                Intent intent = new Intent(getApplicationContext(), QuizDialog.class);
+                startActivity(intent);
             }
         });
+
+        /*
         wordQuizSortingSelectDialog = new AlertDialog.Builder(wordbook.this)
                 .setItems(wordQuizSorting, new DialogInterface.OnClickListener() {
                     @Override

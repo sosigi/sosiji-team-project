@@ -20,7 +20,7 @@ public class QuizResult extends Quiz {
         setContentView(R.layout.activity_quiz_result);
 
         accuracy = (5 - wrong_count)*20;
-        result.setText(accuracy + "%\n정답률");
+        result.setText(accuracy +"%\n정답률");
         correct.setText(5-wrong_count);
         wrong.setText(wrong_count);
 
@@ -28,9 +28,9 @@ public class QuizResult extends Quiz {
 
         back_btn.setOnClickListener(view -> {
 
-            if(checkbox.isChecked()) {
-                //ToDo 오답을 미암기 단어로 표기 체크
-            }
+                if(checkbox.isChecked()) {
+                    //ToDo 오답을 미암기 단어로 표기
+                }
 
             Intent intent = new Intent(getApplicationContext(), wordbook.class);
             startActivity(intent);
