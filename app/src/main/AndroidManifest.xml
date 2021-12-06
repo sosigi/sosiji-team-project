@@ -12,22 +12,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Voca">
         <activity
-            android:name=".DicSearchWordAdd"
+            android:name=".QuizPage"
             android:exported="false" />
-        <activity android:name=".Category" />
-        <activity android:name=".CategoryAdd" />
-        <activity android:name=".CategoryEdit" />
-        <activity android:name=".DicSearch" />
-        <activity android:name=".Index">
+        <activity
+            android:name=".Index"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
+            android:name=".DicSearchWordAdd"
+            android:exported="false" />
+        <activity android:name=".DicSearch" />
+        <activity
             android:name=".Main"
             android:exported="true"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name=".Mypage"
             android:exported="false" />
@@ -47,7 +50,19 @@
             android:exported="true" />
         <activity
             android:name=".wordbook"
-            android:exported="true"/>
+            android:exported="true" />
+        <activity
+            android:name=".Category"
+            android:exported="true" />
+        <activity
+            android:name=".CategoryAdd"
+            android:exported="true" />
+        <activity
+            android:name=".CategoryEdit"
+            android:exported="true" />
+        <activity
+            android:name=".CategoryRevise"
+            android:exported="true" />
     </application>
 
 </manifest>
