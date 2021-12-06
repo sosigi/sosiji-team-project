@@ -5,14 +5,32 @@
     android:layout_height="match_parent"
     tools:context=".DictionaryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <EditText
-        android:id="@+id/search"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="검색할 단어를 입력하세요"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white"
-        tools:ignore="InvalidId" />
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal">
+        <!-- TODO: Update blank fragment layout -->
+        <EditText
+            android:id="@+id/search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="검색할 단어를 입력하세요"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            tools:ignore="InvalidId" />
 
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center_vertical"
+            android:maxWidth="25dp"
+            android:src="@drawable/reading_glasses"
+            android:background="@android:color/transparent"/>
+    </LinearLayout>
 </FrameLayout>

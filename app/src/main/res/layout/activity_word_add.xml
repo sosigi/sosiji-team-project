@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
     tools:context=".wordAdd">
 
     <LinearLayout
         android:id="@+id/wordCard_page"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/backgroundColor"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
         <!--상단바-->
 
@@ -46,93 +46,215 @@
                 android:id="@+id/wordAddCompelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/word_add_complete"
+                android:text="@string/complete"
                 android:textColor="@color/white"
                 android:textSize="23sp" />
         </LinearLayout>
 
-        <ScrollView
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/test_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:text="@string/word_add_word"
+                android:textColor="@color/unActiveColor"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/english"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:hint="@string/word_add_word_edit_text"
+                android:inputType="text" />
+
+
+            <!--중간선-->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/unActiveColor" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:text="@string/mean"
+                android:textColor="@color/unActiveColor"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/korean1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:hint="@string/word_add_mean_edit_text"
+                android:inputType="text" />
+
+            <!--중간선-->
+            <View
+                android:id="@+id/wordAdd2_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/unActiveColor"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/wordAdd2_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:text="@string/mean"
+                android:textColor="@color/unActiveColor"
+                android:textSize="17sp"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:id="@+id/wordAdd2_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/korean2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:hint="@string/mean"
+                    android:textColorHint="@color/unActiveColor"
+                    android:inputType="text"
+                    android:visibility="gone"/>
+
+                <ImageButton
+                    android:id="@+id/wordAdd2_deleteBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:background="@android:color/transparent"
+                    android:onClick="deleteKoreanMean2"
+                    android:src="@drawable/delete_word"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/wordAdd3_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/unActiveColor"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/wordAdd3_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:text="@string/mean"
+                android:textColor="@color/unActiveColor"
+                android:textSize="17sp"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:id="@+id/wordAdd3_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/korean3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:hint="@string/mean"
+                    android:textColorHint="@color/unActiveColor"
+                    android:inputType="text"
+                    android:visibility="gone"/>
+
+                <ImageButton
+                    android:id="@+id/wordAdd3_deleteBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:background="@android:color/transparent"
+                    android:onClick="deleteKoreanMean3"
+                    android:src="@drawable/delete_word"
+                    android:visibility="gone"/>
+            </LinearLayout>
+            <!--중간선-->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/unActiveColor" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <ImageButton
+                    android:id="@+id/word_mean_add_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:maxWidth="30dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/word_meaning_plus_btn"
+                    android:onClick="addKoreanMean"/>
 
                 <TextView
-                    android:id="@+id/test_textview"
-                    android:layout_width="match_parent"
+                    android:id="@+id/koreanAddBtn"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/word_add_word"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/word_add_mean_add"
                     android:textColor="@color/unActiveColor"
-                    android:textSize="20sp" />
-
-                <EditText
-                    android:id="@+id/english"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/word_add_word_edit_text"
-                    android:inputType="text" />
-
-
-                <!--중간선-->
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#000000" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/word_add_mean"
-                    android:textColor="@color/unActiveColor"
-                    android:textSize="20sp" />
-
-                <EditText
-                    android:id="@+id/korean"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/word_add_mean_edit_text"
-                    android:inputType="text" />
-
-                <!--중간선-->
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#000000" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="12dp"
-                        android:adjustViewBounds="true"
-                        android:background="@android:color/transparent"
-                        android:maxWidth="30dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/word_meaning_plus_btn" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="@string/word_add_mean_add"
-                        android:textColor="@color/unActiveColor"
-                        android:textSize="20sp" />
-                </LinearLayout>
+                    android:textSize="20sp"
+                    android:onClick="addKoreanMean"/>
             </LinearLayout>
-        </ScrollView>
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

@@ -52,9 +52,6 @@ public class CategoryFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //firestore에서 wordbooktitle끌어오기.
-        //컬렉션>문서>필드
-
     }
 
     @Override
@@ -65,13 +62,10 @@ public class CategoryFragment extends ListFragment {
         View v = inflater.inflate(R.layout.fragment_category, null);
         listView = v.findViewById(android.R.id.list);
         edit = v.findViewById(R.id.category_edit);
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("mytag", "edit 클릭됨");
-                Intent intent = new Intent(getActivity(), Category.class);
-                startActivity(intent);
-            }
+        edit.setOnClickListener(v1 -> {
+            Log.i("mytag", "edit 클릭됨");
+            Intent intent = new Intent(getActivity(), Category.class);
+            startActivity(intent);
         });
 
         adapter = new ArrayAdapter<String>(listView.getContext(), android.R.layout.simple_list_item_1, titles) {
