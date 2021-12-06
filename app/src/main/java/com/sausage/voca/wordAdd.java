@@ -36,11 +36,13 @@ public class wordAdd extends AppCompatActivity {
 
     //입력할 단어장 정보
     String wordbookID = "0";
-    //입력할 의미의 개수
+    //입력할 korean2, korean3 존재여부
     boolean korean2Add = false;
     boolean korean3Add = false;
     //입력된 의미의 개수
     int koreanCount = 1;
+    //최종적으로 db에 전송되는 영단어
+    String english;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -82,7 +84,7 @@ public class wordAdd extends AppCompatActivity {
     public void end(View view) {
         Map<String, Object> wordcardData = new HashMap<>();
 
-        String english = editText1.getText().toString();
+        english = editText1.getText().toString();
         String korean1 = editText2.getText().toString();
         String korean2 = "";
         String korean3 = "";
@@ -94,19 +96,22 @@ public class wordAdd extends AppCompatActivity {
         wordcardData.put("mean1", korean1);
         wordcardData.put("memorization", 0);
 
-        if(koreanCount==3){
-            korean2 = editText3.getText().toString();
-            korean3 = editText4.getText().toString();
-
-            wordcardData.put("mean2", korean2);
-            wordcardData.put("mean3", korean3);
-        }else if(koreanCount==2){
-            if(korean2Add){
-                korean2 = editText3.getText().toString();
+        boolean korean2AddExist=false;
+        if(korean2Add){
+            if(!korean2.equals("")){
                 wordcardData.put("mean2", korean2);
-            }else if(korean3Add){
-                korean3 = editText4.getText().toString();
-                wordcardData.put("mean2", korean3);
+                korean2AddExist=true;
+            }
+        }
+        if(korean3Add){
+            if(korean2AddExist){
+                if(!korean3.equals("")){
+                    wordcardData.put("mean3", korean3);
+                }
+            }else{
+                if(!korean3.equals("")){
+                    wordcardData.put("mean2", korean3);
+                }
             }
         }
 
@@ -116,9 +121,29 @@ public class wordAdd extends AppCompatActivity {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
                     Map<String, Object> wordList = (Map<String, Object>) document.getData().get("wordlist");
-                    int wordBookNum = wordList.size();
-                    wordList.put(String.valueOf(wordBookNum), wordcardData);
-                    wordBooksDoc.update("wordlist", wordList);
+
+                    //영단어 중복되는지 검사.
+                    boolean alreadyWordExist = false;
+                    try {
+                        for(int i=0;i<wordList.size();i++){
+                            Map<String, Object> map_find = (HashMap) wordList.get(String.valueOf(i));
+                            Log.i("mtyag",map_find.get("word").toString()+"::"+english);
+                            if(map_find.get("word").toString().equals(english)){
+                                alreadyWordExist=true;
+                            }
+                        }
+                        if(!alreadyWordExist){
+                            //중복안됨을 확인하고 db로 데이터 전송.
+                            int wordBookNum = wordList.size();
+                            wordList.put(String.valueOf(wordBookNum), wordcardData);
+                            wordBooksDoc.update("wordlist", wordList);
+                            finish();
+                        }else{
+                            Toast.makeText(view.getContext(),"중복되는 단어가 존재합니다." ,Toast.LENGTH_SHORT).show();
+                        }
+                    }catch(NullPointerException e){
+                        e.printStackTrace();
+                    }
                 } else {
                     Log.i("mytag", "No such document");
                 }
@@ -126,7 +151,6 @@ public class wordAdd extends AppCompatActivity {
                 Log.i("mytag", "get failed with " + task.getException());
             }
         });
-        finish();
     }
 
     public void addKoreanMean(View view) {

@@ -82,7 +82,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/word_add_word_edit_text"
                         android:inputType="text"
-                        android:textColorHint="@color/black" />
+                        android:textColorHint="@color/unActiveColor" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -98,7 +98,85 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/word_add_mean_edit_text"
                         android:inputType="text"
-                        android:textColorHint="@color/black" />
+                        android:textColorHint="@color/unActiveColor" />
+
+                    <TextView
+                        android:id="@+id/korean2_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/word_add_mean"
+                        android:textColor="@color/unActiveColor"
+                        android:textSize="17sp"
+                        android:visibility="gone"/>
+
+                    <LinearLayout
+                        android:id="@+id/korean2_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <EditText
+                            android:id="@+id/korean2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="@string/mean"
+                            android:inputType="text"
+                            android:textColorHint="@color/unActiveColor"
+                            android:visibility="gone"/>
+                        <ImageButton
+                            android:id="@+id/korean2_deleteBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/delete_word"
+                            android:onClick="deleteKoreanMean2"
+                            android:visibility="gone"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/korean3_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/word_add_mean"
+                        android:textColor="@color/unActiveColor"
+                        android:textSize="17sp"
+                        android:visibility="gone"/>
+
+                    <LinearLayout
+                        android:id="@+id/korean3_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <EditText
+                            android:id="@+id/korean3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="@string/mean"
+                            android:inputType="text"
+                            android:textColorHint="@color/unActiveColor"
+                            android:visibility="gone"/>
+                        <ImageButton
+                            android:id="@+id/korean3_deleteBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/delete_word"
+                            android:onClick="deleteKoreanMean3"
+                            android:visibility="gone"/>
+                    </LinearLayout>
+
+
 
 
                     <LinearLayout
@@ -115,7 +193,8 @@
                             android:background="@android:color/transparent"
                             android:maxWidth="30dp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/word_meaning_plus_btn" />
+                            android:src="@drawable/word_meaning_plus_btn"
+                            android:onClick="addKoreanMean"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -123,7 +202,8 @@
                             android:layout_marginLeft="10dp"
                             android:text="@string/word_add_mean_add"
                             android:textColor="@color/unActiveColor"
-                            android:textSize="20sp" />
+                            android:textSize="20sp"
+                            android:onClick="addKoreanMean"/>
                     </LinearLayout>
                 </LinearLayout>
 

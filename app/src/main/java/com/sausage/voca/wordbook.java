@@ -1,6 +1,5 @@
 package com.sausage.voca;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -22,17 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.annotations.Nullable;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 
@@ -146,6 +140,7 @@ public class wordbook extends AppCompatActivity {
                 Log.i(TAG, "get failed with " + task.getException());
             }
         });
+        updateWordcard(thisWordbookMemorizationType);
 
         //wordcard List 변경된 내용 있는지 확인.
         final DocumentReference docRef = db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID);
@@ -380,8 +375,7 @@ public class wordbook extends AppCompatActivity {
                             wordBooksDoc.update("wordlist",newWordcardArray);
                             Log.i(TAG,"data delete complete");
                             updateWordcard(thisWordbookMemorizationType);
-                            Toast myToast = Toast.makeText(view.getContext(),R.string.toast_delete_word ,Toast.LENGTH_SHORT);
-                            myToast.show();
+                            Toast.makeText(view.getContext(),R.string.toast_delete_word ,Toast.LENGTH_SHORT).show();
                             dataDelete = false;
                         }
                     }catch(NullPointerException e){

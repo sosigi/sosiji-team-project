@@ -147,6 +147,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:hint="@string/mean"
+                    android:textColorHint="@color/unActiveColor"
                     android:inputType="text"
                     android:visibility="gone"/>
 
@@ -201,6 +202,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:hint="@string/mean"
+                    android:textColorHint="@color/unActiveColor"
                     android:inputType="text"
                     android:visibility="gone"/>
 
@@ -240,7 +242,8 @@
                     android:background="@android:color/transparent"
                     android:maxWidth="30dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/word_meaning_plus_btn" />
+                    android:src="@drawable/word_meaning_plus_btn"
+                    android:onClick="addKoreanMean"/>
 
                 <TextView
                     android:id="@+id/koreanAddBtn"
@@ -249,7 +252,8 @@
                     android:layout_marginLeft="10dp"
                     android:text="@string/word_add_mean_add"
                     android:textColor="@color/unActiveColor"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:onClick="addKoreanMean"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
