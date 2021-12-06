@@ -136,6 +136,8 @@ public class QuizPage extends AppCompatActivity {
 
 
 
+
+
     }
 
     //quiz종료후 결과페이지 실행
