@@ -42,8 +42,9 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="16dp"
             android:hint="검색어를 입력하세요"
+            android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textColor="@color/white" />
+            android:maxLines="3"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -52,10 +53,11 @@
         android:background="#FFFCF3"
         android:layout_weight="6.5"
         android:orientation="vertical">
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="10">
 
             <TextView
                 android:id="@+id/result_searched"
@@ -65,21 +67,21 @@
                 android:text="검색한 단어"
                 android:textColor="@color/black"
                 android:textSize="18dp"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                android:layout_weight="9.9"/>
 
             <ImageButton
                 android:id="@+id/dicSearch_add"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:maxWidth="20dp"
                 android:src="@drawable/plus_btn2"
-                android:visibility="invisible"/>
-        </RelativeLayout>
+                android:visibility="invisible" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/result_meaning"

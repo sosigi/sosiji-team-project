@@ -76,7 +76,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="15dp"
                 android:hint="@string/word_add_word_edit_text"
-                android:inputType="text" />
+                android:inputType="text"
+                android:maxLength="20" />
 
 
             <!--중간선-->
@@ -105,7 +106,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="15dp"
                 android:hint="@string/word_add_mean_edit_text"
-                android:inputType="text" />
+                android:inputType="text"
+                android:maxLength="30"/>
 
             <!--중간선-->
             <View

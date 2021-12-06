@@ -240,7 +240,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="5dp"
-                            android:text="카테고리를 선택해주세요"
+                            android:text="카테고리 정보 가져오는중..."
                             android:textColor="@color/black"
                             android:textSize="19dp" />
 
