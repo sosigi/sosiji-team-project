@@ -98,20 +98,20 @@ public class wordAdd extends AppCompatActivity {
         wordcardData.put("mean1", korean1);
         wordcardData.put("memorization", 0);
 
-        boolean korean2AddExist=false;
-        if(korean2Add){
-            if(!korean2.equals("")){
+        boolean korean2AddExist = false;
+        if (korean2Add) {
+            if (!korean2.equals("")) {
                 wordcardData.put("mean2", korean2);
-                korean2AddExist=true;
+                korean2AddExist = true;
             }
         }
-        if(korean3Add){
-            if(korean2AddExist){
-                if(!korean3.equals("")){
+        if (korean3Add) {
+            if (korean2AddExist) {
+                if (!korean3.equals("")) {
                     wordcardData.put("mean3", korean3);
                 }
-            }else{
-                if(!korean3.equals("")){
+            } else {
+                if (!korean3.equals("")) {
                     wordcardData.put("mean2", korean3);
                 }
             }
@@ -120,7 +120,6 @@ public class wordAdd extends AppCompatActivity {
         DocumentReference wordBooksDoc = db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID);
         wordBooksDoc.get().addOnCompleteListener((task) -> {
             if (task.isSuccessful()) {
-                //Log.i("mytag", "여기까지는 들어옴");
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
                     if (Objects.requireNonNull(document.getData()).get("wordlist")==null){
@@ -162,21 +161,21 @@ public class wordAdd extends AppCompatActivity {
     }
 
     public void addKoreanMean(View view) {
-        if (koreanCount==1) {
+        if (koreanCount == 1) {
             view2.setVisibility(View.VISIBLE);
             titleText2.setVisibility(View.VISIBLE);
             linearLayout2.setVisibility(View.VISIBLE);
             imageButton2.setVisibility(View.VISIBLE);
             editText3.setVisibility(View.VISIBLE);
-            koreanCount = koreanCount+1;
+            koreanCount = koreanCount + 1;
             korean2Add = true;
-        } else if (koreanCount==2) {
+        } else if (koreanCount == 2) {
             view3.setVisibility(View.VISIBLE);
             titleText3.setVisibility(View.VISIBLE);
             linearLayout3.setVisibility(View.VISIBLE);
             editText4.setVisibility(View.VISIBLE);
             imageButton3.setVisibility(View.VISIBLE);
-            koreanCount=koreanCount+1;
+            koreanCount = koreanCount + 1;
             korean3Add = true;
         } else {
             Toast.makeText(view.getContext(), "한 단어당 의미는 최대 3개까지 저장 가능합니다.", Toast.LENGTH_SHORT).show();
@@ -192,7 +191,7 @@ public class wordAdd extends AppCompatActivity {
             linearLayout2.setVisibility(View.GONE);
             imageButton2.setVisibility(View.GONE);
             editText3.setVisibility(View.GONE);
-            koreanCount = koreanCount-1;
+            koreanCount = koreanCount - 1;
             korean2Add = false;
         } else {
             Log.i("mytag", "2삭제 실행되지 않음.");
@@ -208,7 +207,7 @@ public class wordAdd extends AppCompatActivity {
             linearLayout3.setVisibility(View.GONE);
             editText4.setVisibility(View.GONE);
             imageButton3.setVisibility(View.GONE);
-            koreanCount= koreanCount-1;
+            koreanCount = koreanCount - 1;
             korean3Add = false;
         } else {
             Log.i("mytag", "삭제 실행되지 않음.");
