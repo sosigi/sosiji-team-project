@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2171875" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/correct_btn.xml" value="0.209375" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1287037037037037" />
+        <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/quiz_btn.xml" value="0.2171875" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/round_quiz_btn.xml" value="0.1287037037037037" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/word_quiz_shadow.xml" value="0.1287037037037037" />
         <entry key="..\:/Users/Owner/Desktop/eunsoAhn/DEV/sosigi-team-project/Siha/app/src/main/res/drawable/wordbook_title_list_layout.xml" value="0.20364583333333333" />
