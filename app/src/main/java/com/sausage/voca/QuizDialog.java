@@ -74,7 +74,8 @@ public class QuizDialog extends AppCompatActivity {
     }
 
     public void startQuiz(){
-        Intent intent = new Intent(getApplicationContext(), QuizPage.class).putExtra("id",wordbookID);
+        String sendData = new StringBuilder().append(wordbookID).append("/").append(String.valueOf(quiz_option)).toString();
+        Intent intent = new Intent(getApplicationContext(), QuizPage.class).putExtra("sendData", sendData);
         startActivity(intent);
     }
 
