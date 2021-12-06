@@ -1,23 +1,11 @@
 package com.sausage.voca;
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.ArrayList;
-import java.util.Random;
-
 public class Quiz extends AppCompatActivity {
-    ImageButton back_btn;
+  /*  ImageButton back_btn;
     TextView quiz_word;
 
     //단어장 정보
@@ -51,7 +39,7 @@ public class Quiz extends AppCompatActivity {
         wordbookID = getIntent().getStringExtra("id");
         docRef = db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID);
 
-//        r = new Random();
+        r = new Random();
 
         quiz_word = findViewById(R.id.quiz_word);
 
@@ -59,7 +47,7 @@ public class Quiz extends AppCompatActivity {
         quiz_answer2 = findViewById(R.id.quiz_answer2);
         quiz_answer3 = findViewById(R.id.quiz_answer3);
         quiz_answer4 = findViewById(R.id.quiz_answer4);
-
+*/
 //        docRef.get().addOnCompleteListener((task) -> {
 //            if (task.isSuccessful()) {
 //                dataList = new ArrayList<>();
@@ -113,7 +101,15 @@ public class Quiz extends AppCompatActivity {
 //            finish();
 //        }
 //
-
+//        for(int i = 0; i < 5; i++) { //랜덤숫자 5개 생성 0 ~ size-1
+//            random[i] = r.nextInt(size);
+//            for (int j = 0; j < i; j++) {
+//                if (random[i] == random[j]) {
+//                    i--;
+//                    break;
+//                }
+//            }
+//        }
 
 //        //객관식 퀴즈 5문제
 //        for(int i = 0; i < 5; i++) {
@@ -333,10 +329,10 @@ public class Quiz extends AppCompatActivity {
 //
 //        }
 
-        back_btn = findViewById(R.id.quiz_back);
-        back_btn.setOnClickListener(view -> finish());
+   //     back_btn = findViewById(R.id.quiz_back);
+     //   back_btn.setOnClickListener(view -> finish());
 
 //        Intent intent = new Intent(getApplicationContext(), QuizResult.class);
 //        startActivity(intent);
     }
-}
+
