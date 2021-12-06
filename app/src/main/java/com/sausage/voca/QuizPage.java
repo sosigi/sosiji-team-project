@@ -2,6 +2,7 @@ package com.sausage.voca;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -24,6 +25,9 @@ import java.util.Random;
 public class QuizPage extends AppCompatActivity {
     ImageButton back_btn;
     TextView quiz_word;
+
+    //시간지연
+    Handler handler = new Handler();
 
 
     //이전페이지에서 받아오는 string 값
@@ -204,35 +208,43 @@ public class QuizPage extends AppCompatActivity {
 
                     quiz_answer1.setOnClickListener(v -> {
                         quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
-                        quiz(i + 1, myData);
-                        return;
+                        handler.postDelayed(() -> {
+                            quiz(i + 1, myData);
+                            return;
+                        },1500);
                     });
 
                     quiz_answer2.setOnClickListener(v -> {
                         quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
                         quiz_answer2.setBackgroundResource(R.drawable.wrong_btn);
                         wrong_count++;
-                        quiz(i + 1, myData);
-                        return;
+                        handler.postDelayed(() -> {
+                            quiz(i + 1, myData);
+                            return;
+                        },1500);
                     });
 
                     quiz_answer3.setOnClickListener(v -> {
                         quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
                         quiz_answer3.setBackgroundResource(R.drawable.wrong_btn);
                         wrong_count++;
-                        quiz(i + 1, myData);
-                        return;
+                        handler.postDelayed(() -> {
+                            quiz(i + 1, myData);
+                            return;
+                        },1500);
                     });
 
                     quiz_answer4.setOnClickListener(v -> {
                         quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
                         quiz_answer4.setBackgroundResource(R.drawable.wrong_btn);
                         wrong_count++;
-                        quiz(i + 1, myData);
-                        return;
+                        handler.postDelayed(() -> {
+                            quiz(i + 1, myData);
+                            return;
+                        },1500);
                     });
 
-//                break;
+                break;
                 case 2:
                     quiz_answer2.setText(myData.get(random[i]).get("mean1").toString());
 
@@ -244,35 +256,42 @@ public class QuizPage extends AppCompatActivity {
 
                     quiz_answer2.setOnClickListener(v -> {
                         quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
-                        quiz(i + 1, myData);
-                        return;
+                        handler.postDelayed(() -> {
+                            quiz(i + 1, myData);
+                            return;
+                        },1500);
                     });
 
                     quiz_answer1.setOnClickListener(v -> {
                         quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
                         quiz_answer1.setBackgroundResource(R.drawable.wrong_btn);
                         wrong_count++;
-                        quiz(i + 1, myData);
-                        return;
+                        handler.postDelayed(() -> {
+                            quiz(i + 1, myData);
+                            return;
+                        },1500);
                     });
 
                     quiz_answer3.setOnClickListener(v -> {
                         quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
                         wrong_count++;
                         quiz_answer3.setBackgroundResource(R.drawable.wrong_btn);
-                        quiz(i + 1, myData);
-                        return;
+                        handler.postDelayed(() -> {
+                            quiz(i + 1, myData);
+                            return;
+                        },1500);
                     });
 
                     quiz_answer4.setOnClickListener(v -> {
                         quiz_answer2.setBackgroundResource(R.drawable.correct_btn);
                         quiz_answer4.setBackgroundResource(R.drawable.wrong_btn);
                         wrong_count++;
-                        quiz(i + 1, myData);
-                        return;
+                        handler.postDelayed(() -> {
+                            quiz(i + 1, myData);
+                            return;
+                        },1500);
                     });
-
-//                break;
+                break;
                 case 3:
                     quiz_answer3.setText(myData.get(random[i]).get("mean1").toString());
 
@@ -283,35 +302,42 @@ public class QuizPage extends AppCompatActivity {
                     quiz_answer1.setBackgroundResource(R.drawable.correct_btn);
                     quiz_answer3.setOnClickListener(v -> {
                         quiz_answer3.setBackgroundResource(R.drawable.correct_btn);
-                        quiz(i + 1, myData);
-                        return;
+                        handler.postDelayed(() -> {
+                            quiz(i + 1, myData);
+                            return;
+                        },1500);
                     });
 
                     quiz_answer2.setOnClickListener(v -> {
                         quiz_answer3.setBackgroundResource(R.drawable.correct_btn);
                         quiz_answer2.setBackgroundResource(R.drawable.wrong_btn);
                         wrong_count++;
-                        quiz(i + 1, myData);
-                        return;
+                        handler.postDelayed(() -> {
+                            quiz(i + 1, myData);
+                            return;
+                        },1500);
                     });
 
                     quiz_answer1.setOnClickListener(v -> {
                         quiz_answer3.setBackgroundResource(R.drawable.correct_btn);
                         quiz_answer1.setBackgroundResource(R.drawable.wrong_btn);
                         wrong_count++;
-                        quiz(i + 1, myData);
-                        return;
+                        handler.postDelayed(() -> {
+                            quiz(i + 1, myData);
+                            return;
+                        },1500);
                     });
 
                     quiz_answer4.setOnClickListener(v -> {
                         quiz_answer3.setBackgroundResource(R.drawable.correct_btn);
                         quiz_answer4.setBackgroundResource(R.drawable.wrong_btn);
                         wrong_count++;
-                        quiz(i + 1, myData);
-                        return;
+                        handler.postDelayed(() -> {
+                            quiz(i + 1, myData);
+                            return;
+                        },1500);
                     });
-
-//                break;
+                break;
                 case 4:
                     quiz_answer4.setText(myData.get(random[i]).get("mean1").toString());
 
@@ -321,34 +347,42 @@ public class QuizPage extends AppCompatActivity {
 
                     quiz_answer4.setOnClickListener(v -> {
                         quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
-                        quiz(i + 1, myData);
-                        return;
+                        handler.postDelayed(() -> {
+                            quiz(i + 1, myData);
+                            return;
+                        },1500);
                     });
 
                     quiz_answer2.setOnClickListener(v -> {
                         quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
                         quiz_answer2.setBackgroundResource(R.drawable.wrong_btn);
                         wrong_count++;
-                        quiz(i + 1, myData);
-                        return;
+                        handler.postDelayed(() -> {
+                            quiz(i + 1, myData);
+                            return;
+                        },1500);
                     });
 
                     quiz_answer3.setOnClickListener(v -> {
                         quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
                         quiz_answer3.setBackgroundResource(R.drawable.wrong_btn);
                         wrong_count++;
-                        quiz(i + 1, myData);
-                        return;
+                        handler.postDelayed(() -> {
+                            quiz(i + 1, myData);
+                            return;
+                        },1500);
                     });
 
                     quiz_answer1.setOnClickListener(v -> {
                         quiz_answer4.setBackgroundResource(R.drawable.correct_btn);
                         quiz_answer1.setBackgroundResource(R.drawable.wrong_btn);
                         wrong_count++;
-                        quiz(i + 1, myData);
-                        return;
+                        handler.postDelayed(() -> {
+                            quiz(i + 1, myData);
+                            return;
+                        },1500);
                     });
-//                break;
+                break;
             }
         }
     }

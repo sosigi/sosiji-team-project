@@ -48,16 +48,15 @@
             android:background="@drawable/word_quiz_shadow">
 
             <Button
-
                 android:id="@+id/quiz_answer1"
                 android:layout_width="350dp"
                 android:layout_height="50dp"
-                android:background="@drawable/correct_btn"
+                android:padding="10dp"
+                android:background="@drawable/quiz_btn"
                 android:text="답1"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 app:backgroundTint="@color/backgroundColor" />
-<!--            android:background="@drawable/quiz_btn"-->
         </FrameLayout>
 
         <FrameLayout
@@ -71,7 +70,7 @@
                 android:layout_width="350dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/correct_btn"
+                android:background="@drawable/quiz_btn"
                 android:text="답2"
                 android:textColor="@color/black"
                 android:textSize="20dp"
@@ -89,7 +88,7 @@
                 android:layout_width="350dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/correct_btn"
+                android:background="@drawable/quiz_btn"
                 android:text="답3"
                 android:textColor="@color/black"
                 android:textSize="20dp"
@@ -107,7 +106,7 @@
                 android:layout_width="350dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/wrong_btn"
+                android:background="@drawable/quiz_btn"
                 android:text="답4"
                 android:textColor="@color/black"
                 android:textSize="20dp"
