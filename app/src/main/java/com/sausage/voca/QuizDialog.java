@@ -2,6 +2,7 @@ package com.sausage.voca;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
@@ -74,8 +75,11 @@ public class QuizDialog extends AppCompatActivity {
     }
 
     public void startQuiz(){
-        Intent intent = new Intent(getApplicationContext(), QuizPage.class).putExtra("id",wordbookID);
+        String sendData = new StringBuilder().append(wordbookID).append("/").append(String.valueOf(quiz_option)).toString();
+        Log.i("mytag",sendData);
+        Intent intent = new Intent(getApplicationContext(), QuizPage.class).putExtra("sendData", sendData);
         startActivity(intent);
+        finish();
     }
 
 }
