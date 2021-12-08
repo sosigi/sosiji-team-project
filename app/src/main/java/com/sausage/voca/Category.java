@@ -28,12 +28,14 @@ public class Category extends AppCompatActivity {
     RecyclerView recyclerView;
     LinearLayoutManager manager;
     CategoryTitleAdapter categoryTitleAdapter;
-    int wordBooksCount=0;
 
     //database
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    int titleCountUnchanged=0;
+
+    String TAG = "mytag";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,20 +56,30 @@ public class Category extends AppCompatActivity {
         plus_btn.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), CategoryAdd.class);
             startActivity(intent);
-            finish();
+        });
+
+        final CollectionReference colRef = db.collection("users").document(user.getUid()).collection("wordbooks");
+        colRef.addSnapshotListener((value, e) -> {
+            if (e != null) {
+                Log.w(TAG, "Listen failed.", e);
+            } else {
+                if(titleCountUnchanged != value.size()){
+                    InitializeData();
+                    Log.i(TAG, "category Page data update! : " + value);
+                }
+            }
         });
     }
 
     public void InitializeData() {
         titlesDataList = new ArrayList<>();
-
-        CollectionReference wordbooksCol = db.collection("users").document(user.getUid()).collection("wordbooks");
-        wordbooksCol
+        db.collection("users").document(user.getUid()).collection("wordbooks")
                 .get().addOnCompleteListener((task -> {
             if (task.isSuccessful()) {
+                titleCountUnchanged=0;
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    wordBooksCount++;
-                    Log.i("mytag", document.getId() + " => " + Objects.requireNonNull(document.getData().get("wordbooktitle")).toString());
+                    titleCountUnchanged=titleCountUnchanged+1;
+                    //Log.i("mytag", document.getId() + " => " + Objects.requireNonNull(document.getData().get("wordbooktitle")).toString());
                     String title= Objects.requireNonNull(document.getData().get("wordbooktitle")).toString();
                     titlesDataList.add(new CategoryTitle(title));
                 }
@@ -87,9 +99,6 @@ public class Category extends AppCompatActivity {
         TextView titleTextView = categoryLayout.findViewById(R.id.list_category_title_text);
         String title = titleTextView.getText().toString();
         Intent intent = new Intent(view.getContext(), CategoryRevise.class).putExtra("titleID",title);
-//        intent.putExtra("count", wordBooksCount);
         startActivity(intent);
-        finish();
     }
-
 }
