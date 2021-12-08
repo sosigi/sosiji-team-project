@@ -216,21 +216,21 @@ public class DicSearchWordAdd extends AppCompatActivity {
     }
 
     public void addKoreanMean(View view) {
-        if (koreanCount==1) {
+        if (!korean2Add) {
             titleText2.setVisibility(View.VISIBLE);
             linearLayout2.setVisibility(View.VISIBLE);
             imageButton2.setVisibility(View.VISIBLE);
             editText3.setVisibility(View.VISIBLE);
             koreanCount = koreanCount+1;
             korean2Add = true;
-        } else if (koreanCount==2) {
+        } else if (!korean3Add) {
             titleText3.setVisibility(View.VISIBLE);
             linearLayout3.setVisibility(View.VISIBLE);
             editText4.setVisibility(View.VISIBLE);
             imageButton3.setVisibility(View.VISIBLE);
             koreanCount=koreanCount+1;
             korean3Add = true;
-        } else {
+        } if(koreanCount>=3) {
             Toast.makeText(view.getContext(), "한 단어당 의미는 최대 3개까지 저장 가능합니다.", Toast.LENGTH_SHORT).show();
         }
     }
@@ -241,6 +241,7 @@ public class DicSearchWordAdd extends AppCompatActivity {
             titleText2.setVisibility(View.GONE);
             linearLayout2.setVisibility(View.GONE);
             imageButton2.setVisibility(View.GONE);
+            editText3.setText("");
             editText3.setVisibility(View.GONE);
             koreanCount = koreanCount-1;
             korean2Add = false;
@@ -255,6 +256,7 @@ public class DicSearchWordAdd extends AppCompatActivity {
             Log.i("mytag", "3 삭제 실행");
             titleText3.setVisibility(View.GONE);
             linearLayout3.setVisibility(View.GONE);
+            editText4.setText("");
             editText4.setVisibility(View.GONE);
             imageButton3.setVisibility(View.GONE);
             koreanCount= koreanCount-1;
