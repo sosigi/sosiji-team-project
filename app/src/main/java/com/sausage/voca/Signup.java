@@ -116,7 +116,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         if (v == signup) { //회원가입
             //이메일로 회원가입하는 경우 new_name 칸에 입력한 이름 가져오면 된다.
             createEmailAccount(new_name.getText().toString(), new_email.getText().toString(), new_password.getText().toString());
-        } else if ((v == login)) {
+        } else if (v == login) {
             Intent Login = new Intent(this, Login.class);
             startActivity(Login);
             finish();
@@ -206,18 +206,73 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         Log.d("mytag", "createUserWithEmail:success");
 
         //근데 해당 회원을 위한 다큐먼트가 존재하는지 확인 필수. 있으면 저장하면 안됨 TODO 코드 정리 필요
-        DocumentReference docRef = null;
-        if (user != null) {
-            docRef = db.collection("users").document(user.getUid());
-        }
-        if (docRef != null) {
+        DocumentReference docRef = db.collection("users").document(user.getUid());
+        if (docRef != null && user != null) {
             docRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d("mytag", "해당 회원에 대한 문서가 이미 존재합니다 : " + document.getData());
+                        updateUI(user);
                     } else {
                         Log.d("mytag", "No such document");
+
+                        // 해당 계정을 위한 문서 생성 시작
+                        // Add a new document with a generated ID
+                        db.collection("users").document(user.getUid())
+                                .set(thisuser)
+                                .addOnSuccessListener(aVoid -> Log.d("mytag", "DocumentSnapshot successfully written!"))
+                                .addOnFailureListener(e -> Log.w("mytag", "Error writing document", e));
+
+                        mRootRef.child("wordbooks").get().addOnCompleteListener(DBtask -> {
+                            if (!DBtask.isSuccessful()) {
+                                Log.e("firebase", "Error getting data", DBtask.getException());
+                            } else {
+//                                        Map<String, Object> wordbookArrayData = new HashMap<>();
+                                for (int i = 0; DBtask.getResult().child(Integer.toString(i)).exists(); i++) {
+                                    DataSnapshot wordbooktask = DBtask.getResult().child(Integer.toString(i));
+                                    Map<String, Object> wordbookData = new HashMap<>();
+
+                                    //wordcard 배열 만듦.
+                                    Map<String, Object> wordcardArrayData = new HashMap<>();
+                                    for (int j = 0; wordbooktask.child("wordlist").child("wordcard").child(Integer.toString(j)).exists(); j++) {
+                                        DataSnapshot wordcardtask = wordbooktask.child("wordlist").child("wordcard").child(Integer.toString(j));
+
+                                        Map<String, Object> wordcardData = new HashMap<>();
+                                        wordcardData.put("word", String.valueOf(wordcardtask.child("word").getValue()));
+                                        wordcardData.put("mean1", String.valueOf(wordcardtask.child("mean1").getValue()));
+
+                                        if (wordcardtask.child("mean2").exists()) {
+                                            wordcardData.put("mean2", String.valueOf(wordcardtask.child("mean2").getValue()));
+                                        }
+                                        if (wordcardtask.child("mean3").exists()) {
+                                            wordcardData.put("mean3", String.valueOf(wordcardtask.child("mean3").getValue()));
+                                        }
+                                        wordcardData.put("memorization", 0);
+
+                                        wordcardArrayData.put(Integer.toString(j), wordcardData);
+
+                                    }
+                                    wordbookData.put("wordbooktitle", String.valueOf(wordbooktask.child("wordbooktitle").getValue()));
+                                    wordbookData.put("wordbookexplain", String.valueOf(wordbooktask.child("wordbookexplain").getValue()));
+                                    wordbookData.put("wordlist", wordcardArrayData);
+                                    Log.i("mytag",wordbookData.toString());
+                                    Log.i("mytag", Objects.requireNonNull(wordbookData.get("wordbooktitle")).toString());
+
+//                                            wordbookArrayData.put(Integer.toString(i), wordbookData);
+
+                                    if (user != null) {
+                                        db.collection("users").document(user.getUid()).collection("wordbooks").document(Integer.toString(i))
+                                                .set(wordbookData)
+                                                .addOnSuccessListener(aVoid -> Log.d("mytag", "DocumentSnapshot successfully written!"))
+                                                .addOnFailureListener(e -> Log.w("mytag", "Error writing document", e));
+                                    }
+//                        db.collection("users").document(user.getUid()).collection("wordbooks").add(wordbookData);
+                                }
+                                Log.d("firebase", String.valueOf(DBtask.getResult().getValue()));
+
+                            }
+                        });
                     }
                 } else {
                     Log.d(GoogleTAG, "get failed with ", task.getException());
@@ -225,65 +280,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             });
         }
 
-        // 해당 계정을 위한 문서 생성 시작
-        // Add a new document with a generated ID
-        if (user != null) {
-            db.collection("users").document(user.getUid())
-                    .set(thisuser)
-                    .addOnSuccessListener(aVoid -> Log.d("mytag", "DocumentSnapshot successfully written!"))
-                    .addOnFailureListener(e -> Log.w("mytag", "Error writing document", e));
-        }
 
-        mRootRef.child("wordbooks").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e("firebase", "Error getting data", task.getException());
-            } else {
-//                                        Map<String, Object> wordbookArrayData = new HashMap<>();
-                for (int i = 0; task.getResult().child(Integer.toString(i)).exists(); i++) {
-                    DataSnapshot wordbooktask = task.getResult().child(Integer.toString(i));
-                    Map<String, Object> wordbookData = new HashMap<>();
-
-                    //wordcard 배열 만듦.
-                    Map<String, Object> wordcardArrayData = new HashMap<>();
-                    for (int j = 0; wordbooktask.child("wordlist").child("wordcard").child(Integer.toString(j)).exists(); j++) {
-                        DataSnapshot wordcardtask = wordbooktask.child("wordlist").child("wordcard").child(Integer.toString(j));
-
-                        Map<String, Object> wordcardData = new HashMap<>();
-                        wordcardData.put("word", String.valueOf(wordcardtask.child("word").getValue()));
-                        wordcardData.put("mean1", String.valueOf(wordcardtask.child("mean1").getValue()));
-
-                        if (wordcardtask.child("mean2").exists()) {
-                            wordcardData.put("mean2", String.valueOf(wordcardtask.child("mean2").getValue()));
-                        }
-                        if (wordcardtask.child("mean3").exists()) {
-                            wordcardData.put("mean3", String.valueOf(wordcardtask.child("mean3").getValue()));
-                        }
-                        wordcardData.put("memorization", 0);
-
-                        wordcardArrayData.put(Integer.toString(j), wordcardData);
-
-                    }
-                    wordbookData.put("wordbooktitle", String.valueOf(wordbooktask.child("wordbooktitle").getValue()));
-                    wordbookData.put("wordbookexplain", String.valueOf(wordbooktask.child("wordbookexplain").getValue()));
-                    wordbookData.put("wordlist", wordcardArrayData);
-                    Log.i("mytag",wordbookData.toString());
-                    Log.i("mytag", Objects.requireNonNull(wordbookData.get("wordbooktitle")).toString());
-
-//                                            wordbookArrayData.put(Integer.toString(i), wordbookData);
-
-                    if (user != null) {
-                        db.collection("users").document(user.getUid()).collection("wordbooks").document(Integer.toString(i))
-                                .set(wordbookData)
-                                .addOnSuccessListener(aVoid -> Log.d("mytag", "DocumentSnapshot successfully written!"))
-                                .addOnFailureListener(e -> Log.w("mytag", "Error writing document", e));
-                    }
-//                        db.collection("users").document(user.getUid()).collection("wordbooks").add(wordbookData);
-                }
-                Log.d("firebase", String.valueOf(task.getResult().getValue()));
-
-                updateUI(user);
-            }
-        });
     }
 
     private void updateUI(FirebaseUser user) {

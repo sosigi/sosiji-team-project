@@ -1,5 +1,6 @@
 package com.sausage.voca;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -82,42 +83,24 @@ public class CategoryRevise extends AppCompatActivity {
         });
 
         //category 수정 완료
-        complete_btn.setOnClickListener(view -> {
-            String newTitle = title_editText.getText().toString();
-            String newExplain = explain_editText.getText().toString();
-            //완료시 db접근.
-            wordbooksCol.get().addOnCompleteListener((task -> {
-                if (task.isSuccessful()) {
-                    boolean complete = true;
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        if (document.getId().equals(wordbookID)) {
-                            continue;
-                        }
-                        String title = Objects.requireNonNull(document.getData().get("wordbooktitle")).toString();
-                        if (title.equals(newTitle)) {
-                            complete = false;
-                            Toast.makeText(view.getContext(), "중복되는 이름이 존재합니다.", Toast.LENGTH_SHORT).show();
-                            break;
-                        }
-                    }
-                    if (complete) {
-                        //db의 wordbooktitle들과 중복 여부가 확인됨.
-                        wordBookDoc.update("wordbooktitle", newTitle);
-                        wordBookDoc.update("wordbookexplain", newExplain);
-                        Toast.makeText(view.getContext(), newTitle + "이/가 수정되었습니다.", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                } else {
-                    Log.i("mytag", "get failed with " + task.getException());
-                }
-            }));
+        complete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                completeCategory();
+
+            }
         });
 
-        delete_btn.setOnClickListener(this::deleteCategory);
+        delete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteCategory();
 
+            }
+        });
     }
 
-    public void deleteCategory(View view) {
+    public void deleteCategory() {
         deleteNum = wordbookIDInt;
         wordbooksCol
                 .get().addOnCompleteListener((task -> {
@@ -138,13 +121,52 @@ public class CategoryRevise extends AppCompatActivity {
                         .delete()
                         .addOnSuccessListener(aVoid -> {
                             Log.d("mytag", "Last DocumentSnapshot successfully deleted!");
-                            Toast.makeText(view.getContext(), wordbooktitle + "이/가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, wordbooktitle + "이/가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                            //여기에 intent
+                            Intent intent = new Intent().putExtra("init", "delete");
+                            setResult(RESULT_OK, intent);
+                            Log.i("mytag", "보낼 data는 delete");
                             finish();
                         })
                         .addOnFailureListener(e -> {
                             Log.w("mytag", "Error deleting document", e);
-                            Toast.makeText(view.getContext(), "다시 시도하시오.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "다시 시도하시오.", Toast.LENGTH_SHORT).show();
                         });
+            } else {
+                Log.i("mytag", "get failed with " + task.getException());
+            }
+        }));
+    }
+
+    public void completeCategory() {
+        String newTitle = title_editText.getText().toString();
+        String newExplain = explain_editText.getText().toString();
+        //완료시 db접근.
+        wordbooksCol.get().addOnCompleteListener((task -> {
+            if (task.isSuccessful()) {
+                boolean complete = true;
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    if (document.getId().equals(wordbookID)) {
+                        continue;
+                    }
+                    String title = Objects.requireNonNull(document.getData().get("wordbooktitle")).toString();
+                    if (title.equals(newTitle)) {
+                        complete = false;
+                        Toast.makeText(this, "중복되는 이름이 존재합니다.", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+                }
+                if (complete) {
+                    //db의 wordbooktitle들과 중복 여부가 확인됨.
+                    wordBookDoc.update("wordbooktitle", newTitle);
+                    wordBookDoc.update("wordbookexplain", newExplain);
+                    Toast.makeText(this, newTitle + "이/가 수정되었습니다.", Toast.LENGTH_SHORT).show();
+                    //여기에 intent
+                    Intent intent = new Intent().putExtra("init", "edit");
+                    setResult(RESULT_OK, intent);
+                    Log.i("mytag", "보낼 data는 edit");
+                    finish();
+                }
             } else {
                 Log.i("mytag", "get failed with " + task.getException());
             }

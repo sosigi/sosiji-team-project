@@ -76,7 +76,6 @@ public class CategoryFragment extends ListFragment {
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e);
             } else {
-                Log.i(TAG, "카테고리 종류 : " + value);
                 getTitles();
             }
         });
