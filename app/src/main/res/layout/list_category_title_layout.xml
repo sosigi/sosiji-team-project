@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="30dp"
+        android:paddingBottom="30dp"
         android:background="@color/backgroundColor">
         <TextView
             android:id="@+id/list_category_title_text"
@@ -17,7 +17,11 @@
             android:layout_marginLeft="30dp"
             android:text="@string/list_category_title"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"/>
 
         <Button
             android:id="@+id/list_category_title_edit_btn"

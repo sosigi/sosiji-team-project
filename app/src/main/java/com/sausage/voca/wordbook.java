@@ -1,5 +1,6 @@
 package com.sausage.voca;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -38,6 +39,8 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
     private TextView mWordSorting, logout;
     private AlertDialog mWordSortingSelectDialog;
 
+    //wordAdd에서 돌아오는 정보를 받기위한.
+    public static final int REQUEST_CODE = 100;
 
     TextView wordHideBtn;
     TextView meanHideBtn;
@@ -135,7 +138,7 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
             if (snapshot != null && snapshot.exists()) {
                 //Log.d(TAG, "Current data: " + snapshot.getData());
                 Map<String,Object> wordList = (Map<String, Object>) snapshot.getData().get("wordlist");
-                if(wordList==null || wordList.size() > coundWord){
+                if(wordList==null || wordList.size() > coundWord+1){
                     Log.i("mytag","[wordbook] current data updata");
                     updateWordcard(thisWordbookMemorizationType);
                 }
@@ -202,8 +205,23 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
         ImageButton plusBtnButton = findViewById(R.id.plusBtn);
         plusBtnButton.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), wordAdd.class).putExtra("categoryID", wordbookID);
-            startActivity(intent);
+            startActivityForResult(intent,REQUEST_CODE);
         });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        Log.i("mytag", "ActivityResult 실행됨");
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode != Activity.RESULT_OK) {
+                return;
+            }
+            String isItAdded = intent.getStringExtra("isItAdded");
+            Log.i("mytag", "isItAdded : "+isItAdded);
+            if("add".equals(isItAdded)) {
+                updateWordcard(thisWordbookMemorizationType);
+            }
+        }
     }
 
     private void onSidebarClick() {

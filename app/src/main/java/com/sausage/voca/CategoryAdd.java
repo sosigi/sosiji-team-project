@@ -1,5 +1,6 @@
 package com.sausage.voca;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
@@ -97,7 +98,8 @@ public class CategoryAdd extends AppCompatActivity {
                             Toast myToast = Toast.makeText(view.getContext(), R.string.category_add_complete, Toast.LENGTH_SHORT);
                             myToast.show();
                             wordBookAddComplete = false;
-
+                            Intent intent = new Intent().putExtra("init", "delete");
+                            setResult(RESULT_OK, intent);
                             finish();
                         }
                     } else {

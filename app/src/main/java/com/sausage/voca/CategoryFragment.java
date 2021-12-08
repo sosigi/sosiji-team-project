@@ -67,6 +67,7 @@ public class CategoryFragment extends ListFragment {
                 TextView tv = view.findViewById(android.R.id.text1);
                 tv.setTextColor(Color.WHITE);
                 tv.setTextSize(18);
+//                tv.setSelected(true);
                 return view;
             }
         };
