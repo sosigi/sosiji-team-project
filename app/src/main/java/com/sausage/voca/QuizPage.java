@@ -163,9 +163,9 @@ public class QuizPage extends AppCompatActivity {
                 }
             }
         }
-        for(int i=0;i<5;i++){
-            Log.i("mytag",String.valueOf(random[i]));
-        }
+//        for(int i=0;i<5;i++){
+//            Log.i("mytag",String.valueOf(random[i]));
+//        }
         //Log.i("mytag","함수안 "+myData.toString());
 
         //객관식 퀴즈 5문제
