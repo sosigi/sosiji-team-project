@@ -146,6 +146,8 @@ public class wordAdd extends AppCompatActivity {
                                 wordList.put(String.valueOf(wordBookNum), wordcardData);
                                 wordBooksDoc.update("wordlist", wordList);
                                 finish();
+                            }else{
+                                Toast.makeText(getApplicationContext(),"중복되는 영단어가 존재합니다.",Toast.LENGTH_SHORT).show();
                             }
                         }catch(NullPointerException e){
                             e.printStackTrace();

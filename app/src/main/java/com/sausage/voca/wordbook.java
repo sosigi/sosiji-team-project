@@ -133,10 +133,10 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
                 return;
             }
             if (snapshot != null && snapshot.exists()) {
-                Log.d(TAG, "Current data: " + snapshot.getData());
+                //Log.d(TAG, "Current data: " + snapshot.getData());
                 Map<String,Object> wordList = (Map<String, Object>) snapshot.getData().get("wordlist");
                 if(wordList==null || wordList.size() > coundWord){
-                    Log.i("mytag","실행된");
+                    Log.i("mytag","current data updata");
                     updateWordcard(thisWordbookMemorizationType);
                 }
             } else {
@@ -283,7 +283,7 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
     //wordcard에서 단어 삭제 btn 클릭시
     public void deleteWordBtnClick(View view) {
         if(thisWordbookHideType>0){
-            Toast.makeText(view.getContext(),"단어/뜻 숨김 처리 시에는 암기/미암기 처리가 불가능합니다.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.getContext(),"단어/뜻 숨김 처리 시에는 단어 삭제가 불가능합니다.",Toast.LENGTH_SHORT).show();
         } else {
             LinearLayout wordcardL = (LinearLayout) view.getParent().getParent().getParent().getParent().getParent();
             LinearLayout wordcardLL = (LinearLayout) view.getParent().getParent().getParent();
