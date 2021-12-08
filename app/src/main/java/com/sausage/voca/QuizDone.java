@@ -50,6 +50,7 @@ public class QuizDone extends AppCompatActivity {
         sendDataArr = sendData.split("/");
         wrong_count = sendDataArr.length - 2;
         wordbookID = sendDataArr[0];
+        Log.i("mytag","sendData : "+sendDataArr.toString());
 
         checkbox = findViewById(R.id.quiz_result_check);
         result = findViewById(R.id.result_accuracy);
@@ -69,7 +70,7 @@ public class QuizDone extends AppCompatActivity {
                 //ToDo 오답을 미암기 단어로 표기
                 for (num = 0; num < wrong_count; num++) {
                     //Log.i("mytag",String.valueOf(num)+"::"+sendDataArr[num+2]);
-                    dbCheck();
+                    dbCheck(num+2);
                 }
                 Toast.makeText(getApplicationContext(), "오답을 미암기 단어로 표기하였습니다.", Toast.LENGTH_SHORT).show();
             }
@@ -79,7 +80,7 @@ public class QuizDone extends AppCompatActivity {
 
     }
 
-    public void dbCheck() {
+    public void dbCheck(int sendDatacount) {
         db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID)
                 .get().addOnCompleteListener((task) -> {
             if (task.isSuccessful()) {
@@ -99,8 +100,10 @@ public class QuizDone extends AppCompatActivity {
                         if (map_find.get("mean3") != "") {
                             newWordCard.put("mean3", map_find.get("mean3"));
                         }
-                        if (sendDataArr[num].equals(word_english)) {
-                            //memorization 1로 전환 후
+
+                        if (sendDataArr[sendDatacount].equals(word_english)) {
+                            //memorization 0으로 전환 후
+                            Log.i("mytag","미암기 처리되는 단어들:"+i+"->"+ sendDataArr[sendDatacount]);
                             newWordCard.put("memorization", 0);
                         } else {
                             newWordCard.put("memorization", map_find.get("memorization"));
