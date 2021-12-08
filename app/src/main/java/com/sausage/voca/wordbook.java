@@ -133,7 +133,7 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
                 return;
             }
             if (snapshot != null && snapshot.exists()) {
-                //Log.d(TAG, "Current data: " + snapshot.getData());
+                Log.d(TAG, "Current data: " + snapshot.getData());
                 Map<String,Object> wordList = (Map<String, Object>) snapshot.getData().get("wordlist");
                 if(wordList==null || wordList.size() > coundWord){
                     Log.i("mytag","current data updata");
@@ -213,7 +213,6 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
         search.setOnClickListener(this);
         mypage.setOnClickListener(this);
     }
-
 
     //update wordbook wordcard
     //입력받는 memorizationType의 int값에 따라 암기 or 미암기 단어들만을 출력한다.
