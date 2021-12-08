@@ -6,19 +6,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -62,7 +59,7 @@ public class Category extends AppCompatActivity {
         //plus btn 클릭시 categoryAdd page 열기.
         plus_btn.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), CategoryAdd.class);
-            startActivity(intent);
+            startActivityForResult(intent,REQUEST_CODE);
         });
 
     }
@@ -72,7 +69,6 @@ public class Category extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, intent);
 
         Log.i("mytag", "ActivityResult 실행됨");
-
         if (requestCode == REQUEST_CODE) {
             if (resultCode != Activity.RESULT_OK) {
                 return;
