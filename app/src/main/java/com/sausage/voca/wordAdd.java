@@ -1,5 +1,6 @@
 package com.sausage.voca;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -145,6 +146,8 @@ public class wordAdd extends AppCompatActivity {
                                 int wordBookNum = wordList.size();
                                 wordList.put(String.valueOf(wordBookNum), wordcardData);
                                 wordBooksDoc.update("wordlist", wordList);
+                                Intent intent = new Intent().putExtra("isItAdded","add");
+                                setResult(RESULT_OK,intent);
                                 finish();
                             }else{
                                 Toast.makeText(getApplicationContext(),"중복되는 영단어가 존재합니다.",Toast.LENGTH_SHORT).show();

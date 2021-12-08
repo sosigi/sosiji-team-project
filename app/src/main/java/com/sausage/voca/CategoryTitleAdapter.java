@@ -32,6 +32,7 @@ public class CategoryTitleAdapter extends RecyclerView.Adapter<CategoryViewHolde
     public void onBindViewHolder(CategoryViewHolder categoryViewHolder, int position) {
         //ViewHolder가 관리하는 View에 position에 해당하는 데이터 바인딩
         categoryViewHolder.textView_title.setText(titlesDataList.get(position).getTitle());
+        categoryViewHolder.textView_title.setSelected(true);
     }
 
     @Override
