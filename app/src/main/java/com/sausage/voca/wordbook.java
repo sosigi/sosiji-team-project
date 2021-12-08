@@ -115,8 +115,6 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
                     categoryName.setText(document.get("wordbooktitle").toString());
                     wordbook_top_title.setText(document.get("wordbooktitle").toString());
                     wordbook_top_explain.setText(document.get("wordbookexplain").toString());
-
-
                 } else {
                     Log.i(TAG, "No such document");
                 }
@@ -137,9 +135,7 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
             if (snapshot != null && snapshot.exists()) {
                 Log.d(TAG, "Current data: " + snapshot.getData());
                 Map<String,Object> wordList = (Map<String, Object>) snapshot.getData().get("wordlist");
-                int countWordlist =0;
-                countWordlist = wordList.size();
-                if(countWordlist > coundWord){
+                if(wordList==null || wordList.size() > coundWord){
                     Log.i("mytag","실행된");
                     updateWordcard(thisWordbookMemorizationType);
                 }
@@ -218,6 +214,7 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
         mypage.setOnClickListener(this);
     }
 
+
     //update wordbook wordcard
     //입력받는 memorizationType의 int값에 따라 암기 or 미암기 단어들만을 출력한다.
     //암기 1 미암기 0 전체 2
@@ -229,39 +226,43 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
                     dataList = new ArrayList<>();
                     Map<String, Object> wordList = (Map<String, Object>) document.getData().get("wordlist");
                     int countWordlist =0;
-                    try {
-                        for (String key : wordList.keySet()) {
-                            HashMap map = (HashMap) wordList.get(key);
-                            int memorization = Integer.parseInt(map.get("memorization").toString());
-                            if (memorizationType == 2 || memorization == memorizationType) {
-                                countWordlist++;
-                                String word_english = map.get("word").toString();
-                                String word_meaning1 = map.get("mean1").toString();
-                                String word_meaning2 = "";
-                                String word_meaning3 = "";
-                                if (map.get("mean2") != null) {
-                                    word_meaning2 = map.get("mean2").toString();
-                                }
-                                if (map.get("mean3") != null) {
-                                    word_meaning3 = map.get("mean3").toString();
-                                }
-                                if (thisWordbookHideType == 1) {
-                                    dataList.add(new Word("", word_meaning1, word_meaning2, word_meaning3, memorization));
-                                } else if (thisWordbookHideType == 2) {
-                                    dataList.add(new Word(word_english, "", "", "", memorization));
-                                } else {
-                                    dataList.add(new Word(word_english, word_meaning1, word_meaning2, word_meaning3, memorization));
+                    if(wordList == null){
+                        countWordlist=0;
+                    }else {
+                        try {
+                            for (String key : wordList.keySet()) {
+                                HashMap map = (HashMap) wordList.get(key);
+                                int memorization = Integer.parseInt(map.get("memorization").toString());
+                                if (memorizationType == 2 || memorization == memorizationType) {
+                                    countWordlist++;
+                                    String word_english = map.get("word").toString();
+                                    String word_meaning1 = map.get("mean1").toString();
+                                    String word_meaning2 = "";
+                                    String word_meaning3 = "";
+                                    if (map.get("mean2") != null) {
+                                        word_meaning2 = map.get("mean2").toString();
+                                    }
+                                    if (map.get("mean3") != null) {
+                                        word_meaning3 = map.get("mean3").toString();
+                                    }
+                                    if (thisWordbookHideType == 1) {
+                                        dataList.add(new Word("", word_meaning1, word_meaning2, word_meaning3, memorization));
+                                    } else if (thisWordbookHideType == 2) {
+                                        dataList.add(new Word(word_english, "", "", "", memorization));
+                                    } else {
+                                        dataList.add(new Word(word_english, word_meaning1, word_meaning2, word_meaning3, memorization));
+                                    }
                                 }
                             }
-                        }
-                        recyclerView = findViewById(R.id.word_card_recycleView);
-                        manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-                        recyclerView.setLayoutManager(manager); // LayoutManager 등록
-                        wordAdapter = new WordAdapter(dataList);
-                        recyclerView.setAdapter(wordAdapter);  // Adapter 등록
+                            recyclerView = findViewById(R.id.word_card_recycleView);
+                            manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+                            recyclerView.setLayoutManager(manager); // LayoutManager 등록
+                            wordAdapter = new WordAdapter(dataList);
+                            recyclerView.setAdapter(wordAdapter);  // Adapter 등록
 
-                    }catch(NullPointerException e){
-                        e.printStackTrace();
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
+                        }
                     }
                     TextView text = findViewById(R.id.recommend_word_add);
                     coundWord = countWordlist;
