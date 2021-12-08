@@ -284,7 +284,7 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
     public void deleteWordBtnClick(View view) {
         if(thisWordbookHideType>0){
             Toast.makeText(view.getContext(),"단어/뜻 숨김 처리 시에는 암기/미암기 처리가 불가능합니다.",Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             LinearLayout wordcardL = (LinearLayout) view.getParent().getParent().getParent().getParent().getParent();
             LinearLayout wordcardLL = (LinearLayout) view.getParent().getParent().getParent();
             TextView englishWord = wordcardLL.findViewById(R.id.list_english_word);
@@ -334,6 +334,11 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
                                 //updateWordcard(thisWordbookMemorizationType);
                                 Toast.makeText(view.getContext(), R.string.toast_delete_word, Toast.LENGTH_SHORT).show();
                                 dataDelete = false;
+                                coundWord = coundWord-1;
+                                if(coundWord==0){
+                                    TextView text = findViewById(R.id.recommend_word_add);
+                                    text.setVisibility(View.VISIBLE);
+                                }
                             }
                         } catch (NullPointerException e) {
                             e.printStackTrace();
