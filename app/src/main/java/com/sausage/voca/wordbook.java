@@ -137,9 +137,7 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
             if (snapshot != null && snapshot.exists()) {
                 Log.d(TAG, "Current data: " + snapshot.getData());
                 Map<String,Object> wordList = (Map<String, Object>) snapshot.getData().get("wordlist");
-                int countWordlist =0;
-                countWordlist = wordList.size();
-                if(countWordlist > coundWord){
+                if(wordList.size() != coundWord){
                     Log.i("mytag","실행된");
                     updateWordcard(thisWordbookMemorizationType);
                 }
