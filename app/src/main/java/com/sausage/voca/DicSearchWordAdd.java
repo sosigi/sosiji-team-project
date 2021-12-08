@@ -216,14 +216,14 @@ public class DicSearchWordAdd extends AppCompatActivity {
     }
 
     public void addKoreanMean(View view) {
-        if (!korean2Add) {
+        if (koreanCount==1) {
             titleText2.setVisibility(View.VISIBLE);
             linearLayout2.setVisibility(View.VISIBLE);
             imageButton2.setVisibility(View.VISIBLE);
             editText3.setVisibility(View.VISIBLE);
             koreanCount = koreanCount+1;
             korean2Add = true;
-        } else if (!korean3Add) {
+        } else if (koreanCount==2) {
             titleText3.setVisibility(View.VISIBLE);
             linearLayout3.setVisibility(View.VISIBLE);
             editText4.setVisibility(View.VISIBLE);
@@ -236,7 +236,17 @@ public class DicSearchWordAdd extends AppCompatActivity {
     }
 
     public void deleteKoreanMean2(View view) {
-        if (korean2Add) {
+        if (korean3Add) {
+            Log.i("mytag", "3 삭제 실행");
+            titleText3.setVisibility(View.GONE);
+            linearLayout3.setVisibility(View.GONE);
+            editText3.setText(editText4.getText());
+            editText4.setText("");
+            editText4.setVisibility(View.GONE);
+            imageButton3.setVisibility(View.GONE);
+            koreanCount = koreanCount - 1;
+            korean3Add = false;
+        } else if (korean2Add) {
             Log.i("mytag", "2 삭제 실행");
             titleText2.setVisibility(View.GONE);
             linearLayout2.setVisibility(View.GONE);
