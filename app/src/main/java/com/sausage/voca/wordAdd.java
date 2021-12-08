@@ -184,7 +184,7 @@ public class wordAdd extends AppCompatActivity {
 
     public void deleteKoreanMean2(View view) {
         if (korean3Add) {
-            Log.i("mytag", "3 삭제 실행");
+            //Log.i("mytag", "3 삭제 실행");
             view3.setVisibility(View.GONE);
             titleText3.setVisibility(View.GONE);
             linearLayout3.setVisibility(View.GONE);
@@ -195,7 +195,7 @@ public class wordAdd extends AppCompatActivity {
             koreanCount = koreanCount - 1;
             korean3Add = false;
         } else if (korean2Add) {
-            Log.i("mytag", "2 삭제 실행");
+            //Log.i("mytag", "2 삭제 실행");
             view2.setVisibility(View.GONE);
             titleText2.setVisibility(View.GONE);
             linearLayout2.setVisibility(View.GONE);
@@ -211,7 +211,7 @@ public class wordAdd extends AppCompatActivity {
 
     public void deleteKoreanMean3(View view) {
         if (korean3Add) {
-            Log.i("mytag", "3 삭제 실행");
+            //Log.i("mytag", "3 삭제 실행");
             view3.setVisibility(View.GONE);
             titleText3.setVisibility(View.GONE);
             linearLayout3.setVisibility(View.GONE);

@@ -237,7 +237,7 @@ public class DicSearchWordAdd extends AppCompatActivity {
 
     public void deleteKoreanMean2(View view) {
         if (korean3Add) {
-            Log.i("mytag", "3 삭제 실행");
+            //Log.i("mytag", "3 삭제 실행");
             titleText3.setVisibility(View.GONE);
             linearLayout3.setVisibility(View.GONE);
             editText3.setText(editText4.getText());
@@ -247,7 +247,7 @@ public class DicSearchWordAdd extends AppCompatActivity {
             koreanCount = koreanCount - 1;
             korean3Add = false;
         } else if (korean2Add) {
-            Log.i("mytag", "2 삭제 실행");
+            //Log.i("mytag", "2 삭제 실행");
             titleText2.setVisibility(View.GONE);
             linearLayout2.setVisibility(View.GONE);
             imageButton2.setVisibility(View.GONE);
@@ -263,7 +263,7 @@ public class DicSearchWordAdd extends AppCompatActivity {
     public void deleteKoreanMean3(View view) {
         Log.i("mytag", "지우는 함수실행");
         if (korean3Add) {
-            Log.i("mytag", "3 삭제 실행");
+            //Log.i("mytag", "3 삭제 실행");
             titleText3.setVisibility(View.GONE);
             linearLayout3.setVisibility(View.GONE);
             editText4.setText("");
