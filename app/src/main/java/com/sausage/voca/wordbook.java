@@ -285,6 +285,7 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
         if(thisWordbookHideType>0){
             Toast.makeText(view.getContext(),"단어/뜻 숨김 처리 시에는 암기/미암기 처리가 불가능합니다.",Toast.LENGTH_SHORT).show();
         }else {
+            LinearLayout wordcardL = (LinearLayout) view.getParent().getParent().getParent().getParent().getParent();
             LinearLayout wordcardLL = (LinearLayout) view.getParent().getParent().getParent();
             TextView englishWord = wordcardLL.findViewById(R.id.list_english_word);
             String englishWordText = englishWord.getText().toString();
@@ -295,7 +296,7 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
 
             alert.setPositiveButton("YES", (dialog, which) -> {
                 Log.i(TAG, "YES");
-                //TODO : 시하 단어추가 참고
+                wordcardL.setVisibility(View.GONE);
                 wordBooksDoc.get().addOnCompleteListener((task) -> {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
