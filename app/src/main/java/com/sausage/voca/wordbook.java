@@ -133,10 +133,10 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
                 return;
             }
             if (snapshot != null && snapshot.exists()) {
-                Log.d(TAG, "Current data: " + snapshot.getData());
+                //Log.d(TAG, "Current data: " + snapshot.getData());
                 Map<String,Object> wordList = (Map<String, Object>) snapshot.getData().get("wordlist");
                 if(wordList==null || wordList.size() > coundWord){
-                    Log.i("mytag","current data updata");
+                    Log.i("mytag","[wordbook] current data updata");
                     updateWordcard(thisWordbookMemorizationType);
                 }
             } else {
@@ -416,7 +416,7 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
                         }
                         wordBooksDoc.update("wordlist", newWordcardArray);
                         if (dataChange) {
-                            Log.i("mytag", "data chage ");
+                            Log.i("mytag", "[wordbook] memorization data chage ");
                             //updateWordcard(thisWordbookMemorizationType);
                             dataChange = false;
                         }
