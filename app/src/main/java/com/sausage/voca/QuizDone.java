@@ -50,7 +50,6 @@ public class QuizDone extends AppCompatActivity {
         sendDataArr = sendData.split("/");
         wrong_count = sendDataArr.length - 2;
         wordbookID = sendDataArr[0];
-        Log.i("mytag","sendData : "+sendDataArr.toString());
 
         checkbox = findViewById(R.id.quiz_result_check);
         result = findViewById(R.id.result_accuracy);
@@ -66,12 +65,8 @@ public class QuizDone extends AppCompatActivity {
         back_btn = findViewById(R.id.quiz_result_back);
         back_btn.setOnClickListener(view -> {
             if (checkbox.isChecked()) {
-                Log.i("mytag", "체크함");
                 //ToDo 오답을 미암기 단어로 표기
-                for (num = 0; num < wrong_count; num++) {
-                    //Log.i("mytag",String.valueOf(num)+"::"+sendDataArr[num+2]);
-                    dbCheck(num+2);
-                }
+                dbCheck(wrong_count+2);
                 Toast.makeText(getApplicationContext(), "오답을 미암기 단어로 표기하였습니다.", Toast.LENGTH_SHORT).show();
             }
             finish();
@@ -80,7 +75,7 @@ public class QuizDone extends AppCompatActivity {
 
     }
 
-    public void dbCheck(int sendDatacount) {
+    public void dbCheck(int endCount) {
         db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID)
                 .get().addOnCompleteListener((task) -> {
             if (task.isSuccessful()) {
@@ -89,6 +84,7 @@ public class QuizDone extends AppCompatActivity {
                 try {
                     Map<String, Object> newWordcardArray = new HashMap<>();
                     for (int i = 0; i < wordList_find.size(); i++) {
+                        boolean find = false;
                         HashMap map_find = (HashMap) wordList_find.get(String.valueOf(i));
                         Map<String, Object> newWordCard = new HashMap<>();
                         String word_english = map_find.get("word").toString();
@@ -100,12 +96,15 @@ public class QuizDone extends AppCompatActivity {
                         if (map_find.get("mean3") != "") {
                             newWordCard.put("mean3", map_find.get("mean3"));
                         }
-
-                        if (sendDataArr[sendDatacount].equals(word_english)) {
-                            //memorization 0으로 전환 후
-                            Log.i("mytag","미암기 처리되는 단어들:"+i+"->"+ sendDataArr[sendDatacount]);
-                            newWordCard.put("memorization", 0);
-                        } else {
+                        for (int k = 2; k < endCount; k++) {
+                            if (sendDataArr[k].equals(word_english)) {
+                                find = true;
+                                //memorization 0으로 전환 후
+                                Log.i("mytag", "미암기 처리되는 단어 : id->" + k + "->" + sendDataArr[k]);
+                                newWordCard.put("memorization", 0);
+                            }
+                        }
+                        if (!find) {
                             newWordCard.put("memorization", map_find.get("memorization"));
                         }
                         newWordcardArray.put(String.valueOf(i), newWordCard);
