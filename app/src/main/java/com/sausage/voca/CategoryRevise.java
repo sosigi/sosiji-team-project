@@ -1,6 +1,5 @@
 package com.sausage.voca;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -129,25 +128,17 @@ public class CategoryRevise extends AppCompatActivity {
                     Map<String, Object> newData = new HashMap<>();
                     if (removeDoc != null) {
                         newData.put("wordbooktitle", Objects.requireNonNull(removeDoc.get("wordbooktitle")).toString());
-                    }
-                    if (removeDoc != null) {
                         newData.put("wordbookexplain", Objects.requireNonNull(removeDoc.get("wordbookexplain")).toString());
+                        newData.put("wordlist", removeDoc.get("wordlist"));
+                        //Log.i("mytag", "이동할데이터" + newData.toString() + "->to:" + deleteNum);
+                        wordbooksCol.document(String.valueOf(deleteNum)).set(newData);
                     }
-                    if (removeDoc != null) {
-                        newData.put("wordbooklist", removeDoc.get("wordbooklist"));
-                    }
-                    Log.i("mytag","이동할데이터"+newData.toString()+"->to:"+deleteNum);
-
-                    wordbooksCol.document(String.valueOf(deleteNum)).set(newData);
                 }
                 wordbooksCol.document(String.valueOf(wordBooksCountInt - 1))
                         .delete()
                         .addOnSuccessListener(aVoid -> {
                             Log.d("mytag", "Last DocumentSnapshot successfully deleted!");
                             Toast.makeText(view.getContext(), wordbooktitle + "이/가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
-
-                            Intent intent = new Intent(getApplicationContext(), Category.class);
-                            startActivity(intent);
                             finish();
                         })
                         .addOnFailureListener(e -> {
