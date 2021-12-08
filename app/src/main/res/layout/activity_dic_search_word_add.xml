@@ -82,7 +82,8 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/word_add_word_edit_text"
                         android:inputType="text"
-                        android:textColorHint="@color/unActiveColor" />
+                        android:textColorHint="@color/unActiveColor"
+                        android:maxLength="15" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -98,7 +99,8 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/word_add_mean_edit_text"
                         android:inputType="text"
-                        android:textColorHint="@color/unActiveColor" />
+                        android:textColorHint="@color/unActiveColor"
+                        android:maxLength="30"/>
 
                     <TextView
                         android:id="@+id/korean2_title"
@@ -125,7 +127,8 @@
                             android:hint="@string/mean"
                             android:inputType="text"
                             android:textColorHint="@color/unActiveColor"
-                            android:visibility="gone"/>
+                            android:visibility="gone"
+                            android:maxLength="30"/>
                         <ImageButton
                             android:id="@+id/korean2_deleteBtn"
                             android:layout_width="wrap_content"
@@ -163,7 +166,8 @@
                             android:hint="@string/mean"
                             android:inputType="text"
                             android:textColorHint="@color/unActiveColor"
-                            android:visibility="gone"/>
+                            android:visibility="gone"
+                            android:maxLength="30"/>
                         <ImageButton
                             android:id="@+id/korean3_deleteBtn"
                             android:layout_width="wrap_content"
