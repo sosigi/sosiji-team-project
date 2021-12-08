@@ -1,6 +1,5 @@
 package com.sausage.voca;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
@@ -52,8 +51,6 @@ public class CategoryAdd extends AppCompatActivity {
         newWordBookExplain = findViewById(R.id.category_new_explain);
 
         back_btn.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), Category.class);
-            startActivity(intent);
             finish();
         });
 
@@ -101,8 +98,6 @@ public class CategoryAdd extends AppCompatActivity {
                             myToast.show();
                             wordBookAddComplete = false;
 
-                            Intent intent = new Intent(getApplicationContext(), Category.class);
-                            startActivity(intent);
                             finish();
                         }
                     } else {

@@ -79,8 +79,6 @@ public class CategoryRevise extends AppCompatActivity {
 
         //back btn 클릭시
         back_btn.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), Category.class);
-            startActivity(intent);
             finish();
         });
 
@@ -108,8 +106,6 @@ public class CategoryRevise extends AppCompatActivity {
                         wordBookDoc.update("wordbooktitle", newTitle);
                         wordBookDoc.update("wordbookexplain", newExplain);
                         Toast.makeText(view.getContext(), newTitle + "이/가 수정되었습니다.", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), Category.class);
-                        startActivity(intent);
                         finish();
                     }
                 } else {
@@ -140,7 +136,7 @@ public class CategoryRevise extends AppCompatActivity {
                     if (removeDoc != null) {
                         newData.put("wordbooklist", removeDoc.get("wordbooklist"));
                     }
-                    //Log.i("mytag","이동할데이터"+newData.toString()+"->to:"+deleteNum);
+                    Log.i("mytag","이동할데이터"+newData.toString()+"->to:"+deleteNum);
 
                     wordbooksCol.document(String.valueOf(deleteNum)).set(newData);
                 }
