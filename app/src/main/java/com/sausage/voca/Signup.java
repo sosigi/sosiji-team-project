@@ -213,7 +213,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d("mytag", "해당 회원에 대한 문서가 이미 존재합니다 : " + document.getData());
-                        updateUI(user);
                     } else {
                         Log.d("mytag", "No such document");
 
@@ -274,6 +273,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                             }
                         });
                     }
+                    updateUI(user);
                 } else {
                     Log.d(GoogleTAG, "get failed with ", task.getException());
                 }
