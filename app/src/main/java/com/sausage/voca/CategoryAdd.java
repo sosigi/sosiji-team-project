@@ -69,6 +69,7 @@ public class CategoryAdd extends AppCompatActivity {
                 wordbooksCol.get().addOnCompleteListener((task -> {
                     if (task.isSuccessful()) {
 //                            for(int i=0;i<task.getResult().size();i++){
+                        wordBooksCount = 0;
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             if(document.exists()) {
 //                                DocumentSnapshot document = task.getResult().getDocuments().get(i);
