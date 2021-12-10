@@ -21,6 +21,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -34,45 +35,31 @@ import java.util.Map;
 
 public class wordbook extends AppCompatActivity implements View.OnClickListener {
     String TAG = "mytag";
-    //단어 정렬
-    final private String[] mSorting = {"전체", "암기", "미암기"};
+    final private String[] mSorting = {"전체", "암기", "미암기"};    //단어 정렬
     private TextView mWordSorting, logout;
     private AlertDialog mWordSortingSelectDialog;
-
-    //wordAdd에서 돌아오는 정보를 받기위한.
-    public static final int REQUEST_CODE = 100;
-
+    private View mainLayout;
+    public static final int REQUEST_CODE = 100;    //wordAdd에서 돌아오는 정보를 받기위한.
     TextView wordHideBtn;
     TextView meanHideBtn;
     TextView wordQuiz;
-
-    //word card data list
-    ArrayList<Word> dataList = new ArrayList<>();
+    TextView categoryName;    //단어장 상단바
+    TextView wordbook_top_title;    //단어장 상단부 - 소개 (wordbookTitle & explain)
+    TextView wordbook_top_explain;
+    TextView search, mypage;
+    ArrayList<Word> dataList = new ArrayList<>();    //word card data list
     WordAdapter wordAdapter;
     RecyclerView recyclerView;
     LinearLayoutManager manager;
     boolean dataChange = false;
     boolean dataDelete = false;
-
-    TextView search, mypage;
-
-    //단어장 상단바
-    TextView categoryName;
-    //단어장 상단부 - 소개 (wordbookTitle & explain)
-    TextView wordbook_top_title;
-    TextView wordbook_top_explain;
-
-    //[database]
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();     //[database]
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DocumentReference wordBooksDoc;
 
-    //[단어장 정보]
-    String wordbookID;
-    //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
-    int thisWordbookMemorizationType = 2;
-    //default=2, 암기=1, 미암기=0;
-    int thisWordbookHideType = 0;
+    String wordbookID;    //[단어장 정보]
+    int thisWordbookMemorizationType = 2;    //TODO : 입력받은 단어장의 문서 id(int number)를 마지막 document 인자에 넣어주면됨.
+    int thisWordbookHideType = 0;     //default=2, 암기=1, 미암기=0;
     private View HamburgerBarButton;
     //default =0, 단어숨김=1, 뜻숨김=2;
     //단어장의 단어수
@@ -91,6 +78,7 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
         wordBooksDoc = db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID);
         Log.i(TAG, "가져온 id값은 " + wordbookID);
 
+        mainLayout = findViewById(R.id.main_layout);
 
         //quiz btn onclickListener & custom font 적용
         wordQuiz = findViewById(R.id.wordQuiz);
@@ -300,7 +288,7 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
     //wordcard에서 단어 삭제 btn 클릭시
     public void deleteWordBtnClick(View view) {
         if(thisWordbookHideType>0){
-            Toast.makeText(view.getContext(),"단어/뜻 숨김 처리 시에는 단어 삭제가 불가능합니다.",Toast.LENGTH_SHORT).show();
+            Snackbar.make(mainLayout, "단어/뜻 숨김 처리 시에는 단어 삭제가 불가능합니다.", Snackbar.LENGTH_SHORT).show();
         } else {
             LinearLayout wordcardL = (LinearLayout) view.getParent().getParent().getParent().getParent().getParent();
             LinearLayout wordcardLL = (LinearLayout) view.getParent().getParent().getParent();
@@ -349,7 +337,7 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
                                 wordBooksDoc.update("wordlist", newWordcardArray);
                                 Log.i(TAG, "data delete complete");
                                 //updateWordcard(thisWordbookMemorizationType);
-                                Toast.makeText(view.getContext(), R.string.toast_delete_word, Toast.LENGTH_SHORT).show();
+                                Snackbar.make(mainLayout, R.string.toast_delete_word, Snackbar.LENGTH_SHORT).show();
                                 dataDelete = false;
                                 coundWord = coundWord-1;
                                 if(coundWord==0){
@@ -373,7 +361,7 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
     //단어 암기<->미암기 체크
     public void wordMemoryBtnClick(View view) {
         if(thisWordbookHideType>0){
-            Toast.makeText(view.getContext(), "단어/뜻 숨김 처리 시에는 암기/미암기 처리가 불가능합니다.",Toast.LENGTH_SHORT).show();
+            Snackbar.make(mainLayout, "단어/뜻 숨김 처리 시에는 단어 암기/미암기 처리가 불가능합니다.", Snackbar.LENGTH_SHORT).show();
         }else {
             LinearLayout wordcardLL = (LinearLayout) view.getParent().getParent().getParent();
             TextView englishWord = wordcardLL.findViewById(R.id.list_english_word);
@@ -417,7 +405,7 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
                                     wordMean1.setTextColor(Color.LTGRAY);
                                     wordMean2.setTextColor(Color.LTGRAY);
                                     wordMean3.setTextColor(Color.LTGRAY);
-                                    Toast.makeText(this.getApplicationContext(), R.string.toast_change_to_memorization, Toast.LENGTH_SHORT).show();
+                                    Snackbar.make(mainLayout, R.string.toast_change_to_memorization, Snackbar.LENGTH_SHORT).show();
                                 } else {
                                     newWordCard.put("memorization", 0);
                                     memorizeBtn.setImageResource(R.drawable.memorization_uncheck);
@@ -425,7 +413,7 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
                                     wordMean1.setTextColor(Color.BLACK);
                                     wordMean2.setTextColor(Color.BLACK);
                                     wordMean3.setTextColor(Color.BLACK);
-                                    Toast.makeText(this.getApplicationContext(), R.string.toast_change_to_notmemorization, Toast.LENGTH_SHORT).show();
+                                    Snackbar.make(mainLayout, R.string.toast_change_to_notmemorization, Snackbar.LENGTH_SHORT).show();
                                 }
                             } else {
                                 newWordCard.put("memorization", map_find.get("memorization"));
@@ -468,14 +456,12 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
             Log.i(TAG,"단어숨김 선택");
             thisWordbookHideType=1;
             updateWordcard(thisWordbookMemorizationType);
-            Toast myToast = Toast.makeText(this,R.string.toast_hide_word ,Toast.LENGTH_SHORT);
-            myToast.show();
+            Snackbar.make(mainLayout, R.string.toast_hide_word, Snackbar.LENGTH_SHORT).show();
         }else if (v == meanHideBtn) {
             Log.i(TAG,"단어숨김 선택");
             thisWordbookHideType=2;
             updateWordcard(thisWordbookMemorizationType);
-            Toast myToast = Toast.makeText(this,R.string.toast_hide_mean ,Toast.LENGTH_SHORT);
-            myToast.show();
+            Snackbar.make(mainLayout, R.string.toast_hide_mean, Snackbar.LENGTH_SHORT).show();
         }
     }
     public void checkCurrentUser() {

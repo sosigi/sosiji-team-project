@@ -81,7 +81,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                     login.callOnClick();
                     return true;
                 }
-                Snackbar.make(mainLayout, "빈 칸을 모두 빠짐없이 기입해주세요.", Snackbar.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(),"빈 칸을 모두 빠짐없이 기입해주세요.",Toast.LENGTH_SHORT).show();
             }
             return false;
         });
@@ -91,7 +91,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                     login.callOnClick();
                     return true;
                 }
-                Snackbar.make(mainLayout, "빈 칸을 모두 빠짐없이 기입해주세요.", Snackbar.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(),"빈 칸을 모두 빠짐없이 기입해주세요.",Toast.LENGTH_SHORT).show();
             }
             return false;
         });
@@ -115,7 +115,11 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         if (v == signup) { //회원가입
             //이메일로 회원가입하는 경우 new_name 칸에 입력한 이름 가져오면 된다.
-            createEmailAccount(new_name.getText().toString(), new_email.getText().toString(), new_password.getText().toString());
+            String name = new_name.getText().toString();
+            String email = new_email.getText().toString();
+            String password = new_password.getText().toString();
+            if (name.equals("") || email.equals("") || password.equals("")) Toast.makeText(getApplicationContext(),"입력칸을 작성해주세요.",Toast.LENGTH_SHORT).show();
+            else createEmailAccount(name, email, password);
         } else if (v == login) {
             Intent Login = new Intent(this, Login.class);
             startActivity(Login);
