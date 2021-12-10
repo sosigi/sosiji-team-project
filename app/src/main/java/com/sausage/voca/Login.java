@@ -1,7 +1,5 @@
 package com.sausage.voca;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -72,7 +72,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if (v==login){
-            signIn(email.getText().toString(), password.getText().toString());
+            if(email.getText().toString().equals("")||password.getText().toString().equals("")){
+                Toast.makeText(getApplicationContext(),"입력칸을 작성해주세요.",Toast.LENGTH_SHORT).show();
+            }else{
+                signIn(email.getText().toString(), password.getText().toString());
+            }
         }else if ((v==signup)){
             Intent Signup = new Intent(this, Signup.class);
             startActivity(Signup);
