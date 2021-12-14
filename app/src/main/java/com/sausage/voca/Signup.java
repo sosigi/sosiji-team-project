@@ -75,10 +75,20 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         signup.setOnClickListener(this);
         google.setOnClickListener(this);
 
+        new_name.setOnKeyListener((view, keyCode, keyEvent) -> {
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                if (!new_name.getText().equals("") && !new_email.getText().equals("") && !new_password.getText().equals("")){
+                    signup.callOnClick();
+                    return true;
+                }
+                Toast.makeText(view.getContext(),"빈 칸을 모두 빠짐없이 기입해주세요.",Toast.LENGTH_SHORT).show();
+            }
+            return false;
+        });
         new_email.setOnKeyListener((view, keyCode, keyEvent) -> {
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                if (!new_email.getText().equals("") && !new_password.getText().equals("")){
-                    login.callOnClick();
+                if (!new_name.getText().equals("") && !new_email.getText().equals("") && !new_password.getText().equals("")){
+                    signup.callOnClick();
                     return true;
                 }
                 Toast.makeText(view.getContext(),"빈 칸을 모두 빠짐없이 기입해주세요.",Toast.LENGTH_SHORT).show();
@@ -87,8 +97,8 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         });
         new_password.setOnKeyListener((view, keyCode, keyEvent) -> {
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                if (!new_email.getText().equals("") && !new_password.getText().equals("")){
-                    login.callOnClick();
+                if (!new_name.getText().equals("") && !new_email.getText().equals("") && !new_password.getText().equals("")){
+                    signup.callOnClick();
                     return true;
                 }
                 Toast.makeText(view.getContext(),"빈 칸을 모두 빠짐없이 기입해주세요.",Toast.LENGTH_SHORT).show();

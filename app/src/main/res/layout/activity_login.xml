@@ -75,16 +75,14 @@
             android:textColor="@color/white"/>
     </LinearLayout>
 
-
-
-
-
-<!--    <Button-->
-<!--        android:id="@+id/google_btn"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:text="Google로 로그인"-->
-<!--        android:layout_marginTop="30dp"/>-->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/google_btn"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:text="G"
+        android:background="@drawable/edit_bg"/>
 
 </LinearLayout>

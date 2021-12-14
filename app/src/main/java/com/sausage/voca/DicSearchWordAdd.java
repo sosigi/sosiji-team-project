@@ -150,6 +150,7 @@ public class DicSearchWordAdd extends AppCompatActivity {
                             Map<String, Object> newnewMap = new HashMap<>();
                             newnewMap.put("wordlist", newMap);
                             wordBooksDoc.set(newnewMap, SetOptions.merge());
+                            finish();
                         }else{
                             Map<String, Object> wordList = (Map<String, Object>) document.getData().get("wordlist");
                             //영단어 중복되는지 검사.
