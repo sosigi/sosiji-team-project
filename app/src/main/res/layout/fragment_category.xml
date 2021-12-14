@@ -45,11 +45,11 @@
                 android:id="@+id/loading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="55dp"
+                android:paddingTop="80dp"
                 android:text="가져오는 중..."
                 android:textColor="@color/white"
-                android:textSize="18dp"
-                android:paddingLeft="55dp"
-                android:paddingTop="80dp"/>
+                android:textSize="18dp" />
 
             <ListView
                 android:id="@android:id/list"

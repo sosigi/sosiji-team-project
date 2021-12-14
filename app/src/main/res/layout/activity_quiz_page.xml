@@ -12,7 +12,6 @@
         android:background="@color/backgroundColor"
         android:orientation="vertical">
 
-
         <ImageButton
             android:id="@+id/quiz_back"
             android:layout_width="wrap_content"

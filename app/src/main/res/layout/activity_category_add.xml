@@ -90,7 +90,6 @@
                 android:text="@string/category_explain"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
-
             <EditText
                 android:id="@+id/category_new_explain"
                 android:layout_width="match_parent"

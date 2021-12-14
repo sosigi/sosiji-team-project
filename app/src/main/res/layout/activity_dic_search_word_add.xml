@@ -82,8 +82,8 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/word_add_word_edit_text"
                         android:inputType="text"
-                        android:textColorHint="@color/unActiveColor"
-                        android:maxLength="15" />
+                        android:maxLength="15"
+                        android:textColorHint="@color/unActiveColor" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -99,8 +99,8 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/word_add_mean_edit_text"
                         android:inputType="text"
-                        android:textColorHint="@color/unActiveColor"
-                        android:maxLength="30"/>
+                        android:maxLength="30"
+                        android:textColorHint="@color/unActiveColor" />
 
                     <TextView
                         android:id="@+id/korean2_title"
@@ -110,7 +110,7 @@
                         android:text="@string/word_add_mean"
                         android:textColor="@color/unActiveColor"
                         android:textSize="17sp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <LinearLayout
                         android:id="@+id/korean2_layout"
@@ -126,9 +126,10 @@
                             android:layout_weight="1"
                             android:hint="@string/mean"
                             android:inputType="text"
+                            android:maxLength="30"
                             android:textColorHint="@color/unActiveColor"
-                            android:visibility="gone"
-                            android:maxLength="30"/>
+                            android:visibility="gone" />
+
                         <ImageButton
                             android:id="@+id/korean2_deleteBtn"
                             android:layout_width="wrap_content"
@@ -136,9 +137,9 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="10dp"
                             android:background="@android:color/transparent"
-                            android:src="@drawable/delete_word"
                             android:onClick="deleteKoreanMean2"
-                            android:visibility="gone"/>
+                            android:src="@drawable/delete_word"
+                            android:visibility="gone" />
                     </LinearLayout>
 
                     <TextView
@@ -149,7 +150,7 @@
                         android:text="@string/word_add_mean"
                         android:textColor="@color/unActiveColor"
                         android:textSize="17sp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <LinearLayout
                         android:id="@+id/korean3_layout"
@@ -165,9 +166,10 @@
                             android:layout_weight="1"
                             android:hint="@string/mean"
                             android:inputType="text"
+                            android:maxLength="30"
                             android:textColorHint="@color/unActiveColor"
-                            android:visibility="gone"
-                            android:maxLength="30"/>
+                            android:visibility="gone" />
+
                         <ImageButton
                             android:id="@+id/korean3_deleteBtn"
                             android:layout_width="wrap_content"
@@ -175,12 +177,10 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="10dp"
                             android:background="@android:color/transparent"
-                            android:src="@drawable/delete_word"
                             android:onClick="deleteKoreanMean3"
-                            android:visibility="gone"/>
+                            android:src="@drawable/delete_word"
+                            android:visibility="gone" />
                     </LinearLayout>
-
-
 
 
                     <LinearLayout
@@ -196,18 +196,18 @@
                             android:adjustViewBounds="true"
                             android:background="@android:color/transparent"
                             android:maxWidth="30dp"
+                            android:onClick="addKoreanMean"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/word_meaning_plus_btn"
-                            android:onClick="addKoreanMean"/>
+                            android:src="@drawable/word_meaning_plus_btn" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
+                            android:onClick="addKoreanMean"
                             android:text="@string/word_add_mean_add"
                             android:textColor="@color/unActiveColor"
-                            android:textSize="20sp"
-                            android:onClick="addKoreanMean"/>
+                            android:textSize="20sp" />
                     </LinearLayout>
                 </LinearLayout>
 

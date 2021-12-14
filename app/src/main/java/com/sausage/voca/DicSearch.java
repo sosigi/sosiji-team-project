@@ -1,7 +1,5 @@
 package com.sausage.voca;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -10,6 +8,8 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,20 +51,20 @@ public class DicSearch extends AppCompatActivity {
 
         //TODO 여기서 뭔 문제가 있는지, 자꾸 검색결과 화면이 두 개가 겹친다
         CharSequence search = getIntent().getCharSequenceExtra("search");
-        if (search!=null) {
+        if (search != null) {
             searching_word.setText(search);
             RunThread();
             visible();
         }
 
-        searching_word.setOnKeyListener((v, keyCode, event) ->  {
-                if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                    RunThread();
-                    visible();
+        searching_word.setOnKeyListener((v, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                RunThread();
+                visible();
 
-                    return true;
-                }
-                return false;
+                return true;
+            }
+            return false;
         });
 
         search_btn = findViewById(R.id.search_btn);
@@ -104,13 +104,13 @@ public class DicSearch extends AppCompatActivity {
         thread.start();
     }
 
-    public void visible(){
+    public void visible() {
         searched.setVisibility(View.VISIBLE);
         meaning.setVisibility(View.VISIBLE);
         dicSearch_add.setVisibility(View.VISIBLE);
     }
 
-    public void invisible(){
+    public void invisible() {
         searched.setVisibility(View.INVISIBLE);
         meaning.setVisibility(View.INVISIBLE);
         dicSearch_add.setVisibility(View.INVISIBLE);

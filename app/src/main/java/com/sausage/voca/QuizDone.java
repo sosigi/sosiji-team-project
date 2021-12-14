@@ -68,7 +68,7 @@ public class QuizDone extends AppCompatActivity {
         back_btn.setOnClickListener(view -> {
             if (checkbox.isChecked()) {
                 //ToDo 오답을 미암기 단어로 표기
-                dbCheck(wrong_count+2);
+                dbCheck(wrong_count + 2);
                 Toast.makeText(getApplicationContext(), "오답을 미암기 단어로 표기하였습니다.", Toast.LENGTH_SHORT).show();
             }
             finish();
