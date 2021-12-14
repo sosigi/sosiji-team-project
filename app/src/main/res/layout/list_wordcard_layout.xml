@@ -30,15 +30,16 @@
                     android:stretchColumns="0">
 
                     <TableRow>
+
                         <TextView
                             android:id="@+id/list_english_word"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/times_new_roman_bold"
+                            android:maxLength="20"
                             android:text="@string/word"
                             android:textColor="#000"
-                            android:textSize="24dp"
-                            android:fontFamily="@font/times_new_roman_bold"
-                            android:maxLength="20"/>
+                            android:textSize="24dp" />
 
                         <ImageView
                             android:id="@+id/list_memorization_check"

@@ -56,8 +56,8 @@
             android:id="@+id/recycler_category_title_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:paddingTop="30dp"
-            android:paddingBottom="30dp"
-            android:background="@android:color/transparent"/>
+            android:paddingBottom="30dp" />
     </LinearLayout>
 </LinearLayout>

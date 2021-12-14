@@ -38,7 +38,7 @@ public class QuizPage extends AppCompatActivity {
     String wordbookID = "0";
     int quiz_option = 0;
     //db에서 끌어오는 단어 정보를 저장.
-    ArrayList<Map<String,Object>> data;
+    ArrayList<Map<String, Object>> data;
 
     //quiz_option와 맞는 단어수
     int size = 0;
@@ -66,8 +66,8 @@ public class QuizPage extends AppCompatActivity {
 
         sendData = getIntent().getStringExtra("sendData");
         int sendDataIdx = sendData.indexOf("/");
-        wordbookID = sendData.substring(0,sendDataIdx);
-        quiz_option = Integer.parseInt(sendData.substring(sendDataIdx+1));
+        wordbookID = sendData.substring(0, sendDataIdx);
+        quiz_option = Integer.parseInt(sendData.substring(sendDataIdx + 1));
 
         docRef = db.collection("users").document(user.getUid()).collection("wordbooks").document(wordbookID);
 
@@ -78,10 +78,10 @@ public class QuizPage extends AppCompatActivity {
         quiz_answer3 = findViewById(R.id.quiz_answer3);
         quiz_answer4 = findViewById(R.id.quiz_answer4);
 
-        correctToast = Toast.makeText(getApplicationContext(),"정답입니다.🎉",Toast.LENGTH_SHORT);
-        correctToast.setGravity(Gravity.CENTER,0,0);
-        wrongToast = Toast.makeText(getApplicationContext(),"오답입니다!❗",Toast.LENGTH_SHORT);
-        wrongToast.setGravity(Gravity.CENTER,0,0);
+        correctToast = Toast.makeText(getApplicationContext(), "정답입니다.🎉", Toast.LENGTH_SHORT);
+        correctToast.setGravity(Gravity.CENTER, 0, 0);
+        wrongToast = Toast.makeText(getApplicationContext(), "오답입니다!❗", Toast.LENGTH_SHORT);
+        wrongToast.setGravity(Gravity.CENTER, 0, 0);
 
 
         back_btn = findViewById(R.id.quiz_back);
@@ -89,72 +89,72 @@ public class QuizPage extends AppCompatActivity {
 
         //db에서 quiz_option에 따라 단어 mapping해오기.
         docRef.get().addOnCompleteListener((task) -> {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            data = new ArrayList<>();
-                            Map<String, Object> wordList = (Map<String, Object>) document.getData().get("wordlist");
-                            Log.i("mytag","wordList : "+wordList.toString());
-                            int countWordlist =0;
-                            boolean addWordArray;
-                            try {
-                                for (String key : wordList.keySet()) {
-                                    Map<String,Object> map = (HashMap) wordList.get(key);
-                                    int memorization = Integer.parseInt(map.get("memorization").toString());
-                                    addWordArray = false;
-                                    if(quiz_option==0){
-                                        // quiz_option 0 전체, 1 암기, 2 미암기
-                                        addWordArray=true;
-                                    }else if(quiz_option==1 && memorization==1){
-                                        //둘다 암기로 1일때
-                                        addWordArray=true;
-                                    } else if (quiz_option==2 && memorization==0) {
-                                        //미암기
-                                        addWordArray=true;
-                                    }
-                                    if (addWordArray) {
-                                        // quiz_option 0 전체, 1 암기, 2 미암기
-                                        Map<String, Object> newMap = new HashMap<>();
-                                        newMap.put("word",map.get("word").toString());
-                                        newMap.put("mean1",map.get("mean1").toString());
-                                        if (map.get("mean2") != null) {
-                                            newMap.put("mean2",map.get("mean2").toString());
-                                            if (map.get("mean3") != null) {
-                                                newMap.put("mean3",map.get("mean3").toString());
-                                            }
-                                        }
-                                        data.add(countWordlist,newMap);
-                                        countWordlist++;
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    data = new ArrayList<>();
+                    Map<String, Object> wordList = (Map<String, Object>) document.getData().get("wordlist");
+                    Log.i("mytag", "wordList : " + wordList.toString());
+                    int countWordlist = 0;
+                    boolean addWordArray;
+                    try {
+                        for (String key : wordList.keySet()) {
+                            Map<String, Object> map = (HashMap) wordList.get(key);
+                            int memorization = Integer.parseInt(map.get("memorization").toString());
+                            addWordArray = false;
+                            if (quiz_option == 0) {
+                                // quiz_option 0 전체, 1 암기, 2 미암기
+                                addWordArray = true;
+                            } else if (quiz_option == 1 && memorization == 1) {
+                                //둘다 암기로 1일때
+                                addWordArray = true;
+                            } else if (quiz_option == 2 && memorization == 0) {
+                                //미암기
+                                addWordArray = true;
+                            }
+                            if (addWordArray) {
+                                // quiz_option 0 전체, 1 암기, 2 미암기
+                                Map<String, Object> newMap = new HashMap<>();
+                                newMap.put("word", map.get("word").toString());
+                                newMap.put("mean1", map.get("mean1").toString());
+                                if (map.get("mean2") != null) {
+                                    newMap.put("mean2", map.get("mean2").toString());
+                                    if (map.get("mean3") != null) {
+                                        newMap.put("mean3", map.get("mean3").toString());
                                     }
                                 }
-                                size = countWordlist;
-                                //Log.i("mytag",String.valueOf(size));
-//
-                            }catch(NullPointerException e){
-                                e.printStackTrace();
+                                data.add(countWordlist, newMap);
+                                countWordlist++;
                             }
-                            if(countWordlist<5){
-                                Toast.makeText(getApplicationContext(),"단어수 부족으로 퀴즈 실행이 불가능합니다.",Toast.LENGTH_SHORT).show();
-                                finish();
-                            }else{
-                                quizStart(data);
-                            }
-                        } else {
-                            Log.i("mytag", "No such document");
                         }
-                    } else {
-                        Log.i("mytag", "get failed with " + task.getException());
+                        size = countWordlist;
+                        //Log.i("mytag",String.valueOf(size));
+//
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
                     }
-                });
+                    if (countWordlist < 5) {
+                        Toast.makeText(getApplicationContext(), "단어수 부족으로 퀴즈 실행이 불가능합니다.", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        quizStart(data);
+                    }
+                } else {
+                    Log.i("mytag", "No such document");
+                }
+            } else {
+                Log.i("mytag", "get failed with " + task.getException());
+            }
+        });
 
     }
 
     //퀴즈 실행하는 함수.
-    public void quizStart(ArrayList<Map<String, Object>> myData){
+    public void quizStart(ArrayList<Map<String, Object>> myData) {
         Random rd = new Random();
         rd.setSeed(System.currentTimeMillis());
 
-        for(int i = 0; i < 5; i++) { //랜덤숫자 0 ~ size-1까지
+        for (int i = 0; i < 5; i++) { //랜덤숫자 0 ~ size-1까지
             random[i] = rd.nextInt(size); //random[i] = (int) (Math.random()* 5) + 1;
             for (int j = 0; j < i; j++) {
                 if (random[i] == random[j]) {
@@ -169,25 +169,25 @@ public class QuizPage extends AppCompatActivity {
         //Log.i("mytag","함수안 "+myData.toString());
 
         //객관식 퀴즈 5문제
-        quiz(0,myData);
+        quiz(0, myData);
 
     }
 
     //quiz종료후 결과페이지 실행
-    public void complete(){
-        Toast.makeText(getApplicationContext(),"Quiz가 모두 완료되었습니다.",Toast.LENGTH_SHORT).show();
-        Log.i("mytag",sendData.toString());
+    public void complete() {
+        Toast.makeText(getApplicationContext(), "Quiz가 모두 완료되었습니다.", Toast.LENGTH_SHORT).show();
+        Log.i("mytag", sendData.toString());
         Intent intent = new Intent(getApplicationContext(), QuizDone.class).putExtra("sendData", sendData);
         startActivity(intent);
         finish();
     }
 
-    public void quiz(int i,ArrayList<Map<String, Object>> myData){
-        if(i==random.length){
-            Log.i("mytag","quiz종료 : " + String.valueOf(i));
+    public void quiz(int i, ArrayList<Map<String, Object>> myData) {
+        if (i == random.length) {
+            Log.i("mytag", "quiz종료 : " + String.valueOf(i));
             complete();
 //            return;
-        }else {
+        } else {
             quiz_word.setText(myData.get(random[i]).get("word").toString());
             Random rd = new Random();
             int answer_num = rd.nextInt(4) + 1; //정답으로 할 답 번호 1 2 3 4 랜덤
@@ -218,7 +218,7 @@ public class QuizPage extends AppCompatActivity {
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
-                        },1500);
+                        }, 1500);
                     });
 
                     quiz_answer2.setOnClickListener(v -> {
@@ -228,7 +228,7 @@ public class QuizPage extends AppCompatActivity {
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
-                        },1500);
+                        }, 1500);
                     });
 
                     quiz_answer3.setOnClickListener(v -> {
@@ -238,7 +238,7 @@ public class QuizPage extends AppCompatActivity {
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
-                        },1500);
+                        }, 1500);
                     });
 
                     quiz_answer4.setOnClickListener(v -> {
@@ -248,10 +248,10 @@ public class QuizPage extends AppCompatActivity {
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
-                        },1500);
+                        }, 1500);
                     });
 
-                break;
+                    break;
                 case 2:
                     quiz_answer2.setText(myData.get(first).get("mean1").toString());
 
@@ -266,7 +266,7 @@ public class QuizPage extends AppCompatActivity {
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
-                        },1500);
+                        }, 1500);
                     });
 
                     quiz_answer1.setOnClickListener(v -> {
@@ -276,7 +276,7 @@ public class QuizPage extends AppCompatActivity {
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
-                        },1500);
+                        }, 1500);
                     });
 
                     quiz_answer3.setOnClickListener(v -> {
@@ -286,7 +286,7 @@ public class QuizPage extends AppCompatActivity {
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
-                        },1500);
+                        }, 1500);
                     });
 
                     quiz_answer4.setOnClickListener(v -> {
@@ -296,9 +296,9 @@ public class QuizPage extends AppCompatActivity {
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
-                        },1500);
+                        }, 1500);
                     });
-                break;
+                    break;
                 case 3:
                     quiz_answer3.setText(myData.get(first).get("mean1").toString());
 
@@ -311,7 +311,7 @@ public class QuizPage extends AppCompatActivity {
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
-                        },1500);
+                        }, 1500);
                     });
 
                     quiz_answer2.setOnClickListener(v -> {
@@ -321,7 +321,7 @@ public class QuizPage extends AppCompatActivity {
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
-                        },1500);
+                        }, 1500);
                     });
 
                     quiz_answer1.setOnClickListener(v -> {
@@ -331,7 +331,7 @@ public class QuizPage extends AppCompatActivity {
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
-                        },1500);
+                        }, 1500);
                     });
 
                     quiz_answer4.setOnClickListener(v -> {
@@ -341,9 +341,9 @@ public class QuizPage extends AppCompatActivity {
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
-                        },1500);
+                        }, 1500);
                     });
-                break;
+                    break;
                 case 4:
                     quiz_answer4.setText(myData.get(first).get("mean1").toString());
 
@@ -356,7 +356,7 @@ public class QuizPage extends AppCompatActivity {
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
-                        },1500);
+                        }, 1500);
                     });
 
                     quiz_answer2.setOnClickListener(v -> {
@@ -366,7 +366,7 @@ public class QuizPage extends AppCompatActivity {
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
-                        },1500);
+                        }, 1500);
                     });
 
                     quiz_answer3.setOnClickListener(v -> {
@@ -376,7 +376,7 @@ public class QuizPage extends AppCompatActivity {
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
-                        },1500);
+                        }, 1500);
                     });
 
                     quiz_answer1.setOnClickListener(v -> {
@@ -386,9 +386,9 @@ public class QuizPage extends AppCompatActivity {
                         handler.postDelayed(() -> {
                             quiz(i + 1, myData);
                             return;
-                        },1500);
+                        }, 1500);
                     });
-                break;
+                    break;
             }
         }
     }

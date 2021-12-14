@@ -30,7 +30,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.Objects;
 
-public class Login extends AppCompatActivity implements View.OnClickListener{
+public class Login extends AppCompatActivity implements View.OnClickListener {
 
     private EditText email;
     private EditText password;
@@ -55,7 +55,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         password = findViewById(R.id.login_password);
         email.setOnKeyListener((view, keyCode, keyEvent) -> {
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                if (!email.getText().equals("") && !password.getText().equals("")){
+                if (!email.getText().equals("") && !password.getText().equals("")) {
                     login.callOnClick();
                     return true;
                 }
@@ -65,7 +65,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         });
         password.setOnKeyListener((view, keyCode, keyEvent) -> {
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                if (!email.getText().equals("") && !password.getText().equals("")){
+                if (!email.getText().equals("") && !password.getText().equals("")) {
                     login.callOnClick();
                     return true;
                 }
@@ -99,17 +99,17 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        if (v==login){
-            if(email.getText().toString().equals("")||password.getText().toString().equals("")){
-                Toast.makeText(getApplicationContext(),"입력칸을 작성해주세요.",Toast.LENGTH_SHORT).show();
-            }else{
+        if (v == login) {
+            if (email.getText().toString().equals("") || password.getText().toString().equals("")) {
+                Toast.makeText(getApplicationContext(), "입력칸을 작성해주세요.", Toast.LENGTH_SHORT).show();
+            } else {
                 signIn(email.getText().toString(), password.getText().toString());
             }
-        }else if (v==signup){
+        } else if (v == signup) {
             Intent Signup = new Intent(this, Signup.class);
             startActivity(Signup);
             finish();
-        }else if (v==google){
+        } else if (v == google) {
             GoogleSignIn();
         }
     }

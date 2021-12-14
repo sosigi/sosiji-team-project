@@ -29,11 +29,11 @@ public class word_add_form {
         numberOfWords();
         Map<String, Object> numbering = new HashMap<>();
         numbering.put(String.valueOf(result), newWord);
-        Log.i("mytag", "numbering : "+numbering + "\nresult는 :" + result);
+        Log.i("mytag", "numbering : " + numbering + "\nresult는 :" + result);
 
         Map<String, Object> addThis = new HashMap<>();
         addThis.put("wordlist", numbering);
-        Log.i("mytag", "addThis : "+addThis);
+        Log.i("mytag", "addThis : " + addThis);
 
         docRef.update("wordlist", FieldValue.arrayUnion(newWord));
     }
@@ -55,7 +55,7 @@ public class word_add_form {
         });
     }
 
-    public void changeID(int id){
+    public void changeID(int id) {
         wordbookID = String.valueOf(id);
     }
 }

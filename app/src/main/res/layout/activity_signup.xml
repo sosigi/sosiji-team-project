@@ -1,129 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#507255"
-    tools:context=".Signup"
-    android:id="@+id/main_layout">
+    android:orientation="vertical"
+    tools:context=".Signup">
 
-<!--  <EditText-->
-<!--      android:id="@+id/signup_name"-->
-<!--      android:layout_width="match_parent"-->
-<!--      android:layout_height="wrap_content"-->
-<!--      android:hint="Username"-->
-<!--      android:textColorHint="@color/white"-->
-<!--      android:selectAllOnFocus="true"-->
-<!--      android:textColor="@color/white"/>-->
-<!--  <EditText-->
-<!--      android:id="@+id/signup_email"-->
-<!--      android:layout_width="match_parent"-->
-<!--      android:layout_height="wrap_content"-->
-<!--      android:hint="Email"-->
-<!--      android:textColorHint="@color/white"-->
-<!--      android:selectAllOnFocus="true"-->
-<!--      android:textColor="@color/white"/>-->
-<!--  <EditText-->
-<!--      android:id="@+id/signup_password"-->
-<!--      android:layout_width="match_parent"-->
-<!--      android:layout_height="wrap_content"-->
-<!--      android:hint="Password"-->
-<!--      android:textColorHint="@color/white"-->
-<!--      android:selectAllOnFocus="true"-->
-<!--      android:textColor="@color/white"/>-->
-  <TextView
-      android:fontFamily="serif"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Vocabulary"
-      android:layout_gravity="center"
-      android:textSize="50dp"
-      android:layout_marginTop="100dp"
-      android:layout_marginBottom="60dp"
-      android:textColor="@color/white"/>
-  <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      android:layout_gravity="center">
-    <EditText
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:id="@+id/signup_name"
-        android:layout_width="350dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="13dp"
-        android:hint="username"
-        android:textAlignment="center"
-        android:textColorHint="#50FFFFFF"
-        android:textColor="@color/white"
-        android:selectAllOnFocus="true"
-        android:background="@drawable/edit_bg"
-        android:maxLength="25"
-        android:maxLines="1"/>
-    <EditText
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:id="@+id/signup_email"
-        android:layout_width="350dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="13dp"
-        android:hint="email"
-        android:textColor="@color/white"
-        android:inputType="textEmailAddress"
-        android:textAlignment="center"
-        android:textColorHint="#50FFFFFF"
-        android:selectAllOnFocus="true"
-        android:background="@drawable/edit_bg"
-        android:maxLength="25"
-        android:maxLines="1"/>
-    <EditText
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:id="@+id/signup_password"
-        android:layout_width="350dp"
-        android:layout_height="55dp"
-        android:hint="password"
-        android:textColor="@color/white"
-        android:inputType="textPassword"
-        android:textAlignment="center"
-        android:textColorHint="#50FFFFFF"
-        android:selectAllOnFocus="true"
-        android:background="@drawable/edit_bg"
-        android:maxLength="25"
-        android:maxLines="1"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/signup_button"
-        android:layout_width="350dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="80dp"
-        android:textColor="@color/white"
-        android:text="signin"
-        android:onClick="onClick"
-        android:background="@drawable/edit_bg"/>
+    <!--  <EditText-->
+    <!--      android:id="@+id/signup_name"-->
+    <!--      android:layout_width="match_parent"-->
+    <!--      android:layout_height="wrap_content"-->
+    <!--      android:hint="Username"-->
+    <!--      android:textColorHint="@color/white"-->
+    <!--      android:selectAllOnFocus="true"-->
+    <!--      android:textColor="@color/white"/>-->
+    <!--  <EditText-->
+    <!--      android:id="@+id/signup_email"-->
+    <!--      android:layout_width="match_parent"-->
+    <!--      android:layout_height="wrap_content"-->
+    <!--      android:hint="Email"-->
+    <!--      android:textColorHint="@color/white"-->
+    <!--      android:selectAllOnFocus="true"-->
+    <!--      android:textColor="@color/white"/>-->
+    <!--  <EditText-->
+    <!--      android:id="@+id/signup_password"-->
+    <!--      android:layout_width="match_parent"-->
+    <!--      android:layout_height="wrap_content"-->
+    <!--      android:hint="Password"-->
+    <!--      android:textColorHint="@color/white"-->
+    <!--      android:selectAllOnFocus="true"-->
+    <!--      android:textColor="@color/white"/>-->
     <TextView
-        android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="이미 계정이 있나요?"
-        android:textColor="@color/white"/>
-  </LinearLayout>
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="60dp"
+        android:fontFamily="serif"
+        android:text="Vocabulary"
+        android:textColor="@color/white"
+        android:textSize="50dp" />
 
-  <androidx.appcompat.widget.AppCompatButton
-      android:id="@+id/google_btn"
-      android:layout_width="55dp"
-      android:layout_height="55dp"
-      android:layout_gravity="center"
-      android:textColor="@color/white"
-      android:layout_marginTop="20dp"
-      android:text="G"
-      android:background="@drawable/edit_bg"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/signup_name"
+            android:layout_width="350dp"
+            android:layout_height="55dp"
+            android:layout_marginBottom="13dp"
+            android:background="@drawable/edit_bg"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="username"
+            android:maxLength="25"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textColorHint="#50FFFFFF" />
+
+        <EditText
+            android:id="@+id/signup_email"
+            android:layout_width="350dp"
+            android:layout_height="55dp"
+            android:layout_marginBottom="13dp"
+            android:background="@drawable/edit_bg"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="email"
+            android:inputType="textEmailAddress"
+            android:maxLength="25"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textColorHint="#50FFFFFF" />
+
+        <EditText
+            android:id="@+id/signup_password"
+            android:layout_width="350dp"
+            android:layout_height="55dp"
+            android:background="@drawable/edit_bg"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="password"
+            android:inputType="textPassword"
+            android:maxLength="25"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textColorHint="#50FFFFFF" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/signup_button"
+            android:layout_width="350dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/edit_bg"
+            android:onClick="onClick"
+            android:text="signin"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="이미 계정이 있나요?"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/google_btn"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_bg"
+        android:text="G"
+        android:textColor="@color/white" />
 
 
 </LinearLayout>

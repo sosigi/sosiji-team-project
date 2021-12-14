@@ -107,7 +107,7 @@
                 android:layout_marginRight="15dp"
                 android:hint="@string/word_add_mean_edit_text"
                 android:inputType="text"
-                android:maxLength="30"/>
+                android:maxLength="30" />
 
             <!--중간선-->
             <View
@@ -149,10 +149,10 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:hint="@string/mean"
-                    android:textColorHint="@color/unActiveColor"
                     android:inputType="text"
-                    android:visibility="gone"
-                    android:maxLength="30"/>
+                    android:maxLength="30"
+                    android:textColorHint="@color/unActiveColor"
+                    android:visibility="gone" />
 
                 <ImageButton
                     android:id="@+id/wordAdd2_deleteBtn"
@@ -163,7 +163,7 @@
                     android:background="@android:color/transparent"
                     android:onClick="deleteKoreanMean2"
                     android:src="@drawable/delete_word"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
             </LinearLayout>
 
             <View
@@ -175,7 +175,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="10dp"
                 android:background="@color/unActiveColor"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/wordAdd3_title"
@@ -186,7 +186,7 @@
                 android:text="@string/mean"
                 android:textColor="@color/unActiveColor"
                 android:textSize="17sp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/wordAdd3_layout"
@@ -205,10 +205,10 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:hint="@string/mean"
-                    android:textColorHint="@color/unActiveColor"
                     android:inputType="text"
-                    android:visibility="gone"
-                    android:maxLength="30"/>
+                    android:maxLength="30"
+                    android:textColorHint="@color/unActiveColor"
+                    android:visibility="gone" />
 
                 <ImageButton
                     android:id="@+id/wordAdd3_deleteBtn"
@@ -219,7 +219,7 @@
                     android:background="@android:color/transparent"
                     android:onClick="deleteKoreanMean3"
                     android:src="@drawable/delete_word"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
             </LinearLayout>
             <!--중간선-->
 
@@ -245,19 +245,19 @@
                     android:adjustViewBounds="true"
                     android:background="@android:color/transparent"
                     android:maxWidth="30dp"
+                    android:onClick="addKoreanMean"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/word_meaning_plus_btn"
-                    android:onClick="addKoreanMean"/>
+                    android:src="@drawable/word_meaning_plus_btn" />
 
                 <TextView
                     android:id="@+id/koreanAddBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:onClick="addKoreanMean"
                     android:text="@string/word_add_mean_add"
                     android:textColor="@color/unActiveColor"
-                    android:textSize="20sp"
-                    android:onClick="addKoreanMean"/>
+                    android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

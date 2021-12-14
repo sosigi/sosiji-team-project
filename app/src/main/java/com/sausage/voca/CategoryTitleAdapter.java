@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class CategoryTitleAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     private final ArrayList<CategoryTitle> titlesDataList;
+
     CategoryTitleAdapter(ArrayList<CategoryTitle> dataList) {
         titlesDataList = dataList;
     }

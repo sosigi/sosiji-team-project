@@ -17,7 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-@SuppressWarnings("deprecation") //이건 왜 넣어둔건지 본인도 모르겠습니다.
+@SuppressWarnings("deprecation") //이건 왜 넣어둔건지 본인(시하)도 모르겠습니다.
 
 public class Main extends AppCompatActivity implements View.OnClickListener {
 

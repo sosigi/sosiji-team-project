@@ -123,36 +123,36 @@ public class wordAdd extends AppCompatActivity {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
-                    if (Objects.requireNonNull(document.getData()).get("wordlist")==null){
+                    if (Objects.requireNonNull(document.getData()).get("wordlist") == null) {
                         Map<String, Object> newMap = new HashMap<>();
                         newMap.put("0", wordcardData);
                         Map<String, Object> newnewMap = new HashMap<>();
                         newnewMap.put("wordlist", newMap);
                         wordBooksDoc.set(newnewMap, SetOptions.merge());
                         finish();
-                    }else{
+                    } else {
                         Map<String, Object> wordList = (Map<String, Object>) document.getData().get("wordlist");
                         //영단어 중복되는지 검사.
                         boolean alreadyWordExist = false;
                         try {
-                            for(int i = 0; i< Objects.requireNonNull(wordList).size(); i++){
+                            for (int i = 0; i < Objects.requireNonNull(wordList).size(); i++) {
                                 Map<String, Object> map_find = (HashMap) wordList.get(String.valueOf(i));
                                 if (map_find != null && Objects.requireNonNull(map_find.get("word")).toString().equals(english)) {
                                     alreadyWordExist = true;
                                 }
                             }
-                            if(!alreadyWordExist){
+                            if (!alreadyWordExist) {
                                 //중복안됨을 확인하고 db로 데이터 전송.
                                 int wordBookNum = wordList.size();
                                 wordList.put(String.valueOf(wordBookNum), wordcardData);
                                 wordBooksDoc.update("wordlist", wordList);
-                                Intent intent = new Intent().putExtra("isItAdded","add");
-                                setResult(RESULT_OK,intent);
+                                Intent intent = new Intent().putExtra("isItAdded", "add");
+                                setResult(RESULT_OK, intent);
                                 finish();
-                            }else{
-                                Toast.makeText(getApplicationContext(),"중복되는 영단어가 존재합니다.",Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "중복되는 영단어가 존재합니다.", Toast.LENGTH_SHORT).show();
                             }
-                        }catch(NullPointerException e){
+                        } catch (NullPointerException e) {
                             e.printStackTrace();
                         }
                     }
@@ -166,7 +166,7 @@ public class wordAdd extends AppCompatActivity {
     }
 
     public void addKoreanMean(View view) {
-        if (koreanCount==1) {
+        if (koreanCount == 1) {
             view2.setVisibility(View.VISIBLE);
             titleText2.setVisibility(View.VISIBLE);
             linearLayout2.setVisibility(View.VISIBLE);
@@ -174,7 +174,7 @@ public class wordAdd extends AppCompatActivity {
             editText3.setVisibility(View.VISIBLE);
             koreanCount = koreanCount + 1;
             korean2Add = true;
-        } else if (koreanCount==2) {
+        } else if (koreanCount == 2) {
             view3.setVisibility(View.VISIBLE);
             titleText3.setVisibility(View.VISIBLE);
             linearLayout3.setVisibility(View.VISIBLE);
@@ -182,7 +182,8 @@ public class wordAdd extends AppCompatActivity {
             imageButton3.setVisibility(View.VISIBLE);
             koreanCount = koreanCount + 1;
             korean3Add = true;
-        } if(koreanCount>=3) {
+        }
+        if (koreanCount >= 3) {
             Toast.makeText(view.getContext(), "한 단어당 의미는 최대 3개까지 저장 가능합니다.", Toast.LENGTH_SHORT).show();
         }
     }

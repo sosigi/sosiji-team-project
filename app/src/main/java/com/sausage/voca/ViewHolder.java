@@ -13,7 +13,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     TextView wordMean3_holder;
     ImageView memorizeCheck_holder;
 
-
     ViewHolder(View itemView) {
         super(itemView);
 

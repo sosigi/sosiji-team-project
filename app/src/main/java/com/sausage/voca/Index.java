@@ -38,12 +38,11 @@ public class Index extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(v==email_btn){
+        if (v == email_btn) {
             onStart(); //앱 실행했을 당시에 이미 로그인 된 상태였다면 바로 main화면으로 이동
             Intent login = new Intent(getApplicationContext(), Login.class);
             startActivity(login);
-        }
-        else if (v==signup_btn){
+        } else if (v == signup_btn) {
             Intent signup = new Intent(getApplicationContext(), Signup.class);
             startActivity(signup);
         }
@@ -62,7 +61,7 @@ public class Index extends AppCompatActivity implements View.OnClickListener {
     //구글과 이메일 둘 다 해당되는 내용
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            Log.i("mytag","로그인으로 바로 이동");
+            Log.i("mytag", "로그인으로 바로 이동");
             Intent main = new Intent(this, Main.class);
             startActivity(main);
             Toast.makeText(this.getApplicationContext(), "로그인되었습니다", Toast.LENGTH_LONG).show();

@@ -15,6 +15,7 @@ public class Word {
         this.memorization = memorize;
     }
 
+
     public String getEnglishWord() {
         return englishWord;
     }

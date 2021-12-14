@@ -2,69 +2,73 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login"
     android:background="#507255"
     android:orientation="vertical"
-    android:id="@+id/main_layout">
+    tools:context=".Login">
 
     <TextView
-        android:fontFamily="serif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Vocabulary"
         android:layout_gravity="center"
-        android:textSize="50dp"
         android:layout_marginTop="100dp"
         android:layout_marginBottom="100dp"
-        android:textColor="@color/white"/>
+        android:fontFamily="serif"
+        android:text="Vocabulary"
+        android:textColor="@color/white"
+        android:textSize="50dp" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center">
-    <EditText
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:id="@+id/login_email"
-        android:layout_width="350dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="13dp"
-        android:hint="email"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/white"
-        android:maxLength="25"
-        android:maxLines="1"
-        android:textAlignment="center"
-        android:textColorHint="#50FFFFFF"
-        android:selectAllOnFocus="true"
-        android:background="@drawable/edit_bg"/>
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
         <EditText
+            android:id="@+id/login_email"
+            android:layout_width="350dp"
+            android:layout_height="55dp"
+            android:layout_marginBottom="13dp"
+            android:background="@drawable/edit_bg"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:hint="email"
+            android:inputType="textEmailAddress"
+            android:maxLength="25"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textColorHint="#50FFFFFF" />
+
+        <EditText
             android:id="@+id/login_password"
             android:layout_width="350dp"
             android:layout_height="55dp"
-            android:hint="password"
-            android:textColor="@color/white"
-            android:inputType="textPassword"
-            android:textAlignment="center"
-            android:textColorHint="#50FFFFFF"
-            android:selectAllOnFocus="true"
             android:background="@drawable/edit_bg"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="password"
+            android:inputType="textPassword"
             android:maxLength="25"
-            android:maxLines="1"/>
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textColorHint="#50FFFFFF" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/login_button"
             android:layout_width="350dp"
             android:layout_height="55dp"
             android:layout_marginTop="80dp"
-            android:textColor="@color/white"
-            android:text="login"
+            android:background="@drawable/edit_bg"
             android:onClick="onClick"
-            android:background="@drawable/edit_bg"/>
+            android:text="login"
+            android:textColor="@color/white" />
+
         <TextView
             android:id="@+id/signup"
             android:layout_width="wrap_content"
@@ -72,7 +76,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:text="이메일로 5초만에 가입하기"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -80,9 +84,9 @@
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_gravity="center"
-        android:textColor="@color/white"
         android:layout_marginTop="20dp"
+        android:background="@drawable/edit_bg"
         android:text="G"
-        android:background="@drawable/edit_bg"/>
+        android:textColor="@color/white" />
 
 </LinearLayout>

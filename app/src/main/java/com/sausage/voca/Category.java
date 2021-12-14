@@ -59,7 +59,7 @@ public class Category extends AppCompatActivity {
         //plus btn 클릭시 categoryAdd page 열기.
         plus_btn.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), CategoryAdd.class);
-            startActivityForResult(intent,REQUEST_CODE);
+            startActivityForResult(intent, REQUEST_CODE);
         });
 
     }
@@ -74,7 +74,7 @@ public class Category extends AppCompatActivity {
                 return;
             }
             init = intent.getStringExtra("init");
-            Log.i("mytag", "init : "+init);
+            Log.i("mytag", "init : " + init);
             InitializeData(init);
         }
     }
@@ -92,7 +92,7 @@ public class Category extends AppCompatActivity {
                         String title = Objects.requireNonNull(document.getData().get("wordbooktitle")).toString();
                         titlesDataList.add(new CategoryTitle(title));
                     }
-                }else if (type.equals("edit")){
+                } else if (type.equals("edit")) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         //Log.i("mytag", document.getId() + " => " + Objects.requireNonNull(document.getData().get("wordbooktitle")).toString());
                         String title = Objects.requireNonNull(document.getData().get("wordbooktitle")).toString();
@@ -115,6 +115,6 @@ public class Category extends AppCompatActivity {
         TextView titleTextView = categoryLayout.findViewById(R.id.list_category_title_text);
         String title = titleTextView.getText().toString();
         Intent intent = new Intent(view.getContext(), CategoryRevise.class).putExtra("titleID", title);
-        startActivityForResult(intent,REQUEST_CODE);
+        startActivityForResult(intent, REQUEST_CODE);
     }
 }

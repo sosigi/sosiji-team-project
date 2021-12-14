@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="80dp"
-    android:background="@drawable/quizstart_btn"
-    android:orientation="vertical"
     android:layout_gravity="center_vertical|center_horizontal"
-    android:backgroundTint="#fffcf3">
+    android:background="@drawable/quizstart_btn"
+    android:backgroundTint="#fffcf3"
+    android:orientation="vertical"
+    android:padding="80dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:gravity="bottom|center_horizontal"
-        android:text="Quiz"
         android:padding="10dp"
+        android:text="Quiz"
         android:textColor="@color/black"
         android:textSize="30sp" />
 
@@ -27,31 +26,31 @@
 
     <CheckBox
         android:id="@+id/check1"
-        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:buttonTint="#507255"
         android:layout_marginLeft="25dp"
-        android:textSize="18sp"
-        android:text="전체" />
+        android:layout_marginTop="40dp"
+        android:buttonTint="#507255"
+        android:text="전체"
+        android:textSize="18sp" />
 
     <CheckBox
         android:id="@+id/check2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:buttonTint="#507255"
         android:layout_marginLeft="25dp"
-        android:textSize="18sp"
-        android:text="암기" />
+        android:buttonTint="#507255"
+        android:text="암기"
+        android:textSize="18sp" />
 
     <CheckBox
         android:id="@+id/check3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:buttonTint="#507255"
         android:layout_marginLeft="25dp"
-        android:textSize="18sp"
-        android:text="미암기" />
+        android:buttonTint="#507255"
+        android:text="미암기"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/quiz_start"

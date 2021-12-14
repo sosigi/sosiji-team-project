@@ -125,9 +125,9 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
             }
             if (snapshot != null && snapshot.exists()) {
                 //Log.d(TAG, "Current data: " + snapshot.getData());
-                Map<String,Object> wordList = (Map<String, Object>) snapshot.getData().get("wordlist");
-                if(wordList==null || wordList.size() > coundWord+1){
-                    Log.i("mytag","[wordbook] current data updata");
+                Map<String, Object> wordList = (Map<String, Object>) snapshot.getData().get("wordlist");
+                if (wordList == null || wordList.size() > coundWord + 1) {
+                    Log.i("mytag", "[wordbook] current data updata");
                     updateWordcard(thisWordbookMemorizationType);
                 }
             } else {
@@ -193,9 +193,10 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
         ImageButton plusBtnButton = findViewById(R.id.plusBtn);
         plusBtnButton.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), wordAdd.class).putExtra("categoryID", wordbookID);
-            startActivityForResult(intent,REQUEST_CODE);
+            startActivityForResult(intent, REQUEST_CODE);
         });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
@@ -205,8 +206,8 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
                 return;
             }
             String isItAdded = intent.getStringExtra("isItAdded");
-            Log.i("mytag", "isItAdded : "+isItAdded);
-            if("add".equals(isItAdded)) {
+            Log.i("mytag", "isItAdded : " + isItAdded);
+            if ("add".equals(isItAdded)) {
                 updateWordcard(thisWordbookMemorizationType);
             }
         }
@@ -223,17 +224,17 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
     //update wordbook wordcard
     //입력받는 memorizationType의 int값에 따라 암기 or 미암기 단어들만을 출력한다.
     //암기 1 미암기 0 전체 2
-    private void updateWordcard(int memorizationType){
+    private void updateWordcard(int memorizationType) {
         wordBooksDoc.get().addOnCompleteListener((task) -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
                     dataList = new ArrayList<>();
                     Map<String, Object> wordList = (Map<String, Object>) document.getData().get("wordlist");
-                    int countWordlist =0;
-                    if(wordList == null){
-                        countWordlist=0;
-                    }else {
+                    int countWordlist = 0;
+                    if (wordList == null) {
+                        countWordlist = 0;
+                    } else {
                         try {
                             for (String key : wordList.keySet()) {
                                 HashMap map = (HashMap) wordList.get(key);
@@ -271,9 +272,9 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
                     }
                     TextView text = findViewById(R.id.recommend_word_add);
                     coundWord = countWordlist;
-                    if(countWordlist==0){
+                    if (countWordlist == 0) {
                         text.setVisibility(View.VISIBLE);
-                    }else{
+                    } else {
                         text.setVisibility(View.GONE);
                     }
                 } else {
@@ -287,7 +288,7 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
 
     //wordcard에서 단어 삭제 btn 클릭시
     public void deleteWordBtnClick(View view) {
-        if(thisWordbookHideType>0){
+        if (thisWordbookHideType > 0) {
             Snackbar.make(mainLayout, "단어/뜻 숨김 처리 시에는 단어 삭제가 불가능합니다.", Snackbar.LENGTH_SHORT).show();
         } else {
             LinearLayout wordcardL = (LinearLayout) view.getParent().getParent().getParent().getParent().getParent();
@@ -339,8 +340,8 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
                                 //updateWordcard(thisWordbookMemorizationType);
                                 Snackbar.make(mainLayout, R.string.toast_delete_word, Snackbar.LENGTH_SHORT).show();
                                 dataDelete = false;
-                                coundWord = coundWord-1;
-                                if(coundWord==0){
+                                coundWord = coundWord - 1;
+                                if (coundWord == 0) {
                                     TextView text = findViewById(R.id.recommend_word_add);
                                     text.setVisibility(View.VISIBLE);
                                 }
@@ -358,11 +359,12 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
             alert.show();
         }
     }
+
     //단어 암기<->미암기 체크
     public void wordMemoryBtnClick(View view) {
-        if(thisWordbookHideType>0){
+        if (thisWordbookHideType > 0) {
             Snackbar.make(mainLayout, "단어/뜻 숨김 처리 시에는 단어 암기/미암기 처리가 불가능합니다.", Snackbar.LENGTH_SHORT).show();
-        }else {
+        } else {
             LinearLayout wordcardLL = (LinearLayout) view.getParent().getParent().getParent();
             TextView englishWord = wordcardLL.findViewById(R.id.list_english_word);
             String englishWordText = englishWord.getText().toString();
@@ -441,29 +443,30 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
         if (v == logout) {
             FirebaseAuth.getInstance().signOut();
             checkCurrentUser();
-        }else if (v == wordQuiz) {
-            Intent intent = new Intent(getApplicationContext(), QuizDialog.class).putExtra("id",wordbookID);
+        } else if (v == wordQuiz) {
+            Intent intent = new Intent(getApplicationContext(), QuizDialog.class).putExtra("id", wordbookID);
             startActivity(intent);
-        }else if (v == search) {
+        } else if (v == search) {
             Intent intent = new Intent(getApplicationContext(), DicSearch.class);
             startActivity(intent);
-        }else if (v == mypage) {
+        } else if (v == mypage) {
             Intent intent = new Intent(getApplicationContext(), Mypage.class);
             startActivity(intent);
-        }else if (v == mWordSorting) {
+        } else if (v == mWordSorting) {
             mWordSortingSelectDialog.show();
-        }else if (v == wordHideBtn) {
-            Log.i(TAG,"단어숨김 선택");
-            thisWordbookHideType=1;
+        } else if (v == wordHideBtn) {
+            Log.i(TAG, "단어숨김 선택");
+            thisWordbookHideType = 1;
             updateWordcard(thisWordbookMemorizationType);
             Snackbar.make(mainLayout, R.string.toast_hide_word, Snackbar.LENGTH_SHORT).show();
-        }else if (v == meanHideBtn) {
-            Log.i(TAG,"단어숨김 선택");
-            thisWordbookHideType=2;
+        } else if (v == meanHideBtn) {
+            Log.i(TAG, "단어숨김 선택");
+            thisWordbookHideType = 2;
             updateWordcard(thisWordbookMemorizationType);
             Snackbar.make(mainLayout, R.string.toast_hide_mean, Snackbar.LENGTH_SHORT).show();
         }
     }
+
     public void checkCurrentUser() {
         // [START check_current_user]
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -475,6 +478,7 @@ public class wordbook extends AppCompatActivity implements View.OnClickListener 
         }
         // [END check_current_user]
     }
+
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             // User is signed in

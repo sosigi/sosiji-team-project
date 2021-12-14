@@ -10,9 +10,9 @@
     <!--start로 해 놓고 drawer 생김새 보면서 편집-->
 
     <RelativeLayout
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/main_layout">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/wordCard_page"
@@ -30,46 +30,46 @@
                 android:paddingBottom="10dp"
                 android:stretchColumns="1">
 
-                    <ImageButton
-                        android:id="@+id/hamburgerBarBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="12dp"
-                        android:adjustViewBounds="true"
-                        android:background="@android:color/transparent"
-                        android:maxWidth="35dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/hamburger_bar" />
+                <ImageButton
+                    android:id="@+id/hamburgerBarBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:maxWidth="35dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/hamburger_bar" />
 
-                    <TextView
-                        android:id="@+id/categoryName"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginTop="5dp"
-                        android:ellipsize="marquee"
-                        android:focusable="true"
-                        android:gravity="center"
-                        android:marqueeRepeatLimit="marquee_forever"
-                        android:singleLine="true"
-                        android:text="@string/wordbook_explain"
-                        android:textColor="@color/white"
-                        android:textSize="25sp"
-                        android:paddingRight="15dp"
-                        android:paddingLeft="15dp"/>
+                <TextView
+                    android:id="@+id/categoryName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:singleLine="true"
+                    android:text="@string/wordbook_explain"
+                    android:textColor="@color/white"
+                    android:textSize="25sp" />
 
-                    <ImageButton
-                        android:id="@+id/plusBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="12dp"
-                        android:adjustViewBounds="true"
-                        android:background="@android:color/transparent"
-                        android:maxWidth="35dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/plus_btn" />
+                <ImageButton
+                    android:id="@+id/plusBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="12dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:maxWidth="35dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/plus_btn" />
             </LinearLayout>
             <!--스크롤 뷰-->
             <LinearLayout
@@ -99,14 +99,12 @@
                         <TextView
                             android:id="@+id/hideWord"
                             android:layout_column="2"
-                            android:text="@string/hide_word">
-                        </TextView>
+                            android:text="@string/hide_word"></TextView>
 
                         <TextView
                             android:id="@+id/hideMeaning"
                             android:paddingLeft="10dp"
-                            android:text="@string/hide_meaning">
-                        </TextView>
+                            android:text="@string/hide_meaning"></TextView>
                     </TableRow>
                 </TableLayout>
 
@@ -138,16 +136,17 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="15dp"
                     android:background="#000000" />
+
                 <TextView
                     android:id="@+id/recommend_word_add"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/recommend_word_add"
-                    android:textSize="18sp"
-                    android:textColor="#A8A8A8"
                     android:gravity="center"
                     android:singleLine="true"
-                    android:visibility="gone"/>
+                    android:text="@string/recommend_word_add"
+                    android:textColor="#A8A8A8"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/word_card_recycleView"

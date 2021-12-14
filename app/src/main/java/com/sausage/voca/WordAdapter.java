@@ -48,6 +48,7 @@ public class WordAdapter extends RecyclerView.Adapter<ViewHolder> {
         } else {
             viewHolder.wordMean3_holder.setText("");
         }
+
         if (myDataList.get(position).getMemorization() == 0) {
             //holder에서 src선정.
             viewHolder.englishWord_holder.setTextColor(Color.BLACK);

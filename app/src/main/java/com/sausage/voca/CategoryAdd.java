@@ -33,7 +33,7 @@ public class CategoryAdd extends AppCompatActivity {
 
     //단어장 정보
     //db에 저장된 단어장 개수
-    int wordBooksCount=0;
+    int wordBooksCount = 0;
 
     //db에 단어장 추가 완료여부
     boolean wordBookAddComplete = false;
@@ -71,7 +71,7 @@ public class CategoryAdd extends AppCompatActivity {
 //                            for(int i=0;i<task.getResult().size();i++){
                         wordBooksCount = 0;
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            if(document.exists()) {
+                            if (document.exists()) {
 //                                DocumentSnapshot document = task.getResult().getDocuments().get(i);
                                 wordBookAddComplete = true;
                                 wordBooksCount = wordBooksCount + 1;
@@ -81,7 +81,7 @@ public class CategoryAdd extends AppCompatActivity {
                                     myToast.show();
                                     wordBookAddComplete = false;
                                     break;
-                                } else if (document.getData().get("wordbooktitle")==null){
+                                } else if (document.getData().get("wordbooktitle") == null) {
                                     wordbooksCol.document(String.valueOf(wordBooksCount))
                                             .set(newWordBook);
 //                                wordbooksCol.add(newWordBook);
