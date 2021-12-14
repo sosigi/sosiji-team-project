@@ -88,6 +88,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
+
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         // [END config_google_signin]
 
@@ -138,7 +139,17 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         //이대로 firebase에는 나와있으면서 제대로 안됨
         //Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         //startActivityForResult(signInIntent, RC_SIGN_IN);
-        resultLauncher.launch(new Intent(mGoogleSignInClient.getSignInIntent()));
+        if(true){
+            //회원가입 되어있는 계정인지 확인
+            resultLauncher.launch(new Intent(mGoogleSignInClient.getSignInIntent()));
+        }else {
+
+            // If sign in fails, display a message to the user.
+            Log.i(TAG, "signInWithGmmail:failure");
+            Snackbar.make(mainLayout, "로그인에 실패했습니다. 다시 시도해주세요.", Snackbar.LENGTH_SHORT).show();
+        }
+
+
     }
     // [END signin]
 
